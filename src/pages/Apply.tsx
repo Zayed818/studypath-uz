@@ -18,16 +18,18 @@ export interface ApplicationFormData {
   lastName: string;
   email: string;
   phone: string;
+  countryOfResidence: string;
+  city: string;
   dateOfBirth: Date | undefined;
-  nationality: string;
-  passportNumber: string;
+  gender: string;
   
-  // Academic Info
+  // Academic Info (all optional)
   currentEducationLevel: string;
   institution: string;
   gpa: string;
   englishTest: string;
   englishScore: string;
+  transcript: File | null;
   
   // Program Preferences
   preferredCountries: string[];
@@ -46,6 +48,9 @@ export interface ApplicationFormData {
     englishCertificate: File | null;
     recommendationLetter: File | null;
   };
+  
+  // Consent
+  consent: boolean;
 }
 
 const Apply = () => {
@@ -58,14 +63,16 @@ const Apply = () => {
     lastName: "",
     email: "",
     phone: "",
+    countryOfResidence: "",
+    city: "",
     dateOfBirth: undefined,
-    nationality: "",
-    passportNumber: "",
+    gender: "",
     currentEducationLevel: "",
     institution: "",
     gpa: "",
     englishTest: "",
     englishScore: "",
+    transcript: null,
     preferredCountries: [],
     preferredDegree: "",
     preferredField: "",
@@ -80,6 +87,7 @@ const Apply = () => {
       englishCertificate: null,
       recommendationLetter: null,
     },
+    consent: false,
   });
 
   const steps = [

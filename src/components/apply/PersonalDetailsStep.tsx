@@ -8,25 +8,42 @@ import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { ApplicationFormData } from "@/pages/Apply";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface PersonalDetailsStepProps {
   formData: ApplicationFormData;
   updateFormData: (data: Partial<ApplicationFormData>) => void;
 }
 
+// City data by country
+const citiesByCountry: Record<string, string[]> = {
+  uzbekistan: ["Tashkent", "Samarkand", "Bukhara", "Andijan", "Namangan", "Fergana", "Nukus", "Karshi", "Termez"],
+  kazakhstan: ["Almaty", "Nur-Sultan", "Shymkent", "Aktobe", "Karaganda", "Taraz", "Pavlodar", "Oskemen"],
+  kyrgyzstan: ["Bishkek", "Osh", "Jalal-Abad", "Karakol", "Tokmok", "Uzgen", "Naryn", "Talas"],
+  tajikistan: ["Dushanbe", "Khujand", "Kulob", "Qurghonteppa", "Istaravshan", "Panjakent", "Tursunzoda"],
+};
+
 const PersonalDetailsStep = ({ formData, updateFormData }: PersonalDetailsStepProps) => {
+  const { t } = useLanguage();
+  
+  const availableCities = formData.countryOfResidence 
+    ? citiesByCountry[formData.countryOfResidence] || []
+    : [];
+
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold mb-2">Personal Details</h2>
+        <h2 className="text-2xl font-bold mb-2">{t('apply.personalDetails')}</h2>
         <p className="text-muted-foreground">
-          Please provide your basic information
+          {t('apply.subtitle')}
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="firstName">First Name *</Label>
+          <Label htmlFor="firstName">
+            {t('scholarshipDetail.firstName')} *
+          </Label>
           <Input
             id="firstName"
             placeholder="John"
@@ -36,7 +53,9 @@ const PersonalDetailsStep = ({ formData, updateFormData }: PersonalDetailsStepPr
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="lastName">Last Name *</Label>
+          <Label htmlFor="lastName">
+            {t('scholarshipDetail.lastName')} *
+          </Label>
           <Input
             id="lastName"
             placeholder="Doe"
@@ -48,7 +67,9 @@ const PersonalDetailsStep = ({ formData, updateFormData }: PersonalDetailsStepPr
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="email">Email Address *</Label>
+          <Label htmlFor="email">
+            {t('scholarshipDetail.email')} *
+          </Label>
           <Input
             id="email"
             type="email"
@@ -59,7 +80,9 @@ const PersonalDetailsStep = ({ formData, updateFormData }: PersonalDetailsStepPr
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="phone">Phone Number *</Label>
+          <Label htmlFor="phone">
+            {t('scholarshipDetail.phone')} *
+          </Label>
           <Input
             id="phone"
             type="tel"
@@ -72,7 +95,53 @@ const PersonalDetailsStep = ({ formData, updateFormData }: PersonalDetailsStepPr
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label>Date of Birth *</Label>
+          <Label htmlFor="countryOfResidence">
+            {t('apply.countryOfResidence')} *
+          </Label>
+          <Select
+            value={formData.countryOfResidence}
+            onValueChange={(value) => {
+              updateFormData({ countryOfResidence: value, city: "" });
+            }}
+          >
+            <SelectTrigger id="countryOfResidence">
+              <SelectValue placeholder={t('apply.selectCountry')} />
+            </SelectTrigger>
+            <SelectContent className="z-50 bg-background">
+              <SelectItem value="uzbekistan">{t('universities.uzbekistan')}</SelectItem>
+              <SelectItem value="kazakhstan">{t('universities.kazakhstan')}</SelectItem>
+              <SelectItem value="kyrgyzstan">{t('universities.kyrgyzstan')}</SelectItem>
+              <SelectItem value="tajikistan">{t('universities.tajikistan')}</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="city">
+            {t('apply.city')} *
+          </Label>
+          <Select
+            value={formData.city}
+            onValueChange={(value) => updateFormData({ city: value })}
+            disabled={!formData.countryOfResidence}
+          >
+            <SelectTrigger id="city">
+              <SelectValue placeholder={t('apply.selectCity')} />
+            </SelectTrigger>
+            <SelectContent className="z-50 bg-background">
+              {availableCities.map((city) => (
+                <SelectItem key={city} value={city.toLowerCase()}>
+                  {city}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <Label>{t('apply.dateOfBirthOptional')}</Label>
           <Popover>
             <PopoverTrigger asChild>
               <Button
@@ -106,34 +175,23 @@ const PersonalDetailsStep = ({ formData, updateFormData }: PersonalDetailsStepPr
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="nationality">Nationality *</Label>
+          <Label htmlFor="gender">
+            {t('apply.gender')}
+          </Label>
           <Select
-            value={formData.nationality}
-            onValueChange={(value) => updateFormData({ nationality: value })}
+            value={formData.gender}
+            onValueChange={(value) => updateFormData({ gender: value })}
           >
-            <SelectTrigger id="nationality">
-              <SelectValue placeholder="Select nationality" />
+            <SelectTrigger id="gender">
+              <SelectValue placeholder={t('apply.selectGender')} />
             </SelectTrigger>
             <SelectContent className="z-50 bg-background">
-              <SelectItem value="uzbekistan">Uzbekistan</SelectItem>
-              <SelectItem value="kazakhstan">Kazakhstan</SelectItem>
-              <SelectItem value="tajikistan">Tajikistan</SelectItem>
-              <SelectItem value="kyrgyzstan">Kyrgyzstan</SelectItem>
-              <SelectItem value="turkmenistan">Turkmenistan</SelectItem>
-              <SelectItem value="other">Other</SelectItem>
+              <SelectItem value="male">{t('apply.male')}</SelectItem>
+              <SelectItem value="female">{t('apply.female')}</SelectItem>
+              <SelectItem value="other">{t('apply.other')}</SelectItem>
             </SelectContent>
           </Select>
         </div>
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="passportNumber">Passport Number *</Label>
-        <Input
-          id="passportNumber"
-          placeholder="AA1234567"
-          value={formData.passportNumber}
-          onChange={(e) => updateFormData({ passportNumber: e.target.value })}
-        />
       </div>
     </div>
   );
