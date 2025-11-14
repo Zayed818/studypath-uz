@@ -70,17 +70,20 @@ const translations: Record<Language, any> = {
     hero: {
       title: "Xorijdagi Eng Yaxshi Universitetlarni Toping va Ariza Topshiring",
       subtitle: "Oddiy, Tez, Ishonchli — O'zbekistonlik talabalar uchun maxsus",
+      searchTitle: "Universitet qidiruvingizni boshlang",
       findUniversity: "Universitet Topish",
       country: "Mamlakat",
       selectCountry: "Mamlakatni tanlang",
       degree: "Daraja",
       selectDegree: "Darajani tanlang",
+      chooseDegree: "Darajani tanlang",
       bachelor: "Bakalavr",
       master: "Magistr",
       phd: "PhD",
       field: "Soha",
       selectField: "Sohani tanlang",
       searchPrograms: "Dasturlarni Qidirish",
+      searchButton: "Dasturlarni Qidirish",
       quickAccess: "Tezkor Kirish",
       explorePrograms: "Dasturlarni Ko'rish",
       findScholarships: "Stipendiyalar Topish",
@@ -97,6 +100,17 @@ const translations: Record<Language, any> = {
       scholarships: "Stipendiya Markazi",
       scholarshipsDesc: "Minglab grant va stipendiyalarni toping"
     },
+    whyChoose: {
+      title: "Nima Uchun StudyPath?",
+      personalizedMatches: "Shaxsiylashtirilgan Mosliklar",
+      personalizedMatchesDesc: "Sizning maqsadlaringizga, ballaringizga va byudjetingizga mos keluvchi dasturlarni toping",
+      trustedSupport: "Ishonchli Yordam",
+      trustedSupportDesc: "Tasdiqlangan agentliklar va maslahatchilar orqali professional yo'llanma",
+      timeSaving: "Vaqtni Tejash",
+      timeSavingDesc: "Minglab dasturlarni bir joyda solishtiring va onlayn ariza topshiring",
+      informedDecisions: "Ma'lumotli Qarorlar",
+      informedDecisionsDesc: "Batafsil ma'lumotlar va sharhlar orqali to'g'ri tanlov qiling"
+    },
     howItWorks: {
       title: "Qanday Ishlaydi",
       step1: "Qidiruv va Filtr",
@@ -105,6 +119,11 @@ const translations: Record<Language, any> = {
       step2Desc: "Onlayn ariza shakllari orqali murojaat qiling",
       step3: "Yordam Oling",
       step3Desc: "Maslahatchilar sizga yordam berishadi"
+    },
+    cta: {
+      title: "Sayohatingizni Boshlashga Tayyormisiz?",
+      description: "Minglab dasturlarni ko'rib chiqing va o'zingizga eng mos universitetni toping",
+      button: "Dasturlarni Ko'rish"
     },
     programs: {
       title: "Universitet Dasturlari",
@@ -306,17 +325,20 @@ const translations: Record<Language, any> = {
     hero: {
       title: "Найдите и Поступите в Лучшие Университеты за Рубежом",
       subtitle: "Просто, Быстро, Надёжно — специально для узбекских студентов",
+      searchTitle: "Начните поиск университета",
       findUniversity: "Найти Университет",
       country: "Страна",
       selectCountry: "Выберите страну",
       degree: "Степень",
       selectDegree: "Выберите степень",
+      chooseDegree: "Выберите степень",
       bachelor: "Бакалавр",
       master: "Магистр",
       phd: "PhD",
       field: "Область",
       selectField: "Выберите область",
       searchPrograms: "Искать Программы",
+      searchButton: "Искать Программы",
       quickAccess: "Быстрый Доступ",
       explorePrograms: "Обзор Программ",
       findScholarships: "Найти Стипендии",
@@ -333,6 +355,17 @@ const translations: Record<Language, any> = {
       scholarships: "Центр Стипендий",
       scholarshipsDesc: "Найдите тысячи грантов и стипендий"
     },
+    whyChoose: {
+      title: "Почему Стоит Выбрать StudyPath?",
+      personalizedMatches: "Персонализированные Совпадения",
+      personalizedMatchesDesc: "Найдите программы, соответствующие вашим целям, баллам и бюджету",
+      trustedSupport: "Надёжная Поддержка",
+      trustedSupportDesc: "Профессиональное руководство через проверенные агентства и консультантов",
+      timeSaving: "Экономия Времени",
+      timeSavingDesc: "Сравнивайте тысячи программ в одном месте и подавайте заявки онлайн",
+      informedDecisions: "Обоснованные Решения",
+      informedDecisionsDesc: "Принимайте правильный выбор с помощью подробной информации и отзывов"
+    },
     howItWorks: {
       title: "Как Это Работает",
       step1: "Поиск и Фильтр",
@@ -341,6 +374,11 @@ const translations: Record<Language, any> = {
       step2Desc: "Подайте заявку через онлайн-формы",
       step3: "Получить Помощь",
       step3Desc: "Консультанты помогут вам"
+    },
+    cta: {
+      title: "Готовы Начать Свой Путь?",
+      description: "Изучите тысячи программ и найдите идеальный университет для вас",
+      button: "Обзор Программ"
     },
     programs: {
       title: "Университетские Программы",
@@ -542,17 +580,20 @@ const translations: Record<Language, any> = {
     hero: {
       title: "Find and Apply to Top Universities Abroad",
       subtitle: "Simple, Fast, Trusted — tailored for Uzbek students",
+      searchTitle: "Start your university search",
       findUniversity: "Find University",
       country: "Country",
       selectCountry: "Select country",
       degree: "Degree",
       selectDegree: "Select degree",
+      chooseDegree: "Choose degree",
       bachelor: "Bachelor",
       master: "Master",
       phd: "PhD",
       field: "Field",
       selectField: "Select field",
       searchPrograms: "Search Programs",
+      searchButton: "Search Programs",
       quickAccess: "Quick Access",
       explorePrograms: "Explore Programs",
       findScholarships: "Find Scholarships",
@@ -569,6 +610,17 @@ const translations: Record<Language, any> = {
       scholarships: "Scholarship Hub",
       scholarshipsDesc: "Find thousands of grants and scholarships"
     },
+    whyChoose: {
+      title: "Why Choose StudyPath?",
+      personalizedMatches: "Personalized Matches",
+      personalizedMatchesDesc: "Find programs that match your goals, grades, and budget",
+      trustedSupport: "Trusted Support",
+      trustedSupportDesc: "Professional guidance through verified agencies and counselors",
+      timeSaving: "Time Saving",
+      timeSavingDesc: "Compare thousands of programs in one place and apply online",
+      informedDecisions: "Informed Decisions",
+      informedDecisionsDesc: "Make the right choice with detailed information and reviews"
+    },
     howItWorks: {
       title: "How It Works",
       step1: "Search & Filter",
@@ -577,6 +629,11 @@ const translations: Record<Language, any> = {
       step2Desc: "Submit applications through online forms",
       step3: "Get Help",
       step3Desc: "Counselors will assist you"
+    },
+    cta: {
+      title: "Ready to Start Your Journey?",
+      description: "Explore thousands of programs and find the perfect university for you",
+      button: "Explore Programs"
     },
     programs: {
       title: "University Programs",
