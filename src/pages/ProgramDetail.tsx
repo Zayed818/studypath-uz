@@ -421,44 +421,6 @@ const ProgramDetail = () => {
 
           {/* Sidebar */}
           <div className="space-y-6">
-            {/* Agency Card */}
-            <Card className="p-6 border-primary/20">
-              <div className="flex items-start gap-3 mb-4">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center font-bold text-primary">
-                  {program.ownerAgency.logo}
-                </div>
-                <div>
-                  <h3 className="font-bold">{program.ownerAgency.name}</h3>
-                  <div className="flex items-center gap-2 mt-1">
-                    {program.ownerAgency.verified && (
-                      <Badge className="bg-success/10 text-success border-success/20 text-xs">
-                        <CheckCircle className="h-3 w-3 mr-1" />
-                        Verified
-                      </Badge>
-                    )}
-                    {program.ownerAgency.slaCompliant && (
-                      <Badge variant="outline" className="text-xs">SLA Compliant</Badge>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-3 mb-4 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Response Time</span>
-                  <span className="font-semibold">{program.ownerAgency.responseTime}</span>
-                </div>
-              </div>
-
-              <Button className="w-full mb-2" variant="outline">
-                <Users className="h-4 w-4 mr-2" />
-                Contact Counselor
-              </Button>
-              <p className="text-xs text-center text-muted-foreground">
-                Get personalized guidance and support
-              </p>
-            </Card>
-
             {/* Quick Info */}
             <Card className="p-6">
               <h3 className="font-bold mb-4">Quick Information</h3>
