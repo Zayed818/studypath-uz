@@ -319,7 +319,7 @@ const Programs = () => {
         {/* Pagination */}
         <div className="flex justify-center items-center gap-2 mt-12">
           <Button variant="outline" size="sm" disabled>
-            ← Prev
+            ← {t('common.previous')}
           </Button>
           <Button variant="default" size="sm">
             1
@@ -331,7 +331,7 @@ const Programs = () => {
             3
           </Button>
           <Button variant="outline" size="sm">
-            Next →
+            {t('common.next')} →
           </Button>
         </div>
       </section>
