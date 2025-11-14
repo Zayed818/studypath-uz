@@ -89,6 +89,7 @@ const Careers = () => {
   const [activeTab, setActiveTab] = useState<"search" | "quiz">("search");
   const [quizAnswers, setQuizAnswers] = useState<Record<number, string>>({});
   const [showResults, setShowResults] = useState(false);
+  const { t } = useLanguage();
 
   const handleQuizSubmit = () => {
     setShowResults(true);
