@@ -14,6 +14,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { Search, GraduationCap, MapPin, Calendar, Clock, Award, DollarSign, TrendingUp } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const mockPrograms = [
   {
@@ -155,6 +156,7 @@ const mockPrograms = [
 
 const Programs = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const { t } = useLanguage();
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -163,9 +165,9 @@ const Programs = () => {
       {/* Page Header */}
       <section className="bg-muted py-12">
         <div className="container px-4">
-          <h1 className="text-4xl font-bold mb-4">Find Your Perfect Program</h1>
+          <h1 className="text-4xl font-bold mb-4">{t('programs.pageTitle')}</h1>
           <p className="text-lg text-muted-foreground">
-            Search the world's best universities and discover programs tailored to your goals
+            {t('programs.pageDescription')}
           </p>
         </div>
       </section>
@@ -177,7 +179,7 @@ const Programs = () => {
             <div className="flex-1 relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="Search for any university, program, or field..."
+                placeholder={t('programs.searchPlaceholder')}
                 className="pl-10"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -188,10 +190,10 @@ const Programs = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <Select>
               <SelectTrigger>
-                <SelectValue placeholder="Study Level" />
+                <SelectValue placeholder={t('programs.studyLevel')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All Fields</SelectItem>
+                <SelectItem value="all">{t('common.all')}</SelectItem>
                 <SelectItem value="bachelor">Bachelor's</SelectItem>
                 <SelectItem value="master">Master's</SelectItem>
                 <SelectItem value="phd">PhD</SelectItem>
@@ -200,10 +202,10 @@ const Programs = () => {
 
             <Select>
               <SelectTrigger>
-                <SelectValue placeholder="Field of Study" />
+                <SelectValue placeholder={t('programs.fieldOfStudy')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All Fields</SelectItem>
+                <SelectItem value="all">{t('common.all')}</SelectItem>
                 <SelectItem value="engineering">Engineering</SelectItem>
                 <SelectItem value="business">Business</SelectItem>
                 <SelectItem value="computer-science">Computer Science</SelectItem>
@@ -213,10 +215,10 @@ const Programs = () => {
 
             <Select>
               <SelectTrigger>
-                <SelectValue placeholder="Country" />
+                <SelectValue placeholder={t('programs.country')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All Countries</SelectItem>
+                <SelectItem value="all">{t('common.all')}</SelectItem>
                 <SelectItem value="usa">United States</SelectItem>
                 <SelectItem value="uk">United Kingdom</SelectItem>
                 <SelectItem value="canada">Canada</SelectItem>
@@ -226,10 +228,10 @@ const Programs = () => {
 
             <Select>
               <SelectTrigger>
-                <SelectValue placeholder="Tuition Range" />
+                <SelectValue placeholder={t('programs.tuitionRange')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Any Amount</SelectItem>
+                <SelectItem value="all">{t('common.all')}</SelectItem>
                 <SelectItem value="low">Under $10,000</SelectItem>
                 <SelectItem value="medium">$10,000 - $30,000</SelectItem>
                 <SelectItem value="high">$30,000+</SelectItem>
@@ -239,7 +241,7 @@ const Programs = () => {
         </Card>
 
         <p className="text-sm text-muted-foreground mt-4">
-          Showing <span className="font-semibold text-foreground">{mockPrograms.length}</span> programs
+          {t('programs.showing')} <span className="font-semibold text-foreground">{mockPrograms.length}</span> {t('programs.programs')}
         </p>
       </section>
 
@@ -269,32 +271,32 @@ const Programs = () => {
                 {program.scholarshipAvailable && (
                   <Badge className="bg-secondary/10 text-secondary border-secondary/20">
                     <Award className="h-3 w-3 mr-1" />
-                    Scholarship Available
+                    {t('programs.scholarshipAvailable')}
                   </Badge>
                 )}
                 {program.highDemand && (
                   <Badge variant="outline" className="border-info/50 text-info">
                     <TrendingUp className="h-3 w-3 mr-1" />
-                    High Demand
+                    {t('programs.highDemand')}
                   </Badge>
                 )}
               </div>
 
               <div className="space-y-2 text-sm mb-4">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Tuition Fee</span>
+                  <span className="text-muted-foreground">{t('programDetail.tuitionFee')}</span>
                   <span className="font-semibold">{program.tuition}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Application Fee</span>
+                  <span className="text-muted-foreground">{t('programDetail.applicationFee')}</span>
                   <span className="font-semibold">{program.applicationFee}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Duration</span>
+                  <span className="text-muted-foreground">{t('programDetail.duration')}</span>
                   <span className="font-semibold">{program.duration}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Intake</span>
+                  <span className="text-muted-foreground">{t('programDetail.intake')}</span>
                   <span className="font-semibold flex items-center gap-1">
                     <Calendar className="h-3 w-3" />
                     {program.startDate}
@@ -304,10 +306,10 @@ const Programs = () => {
 
               <div className="flex gap-2">
                 <Button className="flex-1" size="sm" asChild>
-                  <Link to={`/programs/${program.id}`}>View Details</Link>
+                  <Link to={`/programs/${program.id}`}>{t('programs.viewDetails')}</Link>
                 </Button>
                 <Button variant="outline" size="sm" asChild>
-                  <Link to={`/programs/${program.id}`}>Apply</Link>
+                  <Link to={`/programs/${program.id}`}>{t('programs.apply')}</Link>
                 </Button>
               </div>
             </Card>
