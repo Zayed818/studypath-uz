@@ -82,6 +82,7 @@ export const useLanguage = () => {
 const translations: Record<Language, any> = {
   uz: {
     nav: {
+      home: "Bosh sahifa",
       findPrograms: "Dasturlar",
       universities: "Universitetlar",
       scholarships: "Stipendiyalar",
@@ -108,6 +109,9 @@ const translations: Record<Language, any> = {
       previous: "Oldingi",
       save: "Saqlash",
       cancel: "Bekor Qilish",
+      completed: "Bajarildi",
+      pending: "Kutilmoqda",
+      whatNext: "Keyingi Qadamlar",
       country: "Mamlakat",
       field: "Soha",
       degree: "Daraja",
@@ -502,6 +506,7 @@ const translations: Record<Language, any> = {
   },
   ru: {
     nav: {
+      home: "Главная",
       findPrograms: "Программы",
       universities: "Университеты",
       scholarships: "Стипендии",
@@ -528,6 +533,9 @@ const translations: Record<Language, any> = {
       previous: "Назад",
       save: "Сохранить",
       cancel: "Отмена",
+      completed: "Завершено",
+      pending: "Ожидание",
+      whatNext: "Что Дальше",
       country: "Страна",
       field: "Область",
       degree: "Степень",
@@ -922,6 +930,7 @@ const translations: Record<Language, any> = {
   },
   en: {
     nav: {
+      home: "Home",
       findPrograms: "Programs",
       universities: "Universities",
       scholarships: "Scholarships",
@@ -948,6 +957,9 @@ const translations: Record<Language, any> = {
       previous: "Previous",
       save: "Save",
       cancel: "Cancel",
+      completed: "Completed",
+      pending: "Pending",
+      whatNext: "What's Next",
       country: "Country",
       field: "Field",
       degree: "Degree",
