@@ -351,6 +351,20 @@ const translations: Record<Language, any> = {
       recommendationsSubtitle: "Testingiz asosida eng mos martabalar",
       recommendedCareers: "Tavsiya Etilgan Martabalar"
     },
+    applicationSuccess: {
+      title: "Ariza Muvaffaqiyatli Topshirildi!",
+      thankYou: "Arizangiz uchun rahmat",
+      referenceNumber: "Ma'lumotnoma Raqami",
+      timeline: "Ariza Jarayoni",
+      submitted: "Ariza Topshirildi",
+      agencyReview: "Agentlik Ko'rib Chiqmoqda (48 soat)",
+      universityDecision: "Universitet Qarori",
+      nextStepsDescription: "Arizangiz muvaffaqiyatli topshirildi. Biz sizning arizangizni 48 soat ichida ko'rib chiqamiz va siz bilan bog'lanamiz.",
+      step1: "Agentlik sizning arizangizni 48 soat ichida ko'rib chiqadi",
+      step2: "Universitet qarorini kutamiz",
+      step3: "Siz bilan bog'lanamiz va keyingi qadamlarni aytib beramiz",
+      applyAnother: "Boshqa Dasturga Ariza Topshirish"
+    },
     programDetail: {
       overview: "Umumiy Ma'lumot",
       requirements: "Talablar",
@@ -721,6 +735,20 @@ const translations: Record<Language, any> = {
       submitting: "Отправка...",
       submit: "Подать Заявку",
       readyToSubmit: "Готово к отправке!"
+    },
+    applicationSuccess: {
+      title: "Заявка Успешно Отправлена!",
+      thankYou: "Спасибо за вашу заявку",
+      referenceNumber: "Номер Заявки",
+      timeline: "Процесс Заявки",
+      submitted: "Заявка Отправлена",
+      agencyReview: "Проверка Агентством (48 часов)",
+      universityDecision: "Решение Университета",
+      nextStepsDescription: "Ваша заявка успешно отправлена. Мы рассмотрим вашу заявку в течение 48 часов и свяжемся с вами.",
+      step1: "Агентство рассмотрит вашу заявку в течение 48 часов",
+      step2: "Ожидаем решение университета",
+      step3: "Мы свяжемся с вами и сообщим о следующих шагах",
+      applyAnother: "Подать Заявку на Другую Программу"
     },
     careers: {
       title: "Карьерный Советник",
@@ -1129,6 +1157,20 @@ const translations: Record<Language, any> = {
       submitting: "Submitting...",
       submit: "Submit Application",
       readyToSubmit: "Ready to submit!"
+    },
+    applicationSuccess: {
+      title: "Application Submitted Successfully!",
+      thankYou: "Thank you for your application",
+      referenceNumber: "Reference Number",
+      timeline: "Application Timeline",
+      submitted: "Application Submitted",
+      agencyReview: "Agency Review (48 hours)",
+      universityDecision: "University Decision",
+      nextStepsDescription: "Your application has been successfully submitted. We will review your application within 48 hours and contact you.",
+      step1: "Agency will review your application within 48 hours",
+      step2: "Awaiting university decision",
+      step3: "We will contact you and inform you of the next steps",
+      applyAnother: "Apply to Another Program"
     },
     careers: {
       title: "Career Advisor",
