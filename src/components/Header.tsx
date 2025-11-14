@@ -31,7 +31,10 @@ const Header = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem asChild>
-                <Link to="/programs">{t('nav.universities')}</Link>
+                <Link to="/universities">{t('nav.universities')}</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link to="/programs">{t('nav.findPrograms')}</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link to="/scholarships">{t('nav.scholarships')}</Link>
@@ -81,10 +84,16 @@ const Header = () => {
       {mobileMenuOpen && (
         <div className="md:hidden border-t bg-background p-4 space-y-2">
           <Link
-            to="/programs"
+            to="/universities"
             className="block py-2 text-sm font-medium hover:text-primary"
           >
             {t('nav.universities')}
+          </Link>
+          <Link
+            to="/programs"
+            className="block py-2 text-sm font-medium hover:text-primary"
+          >
+            {t('nav.findPrograms')}
           </Link>
           <Link
             to="/scholarships"
