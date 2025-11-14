@@ -1,64 +1,69 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ChevronLeft, ChevronRight, Check } from "lucide-react";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { toast } from "@/hooks/use-toast";
 import PersonalDetailsStep from "@/components/apply/PersonalDetailsStep";
 import AcademicInfoStep from "@/components/apply/AcademicInfoStep";
-import ProgramPreferencesStep from "@/components/apply/ProgramPreferencesStep";
-import DocumentSelectionStep from "@/components/apply/DocumentSelectionStep";
 import ReviewSubmitStep from "@/components/apply/ReviewSubmitStep";
 
 export interface ApplicationFormData {
-  // Personal Details
+  // Program Context
+  programId: string;
+  universityId: string;
+  programName: string;
+  universityName: string;
+  
+  // Personal Details (mandatory)
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
   countryOfResidence: string;
   city: string;
-  dateOfBirth: Date | undefined;
-  gender: string;
+  dateOfBirth: Date | undefined; // optional
+  gender: string; // optional
   
   // Academic Info (all optional)
   currentEducationLevel: string;
-  institution: string;
   gpa: string;
   englishTest: string;
   englishScore: string;
   transcript: File | null;
   
-  // Program Preferences
-  preferredCountries: string[];
-  preferredDegree: string;
-  preferredField: string;
-  intakeYear: string;
-  intakeSeason: string;
-  budget: string;
-  
-  // Documents
-  selectedDocuments: {
-    transcript: File | null;
-    passport: File | null;
-    cv: File | null;
-    motivationLetter: File | null;
-    englishCertificate: File | null;
-    recommendationLetter: File | null;
-  };
-  
   // Consent
   consent: boolean;
 }
 
+export interface ValidationErrors {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  phone?: string;
+  countryOfResidence?: string;
+  city?: string;
+  consent?: string;
+}
+
 const Apply = () => {
   const { t } = useLanguage();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
-  const totalSteps = 5;
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
+  const totalSteps = 3;
   
   const [formData, setFormData] = useState<ApplicationFormData>({
+    programId: "",
+    universityId: "",
+    programName: "",
+    universityName: "",
     firstName: "",
     lastName: "",
     email: "",
@@ -68,39 +73,99 @@ const Apply = () => {
     dateOfBirth: undefined,
     gender: "",
     currentEducationLevel: "",
-    institution: "",
     gpa: "",
     englishTest: "",
     englishScore: "",
     transcript: null,
-    preferredCountries: [],
-    preferredDegree: "",
-    preferredField: "",
-    intakeYear: "",
-    intakeSeason: "",
-    budget: "",
-    selectedDocuments: {
-      transcript: null,
-      passport: null,
-      cv: null,
-      motivationLetter: null,
-      englishCertificate: null,
-      recommendationLetter: null,
-    },
     consent: false,
   });
 
+  // Capture program context from URL on mount
+  useEffect(() => {
+    const programId = searchParams.get("programId") || "";
+    const universityId = searchParams.get("universityId") || "";
+    const programName = searchParams.get("programName") || "";
+    const universityName = searchParams.get("universityName") || "";
+
+    if (!programId || !universityName) {
+      toast({
+        title: t('common.error'),
+        description: "Please select a program first",
+        variant: "destructive",
+      });
+      navigate("/programs");
+      return;
+    }
+
+    setFormData((prev) => ({
+      ...prev,
+      programId,
+      universityId,
+      programName,
+      universityName,
+    }));
+  }, [searchParams, navigate, t]);
+
   const steps = [
-    { number: 1, title: "Personal Details", component: PersonalDetailsStep },
-    { number: 2, title: "Academic Info", component: AcademicInfoStep },
-    { number: 3, title: "Program Preferences", component: ProgramPreferencesStep },
-    { number: 4, title: "Documents", component: DocumentSelectionStep },
-    { number: 5, title: "Review & Submit", component: ReviewSubmitStep },
+    { number: 1, title: t('apply.personalDetails'), component: PersonalDetailsStep },
+    { number: 2, title: t('apply.academicInfoOptional'), component: AcademicInfoStep },
+    { number: 3, title: t('apply.reviewSubmit'), component: ReviewSubmitStep },
   ];
 
   const progress = (currentStep / totalSteps) * 100;
 
+  // Validation functions
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePhone = (phone: string): boolean => {
+    const phoneRegex = /^[+]?[\d\s-]{10,}$/;
+    return phoneRegex.test(phone);
+  };
+
+  const validatePersonalDetails = (): boolean => {
+    const errors: ValidationErrors = {};
+
+    if (!formData.firstName.trim()) {
+      errors.firstName = t('apply.requiredField');
+    }
+    if (!formData.lastName.trim()) {
+      errors.lastName = t('apply.requiredField');
+    }
+    if (!formData.email.trim()) {
+      errors.email = t('apply.requiredField');
+    } else if (!validateEmail(formData.email)) {
+      errors.email = t('apply.invalidEmail');
+    }
+    if (!formData.phone.trim()) {
+      errors.phone = t('apply.requiredField');
+    } else if (!validatePhone(formData.phone)) {
+      errors.phone = t('apply.invalidPhone');
+    }
+    if (!formData.countryOfResidence) {
+      errors.countryOfResidence = t('apply.requiredField');
+    }
+    if (!formData.city) {
+      errors.city = t('apply.requiredField');
+    }
+
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleNext = () => {
+    // Validate step 1 before proceeding
+    if (currentStep === 1 && !validatePersonalDetails()) {
+      toast({
+        title: t('common.error'),
+        description: t('apply.fillRequired'),
+        variant: "destructive",
+      });
+      return;
+    }
+
     if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -121,6 +186,64 @@ const Apply = () => {
 
   const updateFormData = (data: Partial<ApplicationFormData>) => {
     setFormData((prev) => ({ ...prev, ...data }));
+    // Clear validation errors for updated fields
+    if (validationErrors) {
+      const newErrors = { ...validationErrors };
+      Object.keys(data).forEach((key) => {
+        delete newErrors[key as keyof ValidationErrors];
+      });
+      setValidationErrors(newErrors);
+    }
+  };
+
+  const handleSubmit = async () => {
+    // Final validation
+    if (!validatePersonalDetails()) {
+      toast({
+        title: t('common.error'),
+        description: t('apply.fillRequired'),
+        variant: "destructive",
+      });
+      setCurrentStep(1);
+      return;
+    }
+
+    if (!formData.consent) {
+      toast({
+        title: t('common.error'),
+        description: t('apply.consentRequired'),
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Generate reference number
+      const referenceNumber = `APP-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+      
+      // In production, this would be an API call to save the application
+      console.log("Application submitted:", {
+        ...formData,
+        referenceNumber,
+        submittedAt: new Date().toISOString(),
+      });
+
+      // Simulate API delay
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // Navigate to success page
+      navigate(`/apply/success?ref=${referenceNumber}&program=${encodeURIComponent(formData.programName)}&university=${encodeURIComponent(formData.universityName)}`);
+    } catch (error) {
+      toast({
+        title: t('common.error'),
+        description: "Failed to submit application. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const CurrentStepComponent = steps[currentStep - 1].component;
@@ -207,6 +330,7 @@ const Apply = () => {
             <CurrentStepComponent
               formData={formData}
               updateFormData={updateFormData}
+              validationErrors={currentStep === 1 ? validationErrors : undefined}
             />
           </Card>
 
@@ -224,12 +348,16 @@ const Apply = () => {
             
             {currentStep < totalSteps ? (
               <Button onClick={handleNext} className="gap-2">
-                Next
+                {t('common.next')}
                 <ChevronRight className="h-4 w-4" />
               </Button>
             ) : (
-              <Button onClick={() => alert("Application submitted! (Demo mode)")} className="gap-2">
-                Submit Application
+              <Button 
+                onClick={handleSubmit} 
+                className="gap-2"
+                disabled={isSubmitting || !formData.consent}
+              >
+                {isSubmitting ? t('apply.submitting') : t('apply.submit')}
                 <Check className="h-4 w-4" />
               </Button>
             )}

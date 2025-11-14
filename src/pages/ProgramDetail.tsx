@@ -169,8 +169,12 @@ const ProgramDetail = () => {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Button className="w-full bg-secondary hover:bg-secondary/90" size="lg">
-                    Apply Now
+                  <Button className="w-full bg-secondary hover:bg-secondary/90" size="lg" asChild>
+                    <Link 
+                      to={`/apply?programId=${program.id}&universityId=${program.country}&programName=${encodeURIComponent(program.program)}&universityName=${encodeURIComponent(program.university)}`}
+                    >
+                      Apply Now
+                    </Link>
                   </Button>
                   <Button variant="outline" className="w-full" size="lg">
                     Request Help
