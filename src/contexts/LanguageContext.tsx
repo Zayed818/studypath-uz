@@ -27,13 +27,40 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const t = (key: string): string => {
     const keys = key.split('.');
-    let value: any = translations[language];
     
+    // Try current language
+    let value: any = translations[language];
     for (const k of keys) {
       value = value?.[k];
     }
     
-    return value || key;
+    // If found and it's a string, return it
+    if (typeof value === 'string') return value;
+    
+    // Fallback to Russian
+    if (language !== 'ru') {
+      value = translations['ru'];
+      for (const k of keys) {
+        value = value?.[k];
+      }
+      if (typeof value === 'string') return value;
+    }
+    
+    // Fallback to English
+    if (language !== 'en') {
+      value = translations['en'];
+      for (const k of keys) {
+        value = value?.[k];
+      }
+      if (typeof value === 'string') return value;
+    }
+    
+    // Log missing key in development
+    if (process.env.NODE_ENV === 'development') {
+      console.warn(`Missing translation key: ${key}`);
+    }
+    
+    return key;
   };
 
   return (
@@ -66,6 +93,32 @@ const translations: Record<Language, any> = {
       faq: "Savol-javob",
       login: "Kirish",
       signup: "Ro'yxatdan o'tish"
+    },
+    common: {
+      all: "Barchasi",
+      search: "Qidirish",
+      filters: "Filtrlar",
+      results: "Natijalar",
+      viewDetails: "Batafsil Ko'rish",
+      apply: "Ariza Topshirish",
+      contactCounselor: "Maslahatchi Bilan Bog'lanish",
+      learnMore: "Batafsil",
+      back: "Ortga",
+      next: "Keyingi",
+      save: "Saqlash",
+      cancel: "Bekor Qilish",
+      country: "Mamlakat",
+      field: "Soha",
+      degree: "Daraja",
+      coverage: "Qamrov",
+      amount: "Miqdor",
+      deadline: "Muddat",
+      open: "Ochiladi",
+      resultsAnnounced: "Natijalar e'lon qilinadi",
+      timeline: "Vaqt Jadvali",
+      noResultsTitle: "Hech narsa topilmadi",
+      noResultsSubtitle: "Iltimos, qidiruv shartlaringizni o'zgartiring",
+      searchPlaceholder: "Qidirish..."
     },
     hero: {
       title: "Xorijdagi Eng Yaxshi Universitetlarni Toping va Ariza Topshiring",
@@ -152,40 +205,67 @@ const translations: Record<Language, any> = {
     scholarships: {
       title: "Stipendiyalar",
       subtitle: "Xalqaro grantlar va stipendiyalarni toping",
+      pageTitle: "Xalqaro Stipendiyalar",
+      pageDescription: "Dunyoning eng yaxshi universitetlarida o'qish uchun grantlar va stipendiyalarni toping",
+      searchPlaceholder: "Stipendiyalarni qidiring...",
       search: "Stipendiyalarni qidiring...",
       filters: "Filtrlar",
+      filterCountry: "Mamlakat",
+      filterField: "Soha",
+      filterDegree: "Daraja",
+      filterCoverage: "Qamrov",
+      filterDeadline: "Muddat",
       results: "natija topildi",
       fullTuition: "To'liq O'qish Haqi",
       partialTuition: "Qisman O'qish Haqi",
       livingStipend: "Yashash Uchun Stipendiya",
+      fullCoverage: "To'liq Qamrov",
+      partialCoverage: "Qisman Qamrov",
       coverage: "Qamrov",
       amount: "Miqdor",
       deadline: "Muddat",
+      organization: "Tashkilot",
+      degreeLevel: "Daraja",
       viewDetails: "Batafsil",
       save: "Saqlash",
-      contactCounselor: "Maslahatchi Bilan Aloqa"
+      contactCounselor: "Maslahatchi Bilan Aloqa",
+      noResultsTitle: "Hech narsa topilmadi",
+      noResultsSubtitle: "Iltimos, qidiruv shartlaringizni o'zgartiring"
     },
     careers: {
       title: "Martaba Yo'riqnomasi",
       subtitle: "O'z kelajagingizni toping va rejalashtiring",
+      pageTitle: "Martaba Maslahati",
+      pageDescription: "O'z kelajagingizni rejalashtiring va eng mos martaba yo'lini toping",
       searchTab: "Martabalarni Qidirish",
       quizTab: "Martaba Testi",
+      searchPlaceholder: "Martabalarni qidiring...",
       search: "Martabalarni qidiring...",
       results: "natija topildi",
       salary: "Ish Haqi",
+      growth: "O'sish",
+      demand: "Talab",
+      demandVeryHigh: "Juda Yuqori",
+      demandHigh: "Yuqori",
+      demandModerate: "O'rtacha",
       skills: "Zarur Ko'nikmalar",
       relatedFields: "Tegishli Sohalar",
+      topUniversities: "Eng Yaxshi Universitetlar",
       pros: "Afzalliklari",
       cons: "Kamchiliklari",
       viewDetails: "Batafsil",
-      quizTitle: "O'z Martabangizni Toping",
+      learnMore: "Batafsil",
+      explorePrograms: "Dasturlarni Ko'rish",
+      quizTitle: "Martaba Shaxsiyat Testi",
       quizSubtitle: "Bir necha savolga javob bering, sizga mos martabalarni topamiz",
       question: "Savol",
       next: "Keyingisi",
       previous: "Oldingi",
+      submitQuiz: "Natijalarni Ko'rish",
       seeResults: "Natijalarni Ko'rish",
-      recommendedCareers: "Tavsiya Etilgan Martabalar",
-      explorePrograms: "Tegishli Dasturlarni Ko'rish"
+      recommendationsTitle: "Sizga Mos Martabalar",
+      recommendationsSubtitle: "Testingiz asosida eng mos martabalar",
+      recommendedCareers: "Tavsiya Etilgan Martabalar"
     },
     programDetail: {
       overview: "Umumiy Ma'lumot",
@@ -331,6 +411,32 @@ const translations: Record<Language, any> = {
       login: "Войти",
       signup: "Регистрация"
     },
+    common: {
+      all: "Все",
+      search: "Поиск",
+      filters: "Фильтры",
+      results: "Результаты",
+      viewDetails: "Подробнее",
+      apply: "Подать Заявку",
+      contactCounselor: "Связаться с Консультантом",
+      learnMore: "Узнать Больше",
+      back: "Назад",
+      next: "Далее",
+      save: "Сохранить",
+      cancel: "Отмена",
+      country: "Страна",
+      field: "Область",
+      degree: "Степень",
+      coverage: "Покрытие",
+      amount: "Сумма",
+      deadline: "Срок",
+      open: "Открыто",
+      resultsAnnounced: "Результаты объявлены",
+      timeline: "График",
+      noResultsTitle: "Ничего не найдено",
+      noResultsSubtitle: "Попробуйте изменить параметры поиска",
+      searchPlaceholder: "Поиск..."
+    },
     hero: {
       title: "Найдите и Поступите в Лучшие Университеты за Рубежом",
       subtitle: "Просто, Быстро, Надёжно — специально для узбекских студентов",
@@ -416,40 +522,67 @@ const translations: Record<Language, any> = {
     scholarships: {
       title: "Стипендии",
       subtitle: "Найдите международные гранты и стипендии",
+      pageTitle: "Международные Стипендии",
+      pageDescription: "Найдите гранты и стипендии для обучения в лучших университетах мира",
+      searchPlaceholder: "Искать стипендии...",
       search: "Искать стипендии...",
       filters: "Фильтры",
+      filterCountry: "Страна",
+      filterField: "Область",
+      filterDegree: "Степень",
+      filterCoverage: "Покрытие",
+      filterDeadline: "Срок",
       results: "результатов найдено",
       fullTuition: "Полная Оплата Обучения",
       partialTuition: "Частичная Оплата",
       livingStipend: "Стипендия на Проживание",
+      fullCoverage: "Полное Покрытие",
+      partialCoverage: "Частичное Покрытие",
       coverage: "Покрытие",
       amount: "Сумма",
       deadline: "Срок",
+      organization: "Организация",
+      degreeLevel: "Степень",
       viewDetails: "Подробнее",
       save: "Сохранить",
-      contactCounselor: "Связаться с Консультантом"
+      contactCounselor: "Связаться с Консультантом",
+      noResultsTitle: "Ничего не найдено",
+      noResultsSubtitle: "Попробуйте изменить параметры поиска"
     },
     careers: {
       title: "Карьерный Советник",
       subtitle: "Найдите и спланируйте своё будущее",
+      pageTitle: "Карьерный Советник",
+      pageDescription: "Спланируйте своё будущее и найдите наиболее подходящий карьерный путь",
       searchTab: "Поиск Карьеры",
       quizTab: "Карьерный Тест",
+      searchPlaceholder: "Искать карьеры...",
       search: "Искать карьеры...",
       results: "результатов найдено",
       salary: "Зарплата",
+      growth: "Рост",
+      demand: "Спрос",
+      demandVeryHigh: "Очень Высокий",
+      demandHigh: "Высокий",
+      demandModerate: "Средний",
       skills: "Необходимые Навыки",
       relatedFields: "Связанные Области",
+      topUniversities: "Лучшие Университеты",
       pros: "Преимущества",
       cons: "Недостатки",
       viewDetails: "Подробнее",
-      quizTitle: "Найдите Свою Карьеру",
+      learnMore: "Узнать Больше",
+      explorePrograms: "Обзор Программ",
+      quizTitle: "Тест на Профориентацию",
       quizSubtitle: "Ответьте на несколько вопросов, и мы найдём подходящие карьеры",
       question: "Вопрос",
       next: "Далее",
       previous: "Назад",
+      submitQuiz: "Посмотреть Результаты",
       seeResults: "Посмотреть Результаты",
-      recommendedCareers: "Рекомендуемые Карьеры",
-      explorePrograms: "Обзор Связанных Программ"
+      recommendationsTitle: "Карьеры для Вас",
+      recommendationsSubtitle: "На основе ваших ответов в тесте",
+      recommendedCareers: "Рекомендуемые Карьеры"
     },
     programDetail: {
       overview: "Обзор",
@@ -595,6 +728,32 @@ const translations: Record<Language, any> = {
       login: "Log In",
       signup: "Sign Up"
     },
+    common: {
+      all: "All",
+      search: "Search",
+      filters: "Filters",
+      results: "Results",
+      viewDetails: "View Details",
+      apply: "Apply",
+      contactCounselor: "Contact Counselor",
+      learnMore: "Learn More",
+      back: "Back",
+      next: "Next",
+      save: "Save",
+      cancel: "Cancel",
+      country: "Country",
+      field: "Field",
+      degree: "Degree",
+      coverage: "Coverage",
+      amount: "Amount",
+      deadline: "Deadline",
+      open: "Open",
+      resultsAnnounced: "Results Announced",
+      timeline: "Timeline",
+      noResultsTitle: "No results found",
+      noResultsSubtitle: "Try adjusting your search criteria",
+      searchPlaceholder: "Search..."
+    },
     hero: {
       title: "Find and Apply to Top Universities Abroad",
       subtitle: "Simple, Fast, Trusted — tailored for Uzbek students",
@@ -680,40 +839,67 @@ const translations: Record<Language, any> = {
     scholarships: {
       title: "Scholarships",
       subtitle: "Find international grants and scholarships",
+      pageTitle: "International Scholarships",
+      pageDescription: "Find grants and scholarships to study at the world's best universities",
+      searchPlaceholder: "Search scholarships...",
       search: "Search scholarships...",
       filters: "Filters",
+      filterCountry: "Country",
+      filterField: "Field",
+      filterDegree: "Degree",
+      filterCoverage: "Coverage",
+      filterDeadline: "Deadline",
       results: "results found",
       fullTuition: "Full Tuition",
       partialTuition: "Partial Tuition",
       livingStipend: "Living Stipend",
+      fullCoverage: "Full Coverage",
+      partialCoverage: "Partial Coverage",
       coverage: "Coverage",
       amount: "Amount",
       deadline: "Deadline",
+      organization: "Organization",
+      degreeLevel: "Degree Level",
       viewDetails: "View Details",
       save: "Save",
-      contactCounselor: "Contact Counselor"
+      contactCounselor: "Contact Counselor",
+      noResultsTitle: "No results found",
+      noResultsSubtitle: "Try adjusting your search criteria"
     },
     careers: {
       title: "Career Advisor",
       subtitle: "Discover and plan your future",
+      pageTitle: "Career Advisor",
+      pageDescription: "Plan your future and find the most suitable career path",
       searchTab: "Search Careers",
       quizTab: "Career Quiz",
+      searchPlaceholder: "Search careers...",
       search: "Search careers...",
       results: "results found",
       salary: "Salary",
+      growth: "Growth",
+      demand: "Demand",
+      demandVeryHigh: "Very High",
+      demandHigh: "High",
+      demandModerate: "Moderate",
       skills: "Required Skills",
       relatedFields: "Related Fields",
+      topUniversities: "Top Universities",
       pros: "Pros",
       cons: "Cons",
       viewDetails: "View Details",
-      quizTitle: "Find Your Career",
+      learnMore: "Learn More",
+      explorePrograms: "Explore Programs",
+      quizTitle: "Career Personality Quiz",
       quizSubtitle: "Answer a few questions and we'll find matching careers",
       question: "Question",
       next: "Next",
       previous: "Previous",
+      submitQuiz: "Get My Career Recommendations",
       seeResults: "See Results",
-      recommendedCareers: "Recommended Careers",
-      explorePrograms: "Explore Related Programs"
+      recommendationsTitle: "Your Top Career Matches",
+      recommendationsSubtitle: "Based on your quiz answers",
+      recommendedCareers: "Recommended Careers"
     },
     programDetail: {
       overview: "Overview",
