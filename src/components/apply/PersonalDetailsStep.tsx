@@ -42,11 +42,10 @@ const PersonalDetailsStep = ({ formData, updateFormData }: PersonalDetailsStepPr
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label htmlFor="firstName">
-            {t('scholarshipDetail.firstName')} *
+            {t('apply.firstName')} *
           </Label>
           <Input
             id="firstName"
-            placeholder="John"
             value={formData.firstName}
             onChange={(e) => updateFormData({ firstName: e.target.value })}
           />
@@ -54,11 +53,10 @@ const PersonalDetailsStep = ({ formData, updateFormData }: PersonalDetailsStepPr
 
         <div className="space-y-2">
           <Label htmlFor="lastName">
-            {t('scholarshipDetail.lastName')} *
+            {t('apply.lastName')} *
           </Label>
           <Input
             id="lastName"
-            placeholder="Doe"
             value={formData.lastName}
             onChange={(e) => updateFormData({ lastName: e.target.value })}
           />
@@ -68,12 +66,11 @@ const PersonalDetailsStep = ({ formData, updateFormData }: PersonalDetailsStepPr
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label htmlFor="email">
-            {t('scholarshipDetail.email')} *
+            {t('apply.email')} *
           </Label>
           <Input
             id="email"
             type="email"
-            placeholder="john.doe@example.com"
             value={formData.email}
             onChange={(e) => updateFormData({ email: e.target.value })}
           />
@@ -81,12 +78,12 @@ const PersonalDetailsStep = ({ formData, updateFormData }: PersonalDetailsStepPr
 
         <div className="space-y-2">
           <Label htmlFor="phone">
-            {t('scholarshipDetail.phone')} *
+            {t('apply.phone')} *
           </Label>
           <Input
             id="phone"
             type="tel"
-            placeholder="+998 90 123 4567"
+            placeholder="+998"
             value={formData.phone}
             onChange={(e) => updateFormData({ phone: e.target.value })}
           />
@@ -155,7 +152,7 @@ const PersonalDetailsStep = ({ formData, updateFormData }: PersonalDetailsStepPr
                 {formData.dateOfBirth ? (
                   format(formData.dateOfBirth, "PPP")
                 ) : (
-                  <span>Pick a date</span>
+                  <span>{t('apply.selectDate')}</span>
                 )}
               </Button>
             </PopoverTrigger>
