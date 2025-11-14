@@ -14,6 +14,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { Search, Award, MapPin, Calendar, DollarSign, Target, Globe } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const mockScholarships = [
   {
@@ -92,6 +93,7 @@ const mockScholarships = [
 
 const Scholarships = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const { t } = useLanguage();
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -103,9 +105,9 @@ const Scholarships = () => {
           <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center mx-auto mb-6">
             <Award className="h-8 w-8 text-white" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Scholarship Hub</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">{t('scholarships.pageTitle')}</h1>
           <p className="text-lg text-white/90 max-w-2xl mx-auto">
-            Discover funding opportunities to make your education abroad affordable
+            {t('scholarships.pageDescription')}
           </p>
         </div>
       </section>
@@ -117,7 +119,7 @@ const Scholarships = () => {
             <div className="flex-1 relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="Search scholarships by name, country, or field..."
+                placeholder={t('scholarships.searchPlaceholder')}
                 className="pl-10"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -128,10 +130,10 @@ const Scholarships = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
             <Select>
               <SelectTrigger>
-                <SelectValue placeholder="Country" />
+                <SelectValue placeholder={t('programs.country')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All Countries</SelectItem>
+                <SelectItem value="all">{t('common.all')}</SelectItem>
                 <SelectItem value="usa">United States</SelectItem>
                 <SelectItem value="uk">United Kingdom</SelectItem>
                 <SelectItem value="germany">Germany</SelectItem>
@@ -141,10 +143,10 @@ const Scholarships = () => {
 
             <Select>
               <SelectTrigger>
-                <SelectValue placeholder="Field" />
+                <SelectValue placeholder={t('scholarships.field')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All Fields</SelectItem>
+                <SelectItem value="all">{t('common.all')}</SelectItem>
                 <SelectItem value="engineering">Engineering</SelectItem>
                 <SelectItem value="business">Business</SelectItem>
                 <SelectItem value="science">Science</SelectItem>
@@ -153,10 +155,10 @@ const Scholarships = () => {
 
             <Select>
               <SelectTrigger>
-                <SelectValue placeholder="Degree" />
+                <SelectValue placeholder={t('scholarships.degree')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All Degrees</SelectItem>
+                <SelectItem value="all">{t('common.all')}</SelectItem>
                 <SelectItem value="bachelor">Bachelor's</SelectItem>
                 <SelectItem value="master">Master's</SelectItem>
                 <SelectItem value="phd">PhD</SelectItem>
@@ -165,10 +167,10 @@ const Scholarships = () => {
 
             <Select>
               <SelectTrigger>
-                <SelectValue placeholder="Deadline" />
+                <SelectValue placeholder={t('scholarships.deadline')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Any Deadline</SelectItem>
+                <SelectItem value="all">{t('common.all')}</SelectItem>
                 <SelectItem value="soon">Due Soon</SelectItem>
                 <SelectItem value="month">Within a Month</SelectItem>
               </SelectContent>
@@ -176,10 +178,10 @@ const Scholarships = () => {
 
             <Select>
               <SelectTrigger>
-                <SelectValue placeholder="Coverage" />
+                <SelectValue placeholder={t('scholarships.coverage')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Any Coverage</SelectItem>
+                <SelectItem value="all">{t('common.all')}</SelectItem>
                 <SelectItem value="full">Full Coverage</SelectItem>
                 <SelectItem value="partial">Partial Coverage</SelectItem>
               </SelectContent>
@@ -187,12 +189,12 @@ const Scholarships = () => {
           </div>
 
           <Button className="w-full mt-6 bg-secondary hover:bg-secondary/90" size="lg">
-            Apply Filters
+            {t('scholarships.applyFilters')}
           </Button>
         </Card>
 
         <p className="text-sm text-muted-foreground mt-4">
-          Showing <span className="font-semibold text-foreground">{mockScholarships.length}</span> scholarships
+          {t('scholarships.showing')} <span className="font-semibold text-foreground">{mockScholarships.length}</span> {t('programs.programs')}
         </p>
       </section>
 

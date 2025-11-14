@@ -8,6 +8,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { TrendingUp, CheckCircle, XCircle, Code, Database, Users, Search, Lightbulb } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const mockCareers = [
   {
@@ -121,7 +122,7 @@ const Careers = () => {
                 : "text-muted-foreground hover:text-foreground"
             }`}
           >
-            Search Careers
+            {t('careers.searchTab')}
           </button>
           <button
             onClick={() => setActiveTab("quiz")}
@@ -131,7 +132,7 @@ const Careers = () => {
                 : "text-muted-foreground hover:text-foreground"
             }`}
           >
-            Career Quiz
+            {t('careers.quizTab')}
           </button>
         </div>
 
@@ -171,7 +172,7 @@ const Careers = () => {
                               <Badge variant="outline" className="border-success/50 text-success">
                                 {career.growth}
                               </Badge>
-                              <Badge variant="secondary">Demand: {career.demand}</Badge>
+                              <Badge variant="secondary">{t('careers.demand')}: {career.demand}</Badge>
                             </div>
                           </div>
                         </div>
@@ -181,7 +182,7 @@ const Careers = () => {
                           <div>
                             <h4 className="font-semibold mb-3 text-success flex items-center gap-2">
                               <CheckCircle className="h-4 w-4" />
-                              PROS
+                              {t('careers.pros')}
                             </h4>
                             <ul className="space-y-2">
                               {career.pros.map((pro, idx) => (
@@ -195,7 +196,7 @@ const Careers = () => {
                           <div>
                             <h4 className="font-semibold mb-3 text-destructive flex items-center gap-2">
                               <XCircle className="h-4 w-4" />
-                              CONS
+                              {t('careers.cons')}
                             </h4>
                             <ul className="space-y-2">
                               {career.cons.map((con, idx) => (
@@ -212,7 +213,7 @@ const Careers = () => {
                         <div className="mb-4">
                           <h4 className="font-semibold mb-2 text-sm uppercase text-muted-foreground flex items-center gap-2">
                             <Lightbulb className="h-4 w-4" />
-                            Required Skills
+                            {t('careers.skills')}
                           </h4>
                           <div className="flex flex-wrap gap-2">
                             {career.skills.map((skill, idx) => (
@@ -226,7 +227,7 @@ const Careers = () => {
                         {/* Related Fields */}
                         <div className="mb-4">
                           <h4 className="font-semibold mb-2 text-sm uppercase text-muted-foreground">
-                            Related Study Fields
+                            {t('careers.relatedFields')}
                           </h4>
                           <div className="flex flex-wrap gap-2">
                             {career.relatedFields.map((field, idx) => (
@@ -240,7 +241,7 @@ const Careers = () => {
                         {/* Top Universities */}
                         <div>
                           <h4 className="font-semibold mb-2 text-sm uppercase text-muted-foreground">
-                            Top Universities for This Career
+                            {t('careers.topUniversities')}
                           </h4>
                           <div className="flex flex-wrap gap-2">
                             {career.topUniversities.map((uni, idx) => (
@@ -256,13 +257,10 @@ const Careers = () => {
                       {/* Right: CTA */}
                       <div className="md:w-64 flex flex-col gap-3">
                         <Button className="w-full" asChild>
-                          <Link to={`/careers/${career.id}`}>Learn More</Link>
+                          <Link to={`/careers/${career.id}`}>{t('careers.learnMore')}</Link>
                         </Button>
                         <Button variant="outline" className="w-full bg-secondary/5 hover:bg-secondary/10" asChild>
-                          <Link to="/programs">Explore Related Programs</Link>
-                        </Button>
-                        <Button variant="ghost" size="sm">
-                          Contact Counselor
+                          <Link to="/programs">{t('careers.explorePrograms')}</Link>
                         </Button>
                       </div>
                     </div>

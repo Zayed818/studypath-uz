@@ -175,39 +175,39 @@ const Index = () => {
       <section className="py-16 md:py-24 bg-muted">
         <div className="container px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-            How It Works
+            {t('howItWorks.title')}
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             <Card className="p-8 relative">
               <div className="text-6xl font-bold text-primary/10 mb-4">01</div>
               <h3 className="text-xl font-semibold mb-3 flex items-center gap-2">
-                Choose Your Path
+                {t('howItWorks.step1')}
                 <span className="text-primary">→</span>
               </h3>
               <p className="text-muted-foreground">
-                Select your country & degree level
+                {t('howItWorks.step1Desc')}
               </p>
             </Card>
 
             <Card className="p-8 relative">
               <div className="text-6xl font-bold text-primary/10 mb-4">02</div>
               <h3 className="text-xl font-semibold mb-3 flex items-center gap-2">
-                See Your Matches
+                {t('howItWorks.step2')}
                 <span className="text-primary">→</span>
               </h3>
               <p className="text-muted-foreground">
-                Get personalized recommendations
+                {t('howItWorks.step2Desc')}
               </p>
             </Card>
 
             <Card className="p-8 relative">
               <div className="text-6xl font-bold text-primary/10 mb-4">03</div>
               <h3 className="text-xl font-semibold mb-3">
-                Apply or Get Help
+                {t('howItWorks.step3')}
               </h3>
               <p className="text-muted-foreground">
-                Apply yourself or connect with support
+                {t('howItWorks.step3Desc')}
               </p>
             </Card>
           </div>
@@ -219,17 +219,17 @@ const Index = () => {
         <div className="container px-4">
           <Card className="bg-gradient-to-br from-primary to-primary-dark text-white p-8 md:p-12 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Ready to Start Your Journey?
+              {t('cta.title')}
             </h2>
             <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
-              Join thousands of students who found their dream universities through StudyPath
+              {t('cta.description')}
             </p>
             <Button 
               size="lg" 
               className="bg-secondary hover:bg-secondary/90 text-white"
               asChild
             >
-              <Link to="/programs">Find My Dream University</Link>
+              <Link to="/programs">{t('cta.button')}</Link>
             </Button>
           </Card>
         </div>
