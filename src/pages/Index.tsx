@@ -35,7 +35,7 @@ const Index = () => {
           {/* Search Card */}
           <Card className="max-w-4xl mx-auto p-6 md:p-8 bg-white shadow-2xl">
             <p className="text-foreground text-sm mb-4 font-medium">
-              {t('hero.searchTitle')}
+              {(() => { const v = t('hero.searchTitle'); return v === 'hero.searchTitle' ? t('hero.findUniversity') : v; })()}
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
@@ -54,7 +54,7 @@ const Index = () => {
 
               <Select>
                 <SelectTrigger>
-                  <SelectValue placeholder={t('hero.chooseDegree')} />
+                  <SelectValue placeholder={(() => { const v = t('hero.chooseDegree'); return v === 'hero.chooseDegree' ? t('hero.selectDegree') : v; })()} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="bachelor">Bachelor's</SelectItem>
@@ -84,7 +84,7 @@ const Index = () => {
             >
               <Link to="/programs">
                 <Search className="mr-2 h-5 w-5" />
-                {t('hero.searchButton')}
+                {(() => { const v = t('hero.searchButton'); return v === 'hero.searchButton' ? t('hero.searchPrograms') : v; })()}
               </Link>
             </Button>
 
