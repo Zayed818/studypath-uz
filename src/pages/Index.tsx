@@ -229,7 +229,7 @@ const Index = () => {
               className="bg-secondary hover:bg-secondary/90 text-white"
               asChild
             >
-              <Link to="/programs">{t('cta.button')}</Link>
+              <Link to="/apply">{t('cta.button')}</Link>
             </Button>
           </Card>
         </div>
