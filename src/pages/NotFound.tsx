@@ -3,9 +3,11 @@ import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Home, ArrowLeft } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const NotFound = () => {
   const location = useLocation();
+  const { t } = useLanguage();
 
   useEffect(() => {
     console.error("404 Error: User attempted to access non-existent route:", location.pathname);
@@ -15,21 +17,15 @@ const NotFound = () => {
     <div className="flex min-h-screen items-center justify-center bg-muted">
       <div className="text-center max-w-md px-4">
         <h1 className="mb-4 text-8xl font-bold text-primary">404</h1>
-        <h2 className="mb-4 text-2xl font-semibold">Page Not Found</h2>
+        <h2 className="mb-4 text-2xl font-semibold">{t('notFound.title')}</h2>
         <p className="mb-8 text-muted-foreground">
-          Sorry, the page you're looking for doesn't exist or has been moved.
+          {t('notFound.message')}
         </p>
         <div className="flex gap-4 justify-center">
-          <Button asChild variant="outline">
-            <Link to="/" className="flex items-center gap-2">
-              <ArrowLeft className="h-4 w-4" />
-              Go Back
-            </Link>
-          </Button>
           <Button asChild>
             <Link to="/" className="flex items-center gap-2">
               <Home className="h-4 w-4" />
-              Return to Home
+              {t('notFound.backHome')}
             </Link>
           </Button>
         </div>

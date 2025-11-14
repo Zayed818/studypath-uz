@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import { GraduationCap, Mail, Phone, MapPin, MessageCircle, Instagram, Youtube } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Footer = () => {
+  const { t } = useLanguage();
+
   return (
     <footer className="bg-muted border-t mt-20">
       <div className="container px-4 py-12">
@@ -13,41 +16,41 @@ const Footer = () => {
               <span className="text-lg font-bold text-primary">StudyPath</span>
             </Link>
             <p className="text-sm text-muted-foreground mb-4">
-              Find your perfect university abroad — Simple, Fast, Trusted.
+              {t('footer.tagline')}
             </p>
             <div className="space-y-2 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <Mail className="h-4 w-4" />
-                <span>info@uniworld.com</span>
+                <span>info@studypath.uz</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="h-4 w-4" />
-                <span>+1 (234) 567-890</span>
+                <span>+998 (71) 123-45-67</span>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="h-4 w-4" />
-                <span>Uzbekistan</span>
+                <span>Tashkent, Uzbekistan</span>
               </div>
             </div>
           </div>
 
           {/* Find Programs */}
           <div>
-            <h3 className="font-semibold mb-4 text-foreground">Find Programs</h3>
+            <h3 className="font-semibold mb-4 text-foreground">{t('footer.programs')}</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
                 <Link to="/programs" className="hover:text-primary transition-colors">
-                  Universities
+                  {t('footer.universities')}
                 </Link>
               </li>
               <li>
                 <Link to="/scholarships" className="hover:text-primary transition-colors">
-                  Scholarships
+                  {t('footer.scholarships')}
                 </Link>
               </li>
               <li>
                 <Link to="/careers" className="hover:text-primary transition-colors">
-                  Careers
+                  {t('footer.careers')}
                 </Link>
               </li>
             </ul>
@@ -55,26 +58,26 @@ const Footer = () => {
 
           {/* About */}
           <div>
-            <h3 className="font-semibold mb-4 text-foreground">About</h3>
+            <h3 className="font-semibold mb-4 text-foreground">{t('footer.about')}</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
                 <a href="#" className="hover:text-primary transition-colors">
-                  About
+                  {t('footer.aboutUs')}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-primary transition-colors">
-                  Contact
+                  {t('nav.contact')}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-primary transition-colors">
-                  Blog
+                  {t('nav.blog')}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-primary transition-colors">
-                  FAQ
+                  {t('nav.faq')}
                 </a>
               </li>
             </ul>
@@ -82,21 +85,25 @@ const Footer = () => {
 
           {/* Terms & Social */}
           <div>
-            <h3 className="font-semibold mb-4 text-foreground">Terms</h3>
+            <h3 className="font-semibold mb-4 text-foreground">{t('footer.legal')}</h3>
             <ul className="space-y-2 text-sm text-muted-foreground mb-6">
               <li>
                 <a href="#" className="hover:text-primary transition-colors">
-                  Privacy Policy
+                  {t('footer.privacy')}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-primary transition-colors">
-                  Terms
+                  {t('footer.terms')}
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-primary transition-colors">
+                  {t('footer.cookies')}
                 </a>
               </li>
             </ul>
             
-            <h3 className="font-semibold mb-4 text-foreground">Social Media</h3>
             <div className="flex gap-3">
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
                 <MessageCircle className="h-5 w-5" />
@@ -112,7 +119,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t mt-8 pt-8 text-center text-sm text-muted-foreground">
-          © 2025 StudyPath. All rights reserved.
+          <p>© 2025 StudyPath. {t('footer.allRightsReserved')}</p>
         </div>
       </div>
     </footer>
