@@ -12,8 +12,10 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { Search, Target, Shield, Clock, TrendingUp, GraduationCap, Award, Briefcase, HeadphonesIcon } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Index = () => {
+  const { t } = useLanguage();
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -23,23 +25,23 @@ const Index = () => {
         <div className="container px-4">
           <div className="max-w-4xl mx-auto text-center mb-12">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-              Find and Apply to Top Universities Abroad
+              {t('hero.title')}
             </h1>
             <p className="text-lg md:text-xl text-white/90 mb-8">
-              Search, find, and apply to trusted universities in one place — with support from our partner agencies.
+              {t('hero.subtitle')}
             </p>
           </div>
 
           {/* Search Card */}
           <Card className="max-w-4xl mx-auto p-6 md:p-8 bg-white shadow-2xl">
             <p className="text-foreground text-sm mb-4 font-medium">
-              University Search: Select your preferences to find your perfect match
+              {t('hero.searchTitle')}
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
               <Select>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select Country *" />
+                  <SelectValue placeholder={t('hero.selectCountry')} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="usa">United States</SelectItem>
@@ -52,7 +54,7 @@ const Index = () => {
 
               <Select>
                 <SelectTrigger>
-                  <SelectValue placeholder="Choose Degree Level *" />
+                  <SelectValue placeholder={t('hero.chooseDegree')} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="bachelor">Bachelor's</SelectItem>
@@ -63,7 +65,7 @@ const Index = () => {
 
               <Select>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select Field of Study *" />
+                  <SelectValue placeholder={t('hero.selectField')} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="engineering">Engineering</SelectItem>
@@ -82,13 +84,13 @@ const Index = () => {
             >
               <Link to="/programs">
                 <Search className="mr-2 h-5 w-5" />
-                Search Universities
+                {t('hero.searchButton')}
               </Link>
             </Button>
 
             {/* Quick Access */}
             <div className="mt-8">
-              <p className="text-sm text-muted-foreground text-center mb-4">Quick Access</p>
+              <p className="text-sm text-muted-foreground text-center mb-4">{t('hero.quickAccess')}</p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 <Link to="/programs">
                   <Button variant="outline" className="w-full flex flex-col h-auto py-4 gap-2">
@@ -122,7 +124,7 @@ const Index = () => {
       <section className="py-16 md:py-24">
         <div className="container px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-            Why Students Choose StudyPath
+            {t('whyChoose.title')}
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -130,9 +132,9 @@ const Index = () => {
               <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                 <Target className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="font-semibold mb-2">Personalized Matches</h3>
+              <h3 className="font-semibold mb-2">{t('whyChoose.personalizedMatches')}</h3>
               <p className="text-sm text-muted-foreground">
-                Get universities and scholarships tailored to your profile.
+                {t('whyChoose.personalizedMatchesDesc')}
               </p>
             </Card>
 
@@ -140,9 +142,9 @@ const Index = () => {
               <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                 <Shield className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="font-semibold mb-2">Trusted Support</h3>
+              <h3 className="font-semibold mb-2">{t('whyChoose.trustedSupport')}</h3>
               <p className="text-sm text-muted-foreground">
-                Verified partners and programs you can rely on.
+                {t('whyChoose.trustedSupportDesc')}
               </p>
             </Card>
 
@@ -150,9 +152,9 @@ const Index = () => {
               <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                 <Clock className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="font-semibold mb-2">Save Time & Effort</h3>
+              <h3 className="font-semibold mb-2">{t('whyChoose.timeSaving')}</h3>
               <p className="text-sm text-muted-foreground">
-                One platform for programs, scholarships, and career guidance.
+                {t('whyChoose.timeSavingDesc')}
               </p>
             </Card>
 
@@ -160,9 +162,9 @@ const Index = () => {
               <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                 <TrendingUp className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="font-semibold mb-2">Smart Decisions</h3>
+              <h3 className="font-semibold mb-2">{t('whyChoose.informedDecisions')}</h3>
               <p className="text-sm text-muted-foreground">
-                Compare options, track deadlines, and gain confidence.
+                {t('whyChoose.informedDecisionsDesc')}
               </p>
             </Card>
           </div>
