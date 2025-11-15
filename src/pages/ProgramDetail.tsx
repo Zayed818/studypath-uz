@@ -6,6 +6,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Link, useParams } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 import {
   ArrowLeft,
   GraduationCap,
@@ -26,6 +27,7 @@ import {
 
 const ProgramDetail = () => {
   const { id } = useParams();
+  const { t } = useLanguage();
 
   // Mock data - in production this would come from an API
   const program = {
@@ -111,7 +113,7 @@ const ProgramDetail = () => {
             className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-6 transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
-            Back to Programs
+            {t('programDetail.backToPrograms')}
           </Link>
 
           <div className="flex flex-col lg:flex-row gap-8 items-start">
@@ -138,33 +140,33 @@ const ProgramDetail = () => {
                 {program.scholarshipAvailable && (
                   <Badge className="bg-secondary text-white border-secondary/30">
                     <Award className="h-3 w-3 mr-1" />
-                    Scholarship Available
+                    {t('programDetail.scholarshipAvailable')}
                   </Badge>
                 )}
-                <Badge className="bg-white text-primary border-white/30">Top University</Badge>
-                <Badge className="bg-success/90 text-white border-success/30">No Tuition</Badge>
+                <Badge className="bg-white text-primary border-white/30">{t('programDetail.topUniversity')}</Badge>
+                <Badge className="bg-success/90 text-white border-success/30">{t('programDetail.noTuition')}</Badge>
               </div>
             </div>
 
             <div className="lg:w-80">
               <Card className="p-6 bg-white">
                 <div className="text-center mb-4">
-                  <p className="text-sm text-muted-foreground mb-1">Tuition Fee</p>
+                  <p className="text-sm text-muted-foreground mb-1">{t('programDetail.tuitionFee')}</p>
                   <p className="text-3xl font-bold text-primary">{program.tuition}</p>
                 </div>
                 <div className="space-y-3 mb-6 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Application Fee</span>
+                    <span className="text-muted-foreground">{t('programDetail.applicationFee')}</span>
                     <span className="font-semibold">{program.applicationFee}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Duration</span>
+                    <span className="text-muted-foreground">{t('programDetail.duration')}</span>
                     <span className="font-semibold">{program.duration}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Housing</span>
+                    <span className="text-muted-foreground">{t('programDetail.housing')}</span>
                     <span className="font-semibold">
-                      {program.housingAvailable ? "Available" : "Not Available"}
+                      {program.housingAvailable ? t('programDetail.available') : t('programDetail.notAvailable')}
                     </span>
                   </div>
                 </div>
@@ -173,14 +175,14 @@ const ProgramDetail = () => {
                     <Link 
                       to={`/apply?programId=${program.id}&universityId=${program.country}&programName=${encodeURIComponent(program.program)}&universityName=${encodeURIComponent(program.university)}`}
                     >
-                      Apply Now
+                      {t('programDetail.applyNow')}
                     </Link>
                   </Button>
                   <Button variant="outline" className="w-full" size="lg">
-                    Request Help
+                    {t('programDetail.requestHelp')}
                   </Button>
                   <Button variant="ghost" className="w-full" size="sm">
-                    Save Program
+                    {t('programDetail.saveProgram')}
                   </Button>
                 </div>
               </Card>
@@ -195,8 +197,8 @@ const ProgramDetail = () => {
           <Alert className="border-warning bg-warning/10">
             <AlertTriangle className="h-4 w-4 text-warning" />
             <AlertDescription className="text-warning-foreground">
-              <strong>Deadline Alert:</strong> Application deadline is in {daysUntilDeadline} days
-              (July 15, 2025). Apply soon to secure your spot!
+              <strong>{t('programDetail.deadlineAlert')}:</strong> {t('programDetail.deadlineInDays').replace('{days}', daysUntilDeadline.toString())}
+              (July 15, 2025). {t('programDetail.applySoon')}
             </AlertDescription>
           </Alert>
         </div>
@@ -209,17 +211,17 @@ const ProgramDetail = () => {
           <div className="lg:col-span-2">
             <Tabs defaultValue="overview" className="w-full">
               <TabsList className="grid w-full grid-cols-4 mb-8">
-                <TabsTrigger value="overview">Overview</TabsTrigger>
-                <TabsTrigger value="requirements">Requirements</TabsTrigger>
-                <TabsTrigger value="deadlines">Deadlines</TabsTrigger>
-                <TabsTrigger value="costs">Costs</TabsTrigger>
+                <TabsTrigger value="overview">{t('programDetail.overview')}</TabsTrigger>
+                <TabsTrigger value="requirements">{t('programDetail.requirements')}</TabsTrigger>
+                <TabsTrigger value="deadlines">{t('programDetail.deadlines')}</TabsTrigger>
+                <TabsTrigger value="costs">{t('programDetail.costs')}</TabsTrigger>
               </TabsList>
 
               <TabsContent value="overview" className="space-y-6">
                 <Card className="p-6">
                   <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                     <BookOpen className="h-5 w-5 text-primary" />
-                    Program Description
+                    {t('programDetail.programDescription')}
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">{program.description}</p>
                 </Card>
@@ -227,7 +229,7 @@ const ProgramDetail = () => {
                 <Card className="p-6">
                   <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                     <CheckCircle className="h-5 w-5 text-primary" />
-                    What You'll Learn
+                    {t('programDetail.whatYouLearn')}
                   </h3>
                   <ul className="space-y-3">
                     {program.overview.map((item, idx) => (
@@ -242,7 +244,7 @@ const ProgramDetail = () => {
                 <Card className="p-6">
                   <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                     <TrendingUp className="h-5 w-5 text-primary" />
-                    Career Outlook
+                    {t('programDetail.careerOutlook')}
                   </h3>
                   <p className="text-muted-foreground leading-relaxed mb-4">{program.outlook}</p>
 
@@ -250,21 +252,14 @@ const ProgramDetail = () => {
                     <div>
                       <h4 className="font-semibold mb-3 text-success flex items-center gap-2">
                         <CheckCircle className="h-4 w-4" />
-                        Advantages
+                        {t('programDetail.advantages')}
                       </h4>
-                      <ul className="space-y-2">
-                        {program.pros.map((pro, idx) => (
-                          <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
-                            <CheckCircle className="h-4 w-4 text-success flex-shrink-0 mt-0.5" />
-                            {pro}
-                          </li>
-                        ))}
-                      </ul>
+...
                     </div>
                     <div>
                       <h4 className="font-semibold mb-3 text-muted-foreground flex items-center gap-2">
                         <AlertTriangle className="h-4 w-4" />
-                        Considerations
+                        {t('programDetail.considerations')}
                       </h4>
                       <ul className="space-y-2">
                         {program.cons.map((con, idx) => (
@@ -283,22 +278,22 @@ const ProgramDetail = () => {
                 <Card className="p-6">
                   <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                     <FileText className="h-5 w-5 text-primary" />
-                    Eligibility Requirements
+                    {t('programDetail.eligibilityRequirements')}
                   </h3>
 
                   <div className="space-y-6">
                     <div>
-                      <h4 className="font-semibold mb-2">Academic Requirements</h4>
+                      <h4 className="font-semibold mb-2">{t('programDetail.academicRequirements')}</h4>
                       <p className="text-muted-foreground">{program.requirements.gpa}</p>
                     </div>
 
                     <div>
-                      <h4 className="font-semibold mb-2">Language Proficiency</h4>
+                      <h4 className="font-semibold mb-2">{t('programDetail.languageProficiency')}</h4>
                       <p className="text-muted-foreground">{program.requirements.english}</p>
                     </div>
 
                     <div>
-                      <h4 className="font-semibold mb-3">Required Documents</h4>
+                      <h4 className="font-semibold mb-3">{t('programDetail.requiredDocuments')}</h4>
                       <ul className="space-y-3">
                         {program.requirements.documents.map((doc, idx) => (
                           <li key={idx} className="flex items-start gap-3">
@@ -313,8 +308,7 @@ const ProgramDetail = () => {
 
                 <Alert className="border-info bg-info/10">
                   <AlertDescription className="text-info-foreground">
-                    <strong>Missing Documents?</strong> Our partner agencies can help you prepare all
-                    required documents and ensure your application is complete.
+                    <strong>{t('programDetail.missingDocuments')}</strong> {t('programDetail.documentHelp')}
                   </AlertDescription>
                 </Alert>
               </TabsContent>
@@ -325,7 +319,7 @@ const ProgramDetail = () => {
                     <div className="flex items-start justify-between mb-4">
                       <div>
                         <h3 className="text-xl font-bold mb-1">{intake.season}</h3>
-                        <p className="text-sm text-muted-foreground">Starts {intake.startDate}</p>
+                        <p className="text-sm text-muted-foreground">{t('programDetail.starts')} {intake.startDate}</p>
                       </div>
                       <Badge variant="outline" className="text-lg px-4 py-2">
                         <Calendar className="h-4 w-4 mr-2" />
@@ -336,7 +330,7 @@ const ProgramDetail = () => {
                     <div className="space-y-4">
                       <div className="flex items-center justify-between p-4 bg-muted/50 rounded-lg">
                         <div>
-                          <p className="font-semibold">Application Opens</p>
+                          <p className="font-semibold">{t('programDetail.applicationOpens')}</p>
                           <p className="text-sm text-muted-foreground">December 1, 2023</p>
                         </div>
                         <CheckCircle className="h-5 w-5 text-success" />
@@ -344,7 +338,7 @@ const ProgramDetail = () => {
 
                       <div className="flex items-center justify-between p-4 bg-destructive/10 rounded-lg border-l-4 border-l-destructive">
                         <div>
-                          <p className="font-semibold text-destructive">Application Deadline</p>
+                          <p className="font-semibold text-destructive">{t('programDetail.applicationDeadline')}</p>
                           <p className="text-sm text-muted-foreground">{intake.applicationDeadline}</p>
                         </div>
                         <AlertTriangle className="h-5 w-5 text-destructive" />
@@ -352,14 +346,14 @@ const ProgramDetail = () => {
 
                       <div className="flex items-center justify-between p-4 bg-muted/50 rounded-lg">
                         <div>
-                          <p className="font-semibold">Shortlist Notification</p>
+                          <p className="font-semibold">{t('programDetail.shortlistNotification')}</p>
                           <p className="text-sm text-muted-foreground">April 30, 2024</p>
                         </div>
                       </div>
 
                       <div className="flex items-center justify-between p-4 bg-success/10 rounded-lg border-l-4 border-l-success">
                         <div>
-                          <p className="font-semibold text-success">Final Results</p>
+                          <p className="font-semibold text-success">{t('programDetail.finalDecision')}</p>
                           <p className="text-sm text-muted-foreground">June 15, 2024</p>
                         </div>
                       </div>
@@ -372,35 +366,35 @@ const ProgramDetail = () => {
                 <Card className="p-6">
                   <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
                     <DollarSign className="h-5 w-5 text-primary" />
-                    Cost Breakdown
+                    {t('programDetail.costBreakdown')}
                   </h3>
 
                   <div className="space-y-4">
                     <div className="flex justify-between items-center p-4 bg-muted/50 rounded-lg">
                       <div>
-                        <p className="font-semibold">Tuition Fee (per year)</p>
+                        <p className="font-semibold">{t('programDetail.tuitionFeePerYear')}</p>
                         <p className="text-sm text-muted-foreground">{program.tuitionDetails}</p>
                       </div>
                       <p className="text-2xl font-bold text-success">{program.tuition}</p>
                     </div>
 
                     <div className="flex justify-between items-center p-4 bg-muted/50 rounded-lg">
-                      <p className="font-semibold">Application Fee</p>
+                      <p className="font-semibold">{t('programDetail.applicationFee')}</p>
                       <p className="text-lg font-semibold">{program.applicationFee}</p>
                     </div>
 
                     <div className="flex justify-between items-center p-4 bg-muted/50 rounded-lg">
-                      <p className="font-semibold">Housing Cost (per month)</p>
+                      <p className="font-semibold">{t('programDetail.housingCostPerMonth')}</p>
                       <p className="text-lg font-semibold">{program.housingCost}</p>
                     </div>
 
                     <div className="flex justify-between items-center p-4 bg-muted/50 rounded-lg">
-                      <p className="font-semibold">Living Cost (per month)</p>
+                      <p className="font-semibold">{t('programDetail.livingCostPerMonth')}</p>
                       <p className="text-lg font-semibold">{program.livingCost}</p>
                     </div>
 
                     <div className="flex justify-between items-center p-4 bg-muted/50 rounded-lg">
-                      <p className="font-semibold">Visa Application Fee</p>
+                      <p className="font-semibold">{t('programDetail.visaApplicationFee')}</p>
                       <p className="text-lg font-semibold">{program.visaFee}</p>
                     </div>
                   </div>
@@ -409,14 +403,13 @@ const ProgramDetail = () => {
                 <Card className="p-6 bg-secondary/5 border-secondary/20">
                   <h4 className="font-bold mb-3 flex items-center gap-2">
                     <Award className="h-5 w-5 text-secondary" />
-                    Scholarship Opportunities Available
+                    {t('programDetail.scholarshipOpportunities')}
                   </h4>
                   <p className="text-muted-foreground mb-4">
-                    This program qualifies for various scholarship opportunities that can help reduce or
-                    eliminate tuition costs.
+                    {t('programDetail.scholarshipDescription')}
                   </p>
                   <Button variant="outline" className="border-secondary text-secondary hover:bg-secondary/10" asChild>
-                    <Link to="/scholarships">Explore Scholarships</Link>
+                    <Link to="/scholarships">{t('programDetail.exploreScholarships')}</Link>
                   </Button>
                 </Card>
               </TabsContent>
@@ -427,36 +420,36 @@ const ProgramDetail = () => {
           <div className="space-y-6">
             {/* Quick Info */}
             <Card className="p-6">
-              <h3 className="font-bold mb-4">Quick Information</h3>
+              <h3 className="font-bold mb-4">{t('programDetail.quickInformation')}</h3>
               <div className="space-y-4 text-sm">
                 <div className="flex items-start gap-3">
                   <Clock className="h-5 w-5 text-primary flex-shrink-0" />
                   <div>
-                    <p className="font-semibold">Duration</p>
+                    <p className="font-semibold">{t('programDetail.duration')}</p>
                     <p className="text-muted-foreground">{program.duration}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <Calendar className="h-5 w-5 text-primary flex-shrink-0" />
                   <div>
-                    <p className="font-semibold">Intake</p>
+                    <p className="font-semibold">{t('programDetail.intake')}</p>
                     <p className="text-muted-foreground">{program.intake}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <Home className="h-5 w-5 text-primary flex-shrink-0" />
                   <div>
-                    <p className="font-semibold">Housing</p>
+                    <p className="font-semibold">{t('programDetail.housing')}</p>
                     <p className="text-muted-foreground">
-                      {program.housingAvailable ? "Available on campus" : "Off-campus only"}
+                      {program.housingAvailable ? t('programDetail.availableOnCampus') : t('programDetail.offCampusOnly')}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <Building className="h-5 w-5 text-primary flex-shrink-0" />
                   <div>
-                    <p className="font-semibold">Admission Type</p>
-                    <p className="text-muted-foreground">Rolling admissions</p>
+                    <p className="font-semibold">{t('programDetail.admissionType')}</p>
+                    <p className="text-muted-foreground">{t('programDetail.rollingAdmissions')}</p>
                   </div>
                 </div>
               </div>
@@ -464,7 +457,7 @@ const ProgramDetail = () => {
 
             {/* Related Programs */}
             <Card className="p-6">
-              <h3 className="font-bold mb-4">Related Programs</h3>
+              <h3 className="font-bold mb-4">{t('programDetail.relatedPrograms')}</h3>
               <div className="space-y-3">
                 <Link to="/programs/2" className="block p-3 rounded-lg hover:bg-muted/50 transition-colors">
                   <p className="font-semibold text-sm mb-1">MSc Computer Science</p>
