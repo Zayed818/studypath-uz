@@ -8,45 +8,57 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { toast } from "@/hooks/use-toast";
-import PersonalDetailsStep from "@/components/apply/PersonalDetailsStep";
-import AcademicInfoStep from "@/components/apply/AcademicInfoStep";
-import ReviewSubmitStep from "@/components/apply/ReviewSubmitStep";
+import ProfileStep from "@/components/apply/ProfileStep";
+import EligibilityStep from "@/components/apply/EligibilityStep";
+import DocumentsStep from "@/components/apply/DocumentsStep";
+import ReviewStep from "@/components/apply/ReviewStep";
+import ConfirmationStep from "@/components/apply/ConfirmationStep";
 
 export interface ApplicationFormData {
-  // Program Context
+  // Program Context (auto-detected)
   programId: string;
   universityId: string;
   programName: string;
   universityName: string;
   
-  // Personal Details (mandatory)
+  // Stage 1: Profile (mandatory)
   firstName: string;
   lastName: string;
+  dateOfBirth: Date | undefined;
+  gender: string; // optional
+  nationality: string; // Central Asian countries only
+  city: string;
   email: string;
   phone: string;
-  countryOfResidence: string;
-  city: string;
-  dateOfBirth: Date | undefined; // optional
-  gender: string; // optional
   
-  // Academic Info (all optional)
+  // Stage 2: Eligibility (all optional)
   currentEducationLevel: string;
   gpa: string;
   englishTest: string;
   englishScore: string;
-  transcript: File | null;
+  budgetRange: string;
+  scholarshipInterest: boolean;
   
-  // Consent
+  // Stage 3: Documents (all optional)
+  transcript: File | null;
+  englishProof: File | null;
+  passport: File | null;
+  cv: File | null;
+  recommendationLetters: File | null;
+  
+  // Stage 4: Consent
   consent: boolean;
 }
 
 export interface ValidationErrors {
   firstName?: string;
   lastName?: string;
+  dateOfBirth?: string;
+  gender?: string;
+  nationality?: string;
+  city?: string;
   email?: string;
   phone?: string;
-  countryOfResidence?: string;
-  city?: string;
   consent?: string;
 }
 
@@ -57,7 +69,8 @@ const Apply = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
-  const totalSteps = 3;
+  const [applicationId, setApplicationId] = useState("");
+  const totalSteps = 5;
   
   const [formData, setFormData] = useState<ApplicationFormData>({
     programId: "",
@@ -66,21 +79,27 @@ const Apply = () => {
     universityName: "",
     firstName: "",
     lastName: "",
-    email: "",
-    phone: "",
-    countryOfResidence: "",
-    city: "",
     dateOfBirth: undefined,
     gender: "",
+    nationality: "",
+    city: "",
+    email: "",
+    phone: "",
     currentEducationLevel: "",
     gpa: "",
     englishTest: "",
     englishScore: "",
+    budgetRange: "",
+    scholarshipInterest: false,
     transcript: null,
+    englishProof: null,
+    passport: null,
+    cv: null,
+    recommendationLetters: null,
     consent: false,
   });
 
-  // Capture program context from URL on mount
+  // Auto-detect program context from URL
   useEffect(() => {
     const programId = searchParams.get("programId") || "";
     const universityId = searchParams.get("universityId") || "";
@@ -90,7 +109,7 @@ const Apply = () => {
     if (!programId || !universityName) {
       toast({
         title: t('common.error'),
-        description: "Please select a program first",
+        description: t('apply.selectProgramFirst'),
         variant: "destructive",
       });
       navigate("/programs");
@@ -106,10 +125,30 @@ const Apply = () => {
     }));
   }, [searchParams, navigate, t]);
 
+  // Autosave to localStorage
+  useEffect(() => {
+    if (formData.programId) {
+      localStorage.setItem(`application_draft_${formData.programId}`, JSON.stringify(formData));
+    }
+  }, [formData]);
+
+  // Load draft on mount
+  useEffect(() => {
+    const programId = searchParams.get("programId");
+    if (programId) {
+      const draft = localStorage.getItem(`application_draft_${programId}`);
+      if (draft) {
+        setFormData(JSON.parse(draft));
+      }
+    }
+  }, [searchParams]);
+
   const steps = [
-    { number: 1, title: t('apply.personalDetails'), component: PersonalDetailsStep },
-    { number: 2, title: t('apply.academicInfoOptional'), component: AcademicInfoStep },
-    { number: 3, title: t('apply.reviewSubmit'), component: ReviewSubmitStep },
+    { number: 1, title: t('apply.profile'), component: ProfileStep },
+    { number: 2, title: t('apply.eligibility'), component: EligibilityStep },
+    { number: 3, title: t('apply.documents'), component: DocumentsStep },
+    { number: 4, title: t('apply.review'), component: ReviewStep },
+    { number: 5, title: t('apply.confirmation'), component: ConfirmationStep },
   ];
 
   const progress = (currentStep / totalSteps) * 100;
@@ -125,120 +164,116 @@ const Apply = () => {
     return phoneRegex.test(phone);
   };
 
-  const validatePersonalDetails = (): boolean => {
+  const validateProfileStep = (): boolean => {
     const errors: ValidationErrors = {};
 
     if (!formData.firstName.trim()) {
-      errors.firstName = t('apply.requiredField');
+      errors.firstName = t('apply.fieldRequired');
     }
     if (!formData.lastName.trim()) {
-      errors.lastName = t('apply.requiredField');
+      errors.lastName = t('apply.fieldRequired');
+    }
+    if (!formData.dateOfBirth) {
+      errors.dateOfBirth = t('apply.fieldRequired');
+    }
+    if (!formData.nationality) {
+      errors.nationality = t('apply.fieldRequired');
+    }
+    if (!formData.city) {
+      errors.city = t('apply.fieldRequired');
     }
     if (!formData.email.trim()) {
-      errors.email = t('apply.requiredField');
+      errors.email = t('apply.fieldRequired');
     } else if (!validateEmail(formData.email)) {
       errors.email = t('apply.invalidEmail');
     }
     if (!formData.phone.trim()) {
-      errors.phone = t('apply.requiredField');
+      errors.phone = t('apply.fieldRequired');
     } else if (!validatePhone(formData.phone)) {
       errors.phone = t('apply.invalidPhone');
-    }
-    if (!formData.countryOfResidence) {
-      errors.countryOfResidence = t('apply.requiredField');
-    }
-    if (!formData.city) {
-      errors.city = t('apply.requiredField');
     }
 
     setValidationErrors(errors);
     return Object.keys(errors).length === 0;
   };
 
-  const handleNext = () => {
-    // Validate step 1 before proceeding
-    if (currentStep === 1 && !validatePersonalDetails()) {
-      toast({
-        title: t('common.error'),
-        description: t('apply.fillRequired'),
-        variant: "destructive",
-      });
-      return;
+  const validateReviewStep = (): boolean => {
+    const errors: ValidationErrors = {};
+
+    if (!formData.consent) {
+      errors.consent = t('apply.consentRequired');
     }
 
-    if (currentStep < totalSteps) {
-      setCurrentStep(currentStep + 1);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  };
-
-  const handleBack = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  };
-
-  const handleStepClick = (stepNumber: number) => {
-    setCurrentStep(stepNumber);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
   };
 
   const updateFormData = (data: Partial<ApplicationFormData>) => {
     setFormData((prev) => ({ ...prev, ...data }));
     // Clear validation errors for updated fields
-    if (validationErrors) {
-      const newErrors = { ...validationErrors };
-      Object.keys(data).forEach((key) => {
+    const updatedKeys = Object.keys(data);
+    setValidationErrors((prev) => {
+      const newErrors = { ...prev };
+      updatedKeys.forEach((key) => {
         delete newErrors[key as keyof ValidationErrors];
       });
-      setValidationErrors(newErrors);
+      return newErrors;
+    });
+  };
+
+  const handleNext = () => {
+    // Validate stage 1 (Profile)
+    if (currentStep === 1 && !validateProfileStep()) {
+      return;
     }
+
+    // Validate stage 4 (Review - consent)
+    if (currentStep === 4 && !validateReviewStep()) {
+      return;
+    }
+
+    // Submit on stage 4 (Review)
+    if (currentStep === 4) {
+      handleSubmit();
+      return;
+    }
+
+    setCurrentStep((prev) => Math.min(prev + 1, totalSteps));
+  };
+
+  const handleBack = () => {
+    setCurrentStep((prev) => Math.max(prev - 1, 1));
+  };
+
+  const handleEditStep = (step: number) => {
+    setCurrentStep(step);
   };
 
   const handleSubmit = async () => {
-    // Final validation
-    if (!validatePersonalDetails()) {
-      toast({
-        title: t('common.error'),
-        description: t('apply.fillRequired'),
-        variant: "destructive",
-      });
-      setCurrentStep(1);
-      return;
-    }
-
-    if (!formData.consent) {
-      toast({
-        title: t('common.error'),
-        description: t('apply.consentRequired'),
-        variant: "destructive",
-      });
-      return;
-    }
-
     setIsSubmitting(true);
 
     try {
-      // Generate reference number
-      const referenceNumber = `APP-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+      // Generate application ID
+      const appId = `APP-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
       
-      // In production, this would be an API call to save the application
-      console.log("Application submitted:", {
-        ...formData,
-        referenceNumber,
-        submittedAt: new Date().toISOString(),
+      // Simulate API submission (replace with actual API call)
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      // Clear draft
+      localStorage.removeItem(`application_draft_${formData.programId}`);
+
+      // Set application ID and move to confirmation
+      setApplicationId(appId);
+      setCurrentStep(5);
+
+      toast({
+        title: t('apply.success'),
+        description: t('apply.applicationSubmittedSuccess'),
       });
-
-      // Simulate API delay
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // Navigate to success page
-      navigate(`/apply/success?ref=${referenceNumber}&program=${encodeURIComponent(formData.programName)}&university=${encodeURIComponent(formData.universityName)}`);
     } catch (error) {
       toast({
         title: t('common.error'),
-        description: "Failed to submit application. Please try again.",
+        description: t('apply.submissionError'),
         variant: "destructive",
       });
     } finally {
@@ -249,122 +284,125 @@ const Apply = () => {
   const CurrentStepComponent = steps[currentStep - 1].component;
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-muted/20">
       <Header />
-      
-      <main className="flex-1 bg-muted py-8 md:py-12">
-        <div className="container px-4 max-w-4xl mx-auto">
+
+      <main className="flex-1 py-12">
+        <div className="container max-w-4xl px-4">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-3xl md:text-4xl font-bold mb-2">
-              Application Form
-            </h1>
-            <p className="text-muted-foreground">
-              Complete your application in {totalSteps} simple steps
-            </p>
+            <h1 className="text-3xl font-bold mb-2">{t('apply.applicationForm')}</h1>
+            {formData.programName && (
+              <p className="text-muted-foreground">
+                {formData.programName} • {formData.universityName}
+              </p>
+            )}
           </div>
 
           {/* Progress Bar */}
           <div className="mb-8">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium">
-                Step {currentStep} of {totalSteps}
-              </span>
-              <span className="text-sm text-muted-foreground">
-                {Math.round(progress)}% Complete
-              </span>
-            </div>
-            <Progress value={progress} className="h-2" />
-          </div>
-
-          {/* Step Indicators */}
-          <div className="mb-8">
-            <div className="flex items-center justify-between">
-              {steps.map((step, index) => (
-                <div key={step.number} className="flex items-center flex-1">
-                  <button
-                    onClick={() => handleStepClick(step.number)}
-                    className={`flex flex-col items-center gap-2 ${
-                      step.number === currentStep
-                        ? "opacity-100"
-                        : step.number < currentStep
-                        ? "opacity-100 cursor-pointer"
-                        : "opacity-40"
+            <Progress value={progress} className="h-2 mb-4" />
+            <div className="flex justify-between text-xs">
+              {steps.map((step) => (
+                <div
+                  key={step.number}
+                  className={`flex flex-col items-center gap-1 ${
+                    currentStep === step.number
+                      ? "text-primary font-semibold"
+                      : currentStep > step.number
+                      ? "text-green-600"
+                      : "text-muted-foreground"
+                  }`}
+                >
+                  <div
+                    className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                      currentStep > step.number
+                        ? "bg-green-600 text-white"
+                        : currentStep === step.number
+                        ? "bg-primary text-white"
+                        : "bg-muted"
                     }`}
                   >
-                    <div
-                      className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold transition-colors ${
-                        step.number < currentStep
-                          ? "bg-primary text-primary-foreground"
-                          : step.number === currentStep
-                          ? "bg-primary text-primary-foreground ring-4 ring-primary/20"
-                          : "bg-muted-foreground/20 text-muted-foreground"
-                      }`}
-                    >
-                      {step.number < currentStep ? (
-                        <Check className="h-5 w-5" />
-                      ) : (
-                        step.number
-                      )}
-                    </div>
-                    <span className="text-xs font-medium text-center hidden md:block">
-                      {step.title}
-                    </span>
-                  </button>
-                  {index < steps.length - 1 && (
-                    <div
-                      className={`flex-1 h-1 mx-2 rounded transition-colors ${
-                        step.number < currentStep
-                          ? "bg-primary"
-                          : "bg-muted-foreground/20"
-                      }`}
-                    />
-                  )}
+                    {currentStep > step.number ? (
+                      <Check className="h-4 w-4" />
+                    ) : (
+                      step.number
+                    )}
+                  </div>
+                  <span className="hidden sm:block text-center">{step.title}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Form Card */}
-          <Card className="p-6 md:p-8">
-            <CurrentStepComponent
-              formData={formData}
-              updateFormData={updateFormData}
-              validationErrors={currentStep === 1 ? validationErrors : undefined}
-            />
+          {/* Form Content */}
+          <Card className="p-6 md:p-8 mb-8">
+            {currentStep === 1 && (
+              <ProfileStep
+                formData={formData}
+                updateFormData={updateFormData}
+                validationErrors={validationErrors}
+              />
+            )}
+            {currentStep === 2 && (
+              <EligibilityStep
+                formData={formData}
+                updateFormData={updateFormData}
+              />
+            )}
+            {currentStep === 3 && (
+              <DocumentsStep
+                formData={formData}
+                updateFormData={updateFormData}
+              />
+            )}
+            {currentStep === 4 && (
+              <ReviewStep
+                formData={formData}
+                updateFormData={updateFormData}
+                validationErrors={validationErrors}
+                onEditStep={handleEditStep}
+              />
+            )}
+            {currentStep === 5 && (
+              <ConfirmationStep applicationId={applicationId} />
+            )}
           </Card>
 
           {/* Navigation Buttons */}
-          <div className="flex items-center justify-between mt-6">
-            <Button
-              variant="outline"
-              onClick={handleBack}
-              disabled={currentStep === 1}
-              className="gap-2"
-            >
-              <ChevronLeft className="h-4 w-4" />
-              Back
-            </Button>
-            
-            {currentStep < totalSteps ? (
-              <Button onClick={handleNext} className="gap-2">
-                {t('common.next')}
-                <ChevronRight className="h-4 w-4" />
-              </Button>
-            ) : (
-              <Button 
-                onClick={handleSubmit} 
-                className="gap-2"
-                disabled={isSubmitting || !formData.consent}
+          {currentStep < 5 && (
+            <div className="flex justify-between gap-4">
+              <Button
+                variant="outline"
+                onClick={handleBack}
+                disabled={currentStep === 1}
+                size="lg"
               >
-                {isSubmitting ? t('apply.submitting') : t('apply.submit')}
-                <Check className="h-4 w-4" />
+                <ChevronLeft className="h-4 w-4 mr-2" />
+                {t('apply.back')}
               </Button>
-            )}
-          </div>
+
+              {currentStep < 4 && (
+                <Button onClick={handleNext} size="lg">
+                  {t('apply.next')}
+                  <ChevronRight className="h-4 w-4 ml-2" />
+                </Button>
+              )}
+
+              {currentStep === 4 && (
+                <Button 
+                  onClick={handleNext} 
+                  size="lg"
+                  disabled={isSubmitting || !formData.consent}
+                >
+                  {isSubmitting ? t('apply.submitting') : t('apply.submit')}
+                </Button>
+              )}
+            </div>
+          )}
         </div>
       </main>
-      
+
       <Footer />
     </div>
   );
