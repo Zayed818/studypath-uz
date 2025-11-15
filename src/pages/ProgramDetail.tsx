@@ -210,7 +210,7 @@ const ProgramDetail = () => {
           {/* Main Column */}
           <div className="lg:col-span-2">
             <Tabs defaultValue="overview" className="w-full">
-              <TabsList className="grid w-full grid-cols-4 mb-8">
+              <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 mb-8">
                 <TabsTrigger value="overview">{t('programDetail.overview')}</TabsTrigger>
                 <TabsTrigger value="requirements">{t('programDetail.requirements')}</TabsTrigger>
                 <TabsTrigger value="deadlines">{t('programDetail.deadlines')}</TabsTrigger>
