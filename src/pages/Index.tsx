@@ -243,41 +243,42 @@ const Index = () => {
             <p className="text-muted-foreground">{t('partners.subtitle')}</p>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 items-center justify-items-center max-w-5xl mx-auto">
-            {/* Partner badges/logos - verified institutions */}
-            <div className="flex flex-col items-center gap-2 p-4">
-              <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
-                <Shield className="h-10 w-10 text-primary" />
+          <div className="flex flex-wrap justify-center items-center gap-12 md:gap-16 max-w-6xl mx-auto">
+            {/* Partner Agency Logos - Replace with actual logos */}
+            <div className="flex items-center justify-center w-32 h-20 grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100">
+              <div className="w-full h-full bg-muted/50 rounded-lg flex items-center justify-center border">
+                <span className="text-xs font-semibold text-muted-foreground">Agency 1</span>
               </div>
-              <span className="text-sm font-medium text-center">{t('partners.verified')}</span>
             </div>
             
-            <div className="flex flex-col items-center gap-2 p-4">
-              <div className="w-20 h-20 rounded-full bg-secondary/10 flex items-center justify-center">
-                <GraduationCap className="h-10 w-10 text-secondary" />
+            <div className="flex items-center justify-center w-32 h-20 grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100">
+              <div className="w-full h-full bg-muted/50 rounded-lg flex items-center justify-center border">
+                <span className="text-xs font-semibold text-muted-foreground">Agency 2</span>
               </div>
-              <span className="text-sm font-medium text-center">{t('partners.accredited')}</span>
             </div>
             
-            <div className="flex flex-col items-center gap-2 p-4">
-              <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
-                <Award className="h-10 w-10 text-primary" />
+            <div className="flex items-center justify-center w-32 h-20 grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100">
+              <div className="w-full h-full bg-muted/50 rounded-lg flex items-center justify-center border">
+                <span className="text-xs font-semibold text-muted-foreground">Agency 3</span>
               </div>
-              <span className="text-sm font-medium text-center">{t('partners.scholarships')}</span>
             </div>
             
-            <div className="flex flex-col items-center gap-2 p-4">
-              <div className="w-20 h-20 rounded-full bg-secondary/10 flex items-center justify-center">
-                <Target className="h-10 w-10 text-secondary" />
+            <div className="flex items-center justify-center w-32 h-20 grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100">
+              <div className="w-full h-full bg-muted/50 rounded-lg flex items-center justify-center border">
+                <span className="text-xs font-semibold text-muted-foreground">Agency 4</span>
               </div>
-              <span className="text-sm font-medium text-center">{t('partners.placement')}</span>
             </div>
             
-            <div className="flex flex-col items-center gap-2 p-4">
-              <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
-                <HeadphonesIcon className="h-10 w-10 text-primary" />
+            <div className="flex items-center justify-center w-32 h-20 grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100">
+              <div className="w-full h-full bg-muted/50 rounded-lg flex items-center justify-center border">
+                <span className="text-xs font-semibold text-muted-foreground">Agency 5</span>
               </div>
-              <span className="text-sm font-medium text-center">{t('partners.support')}</span>
+            </div>
+
+            <div className="flex items-center justify-center w-32 h-20 grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100">
+              <div className="w-full h-full bg-muted/50 rounded-lg flex items-center justify-center border">
+                <span className="text-xs font-semibold text-muted-foreground">Agency 6</span>
+              </div>
             </div>
           </div>
         </div>
