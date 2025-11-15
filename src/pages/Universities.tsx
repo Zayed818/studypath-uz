@@ -54,28 +54,6 @@ const countryData: Record<string, CountryInfo> = {
     programs: [
       {
         id: "turkey-1",
-        title: "Computer Engineering",
-        university: "Middle East Technical University",
-        degree: "Bachelor's",
-        field: "Engineering",
-        tuitionFee: "$4,500/year",
-        intakeDates: "September 2025",
-        deadline: "July 15, 2025",
-        requirements: "High school diploma, English proficiency (TOEFL 80+)"
-      },
-      {
-        id: "turkey-2",
-        title: "International Relations",
-        university: "Koç University",
-        degree: "Bachelor's",
-        field: "Social Sciences",
-        tuitionFee: "$18,000/year",
-        intakeDates: "September 2025",
-        deadline: "June 30, 2025",
-        requirements: "High school diploma, SAT/ACT, English proficiency"
-      },
-      {
-        id: "turkey-3",
         title: "Mechanical Engineering",
         university: "Istanbul Technical University",
         degree: "Bachelor's",
@@ -84,6 +62,39 @@ const countryData: Record<string, CountryInfo> = {
         intakeDates: "September 2025",
         deadline: "August 1, 2025",
         requirements: "High school diploma with strong math background"
+      },
+      {
+        id: "turkey-2",
+        title: "Computer Engineering",
+        university: "Middle East Technical University",
+        degree: "Bachelor's",
+        field: "Computer & Data",
+        tuitionFee: "$4,500/year",
+        intakeDates: "September 2025",
+        deadline: "July 15, 2025",
+        requirements: "High school diploma, English proficiency (TOEFL 80+)"
+      },
+      {
+        id: "turkey-3",
+        title: "Business Administration",
+        university: "Koç University",
+        degree: "Bachelor's",
+        field: "Business & Economics",
+        tuitionFee: "$18,000/year",
+        intakeDates: "September 2025",
+        deadline: "June 30, 2025",
+        requirements: "High school diploma, SAT/ACT, English proficiency"
+      },
+      {
+        id: "turkey-4",
+        title: "Architecture",
+        university: "Bilkent University",
+        degree: "Bachelor's",
+        field: "Design & Creative",
+        tuitionFee: "$16,500/year",
+        intakeDates: "September 2025",
+        deadline: "July 1, 2025",
+        requirements: "Portfolio, high school diploma, English proficiency"
       }
     ]
   },
@@ -95,84 +106,106 @@ const countryData: Record<string, CountryInfo> = {
     programs: [
       {
         id: "malaysia-1",
-        title: "Business Administration",
-        university: "University of Malaya",
-        degree: "Bachelor's",
-        field: "Business",
-        tuitionFee: "$5,200/year",
-        intakeDates: "October 2025",
-        deadline: "August 15, 2025",
-        requirements: "High school diploma, IELTS 6.0+"
-      },
-      {
-        id: "malaysia-2",
         title: "Data Science",
         university: "Universiti Teknologi Malaysia",
         degree: "Master's",
-        field: "Computer Science",
+        field: "Computer & Data",
         tuitionFee: "$4,800/year",
         intakeDates: "September 2025, February 2026",
         deadline: "July 31, 2025",
         requirements: "Bachelor's degree in related field, GPA 3.0+"
       },
       {
-        id: "malaysia-3",
-        title: "Medicine",
+        id: "malaysia-2",
+        title: "Medicine (MD)",
         university: "International Medical University",
         degree: "Bachelor's",
-        field: "Medicine",
+        field: "Medicine & Health",
         tuitionFee: "$14,000/year",
         intakeDates: "July 2025",
         deadline: "May 15, 2025",
         requirements: "High school diploma with biology, chemistry, physics"
+      },
+      {
+        id: "malaysia-3",
+        title: "Business Administration",
+        university: "University of Malaya",
+        degree: "Bachelor's",
+        field: "Business & Economics",
+        tuitionFee: "$5,200/year",
+        intakeDates: "October 2025",
+        deadline: "August 15, 2025",
+        requirements: "High school diploma, IELTS 6.0+"
+      },
+      {
+        id: "malaysia-4",
+        title: "Electrical Engineering",
+        university: "Universiti Malaya",
+        degree: "Bachelor's",
+        field: "Engineering",
+        tuitionFee: "$6,000/year",
+        intakeDates: "September 2025",
+        deadline: "July 20, 2025",
+        requirements: "High school with strong math and physics"
       }
     ]
   },
   qatar: {
     id: "qatar",
-    tuitionRange: "$15,000 - $50,000",
+    tuitionRange: "$0 - $50,000",
     livingCost: "$1,000 - $2,000/month",
-    visaRequirement: "Student residence permit required",
+    visaRequirement: "Student visa required",
     programs: [
       {
         id: "qatar-1",
-        title: "Media & Communication",
+        title: "Petroleum Engineering",
         university: "Qatar University",
         degree: "Bachelor's",
-        field: "Communication",
-        tuitionFee: "$18,500/year",
+        field: "Engineering",
+        tuitionFee: "$0/year (Citizens), $30,000/year (International)",
         intakeDates: "September 2025",
-        deadline: "June 30, 2025",
-        requirements: "High school diploma, TOEFL 79+, portfolio"
+        deadline: "June 1, 2025",
+        requirements: "High school diploma, strong math background"
       },
       {
         id: "qatar-2",
-        title: "Electrical Engineering",
-        university: "Texas A&M University at Qatar",
-        degree: "Bachelor's",
-        field: "Engineering",
+        title: "International Business",
+        university: "HEC Paris in Qatar",
+        degree: "MBA",
+        field: "Business & Economics",
         tuitionFee: "$45,000/year",
-        intakeDates: "August 2025",
-        deadline: "May 1, 2025",
-        requirements: "High school diploma, SAT/ACT, strong math scores"
+        intakeDates: "September 2025",
+        deadline: "May 30, 2025",
+        requirements: "Bachelor's degree, 3+ years work experience, GMAT/GRE"
       },
       {
         id: "qatar-3",
-        title: "Islamic Studies",
-        university: "Hamad Bin Khalifa University",
-        degree: "Master's",
-        field: "Islamic Studies",
-        tuitionFee: "$20,000/year",
-        intakeDates: "September 2025",
-        deadline: "April 30, 2025",
-        requirements: "Bachelor's degree, Arabic proficiency, research proposal"
+        title: "Medicine (MD)",
+        university: "Weill Cornell Medicine - Qatar",
+        degree: "Doctor of Medicine",
+        field: "Medicine & Health",
+        tuitionFee: "$50,000/year",
+        intakeDates: "August 2025",
+        deadline: "December 15, 2024",
+        requirements: "Pre-medical bachelor's degree, MCAT scores"
+      },
+      {
+        id: "qatar-4",
+        title: "Computer Science",
+        university: "Carnegie Mellon University Qatar",
+        degree: "Bachelor's",
+        field: "Computer & Data",
+        tuitionFee: "$48,000/year",
+        intakeDates: "August 2025",
+        deadline: "January 15, 2025",
+        requirements: "High school diploma, SAT/ACT, strong math"
       }
     ]
   },
   saudiArabia: {
     id: "saudiArabia",
-    tuitionRange: "$10,000 - $40,000",
-    livingCost: "$600 - $1,200/month",
+    tuitionRange: "$0 - $30,000",
+    livingCost: "$800 - $1,500/month",
     visaRequirement: "Student visa required",
     programs: [
       {
@@ -181,155 +214,199 @@ const countryData: Record<string, CountryInfo> = {
         university: "King Fahd University of Petroleum & Minerals",
         degree: "Bachelor's",
         field: "Engineering",
-        tuitionFee: "$15,000/year",
+        tuitionFee: "$0/year (Scholarship available)",
         intakeDates: "September 2025",
-        deadline: "March 31, 2025",
-        requirements: "High school diploma, TOEFL 68+, strong science grades"
+        deadline: "March 15, 2025",
+        requirements: "High school diploma with high GPA, English proficiency"
       },
       {
         id: "saudi-2",
-        title: "Arabic Language",
-        university: "King Saud University",
-        degree: "Bachelor's",
-        field: "Languages",
-        tuitionFee: "$12,000/year",
-        intakeDates: "September 2025",
-        deadline: "June 15, 2025",
-        requirements: "High school diploma, basic Arabic knowledge"
+        title: "Computer Engineering",
+        university: "King Abdullah University of Science and Technology",
+        degree: "Master's",
+        field: "Computer & Data",
+        tuitionFee: "$0/year (Fully funded)",
+        intakeDates: "August 2025",
+        deadline: "January 10, 2025",
+        requirements: "Bachelor's degree, GRE, English proficiency"
       },
       {
         id: "saudi-3",
-        title: "Computer Science",
-        university: "KAUST",
-        degree: "Master's",
-        field: "Computer Science",
-        tuitionFee: "Fully Funded",
+        title: "Finance",
+        university: "King Saud University",
+        degree: "Bachelor's",
+        field: "Business & Economics",
+        tuitionFee: "$8,000/year",
         intakeDates: "September 2025",
-        deadline: "January 8, 2025",
-        requirements: "Bachelor's degree, GRE, TOEFL 79+, research experience"
+        deadline: "June 30, 2025",
+        requirements: "High school diploma, English proficiency"
+      },
+      {
+        id: "saudi-4",
+        title: "Medicine (MD)",
+        university: "King Abdulaziz University",
+        degree: "Bachelor of Medicine",
+        field: "Medicine & Health",
+        tuitionFee: "$12,000/year",
+        intakeDates: "September 2025",
+        deadline: "May 15, 2025",
+        requirements: "High school with biology, chemistry, physics"
       }
     ]
   },
   australia: {
     id: "australia",
-    tuitionRange: "$20,000 - $45,000",
-    livingCost: "$1,200 - $2,500/month",
+    tuitionRange: "$20,000 - $50,000",
+    livingCost: "$1,400 - $2,500/month",
     visaRequirement: "Student visa (subclass 500) required",
     programs: [
       {
         id: "australia-1",
-        title: "Nursing",
-        university: "University of Sydney",
-        degree: "Bachelor's",
-        field: "Nursing",
-        tuitionFee: "$32,000/year",
-        intakeDates: "February 2026",
-        deadline: "December 15, 2025",
-        requirements: "High school diploma, IELTS 7.0+, health requirements"
+        title: "Data Science",
+        university: "University of Melbourne",
+        degree: "Master's",
+        field: "Computer & Data",
+        tuitionFee: "$45,000/year",
+        intakeDates: "February 2025, July 2025",
+        deadline: "November 30, 2024",
+        requirements: "Bachelor's degree in related field, English proficiency"
       },
       {
         id: "australia-2",
-        title: "Cybersecurity",
-        university: "University of Melbourne",
-        degree: "Master's",
-        field: "Computer Science",
-        tuitionFee: "$38,000/year",
-        intakeDates: "March 2026, July 2026",
-        deadline: "January 31, 2026",
-        requirements: "Bachelor's degree in IT/CS, IELTS 6.5+"
+        title: "Civil Engineering",
+        university: "University of Sydney",
+        degree: "Bachelor's",
+        field: "Engineering",
+        tuitionFee: "$48,000/year",
+        intakeDates: "February 2025",
+        deadline: "January 15, 2025",
+        requirements: "High school with strong math and physics"
       },
       {
         id: "australia-3",
-        title: "MBA",
+        title: "Business Administration (MBA)",
+        university: "Australian National University",
+        degree: "MBA",
+        field: "Business & Economics",
+        tuitionFee: "$47,000/year",
+        intakeDates: "February 2025",
+        deadline: "December 1, 2024",
+        requirements: "Bachelor's degree, 2+ years work experience, GMAT"
+      },
+      {
+        id: "australia-4",
+        title: "Nursing",
         university: "Monash University",
-        degree: "Master's",
-        field: "Business",
-        tuitionFee: "$42,000/year",
-        intakeDates: "February 2026",
-        deadline: "November 30, 2025",
-        requirements: "Bachelor's degree, 2+ years work experience, GMAT/GRE"
+        degree: "Bachelor's",
+        field: "Medicine & Health",
+        tuitionFee: "$35,000/year",
+        intakeDates: "February 2025",
+        deadline: "January 10, 2025",
+        requirements: "High school diploma, English proficiency (IELTS 7.0+)"
       }
     ]
   },
   uk: {
     id: "uk",
-    tuitionRange: "£10,000 - £38,000",
-    livingCost: "£900 - £1,400/month",
+    tuitionRange: "£10,000 - £40,000",
+    livingCost: "£1,000 - £1,800/month",
     visaRequirement: "Student visa (Tier 4) required",
     programs: [
       {
         id: "uk-1",
-        title: "Law",
-        university: "University of Oxford",
-        degree: "Bachelor's",
-        field: "Law",
-        tuitionFee: "£28,370/year",
-        intakeDates: "October 2025",
-        deadline: "October 15, 2024",
-        requirements: "Excellent A-levels, LNAT, personal statement"
+        title: "Artificial Intelligence / Machine Learning",
+        university: "Imperial College London",
+        degree: "Master's",
+        field: "Computer & Data",
+        tuitionFee: "£35,900/year",
+        intakeDates: "September 2025",
+        deadline: "March 31, 2025",
+        requirements: "Bachelor's in computer science or related field"
       },
       {
         id: "uk-2",
-        title: "Finance",
-        university: "London School of Economics",
-        degree: "Master's",
-        field: "Finance",
-        tuitionFee: "£34,200/year",
-        intakeDates: "September 2025",
-        deadline: "January 13, 2025",
-        requirements: "Bachelor's degree in related field, GMAT 650+"
+        title: "Medicine (MD)",
+        university: "University of Oxford",
+        degree: "Bachelor of Medicine",
+        field: "Medicine & Health",
+        tuitionFee: "£38,400/year",
+        intakeDates: "October 2025",
+        deadline: "October 15, 2024",
+        requirements: "A-levels with biology and chemistry, BMAT/UCAT"
       },
       {
         id: "uk-3",
-        title: "Computer Science",
-        university: "University of Manchester",
+        title: "Economics",
+        university: "London School of Economics",
         degree: "Bachelor's",
-        field: "Computer Science",
-        tuitionFee: "£26,000/year",
+        field: "Business & Economics",
+        tuitionFee: "£23,330/year",
         intakeDates: "September 2025",
         deadline: "January 31, 2025",
-        requirements: "Strong A-levels in math/sciences, IELTS 6.5+"
+        requirements: "A-levels with math, English proficiency"
+      },
+      {
+        id: "uk-4",
+        title: "Architecture",
+        university: "University College London",
+        degree: "Bachelor's",
+        field: "Design & Creative",
+        tuitionFee: "£28,100/year",
+        intakeDates: "September 2025",
+        deadline: "January 31, 2025",
+        requirements: "Portfolio, A-levels, English proficiency"
       }
     ]
   },
   canada: {
     id: "canada",
-    tuitionRange: "CAD $15,000 - $50,000",
-    livingCost: "CAD $800 - $1,500/month",
+    tuitionRange: "CAD $15,000 - $35,000",
+    livingCost: "CAD $1,000 - $1,500/month",
     visaRequirement: "Study permit required",
     programs: [
       {
         id: "canada-1",
-        title: "Engineering",
+        title: "Computer Science",
         university: "University of Toronto",
         degree: "Bachelor's",
-        field: "Engineering",
+        field: "Computer & Data",
         tuitionFee: "CAD $58,160/year",
         intakeDates: "September 2025",
         deadline: "January 15, 2025",
-        requirements: "High school diploma, strong math/science grades, English proficiency"
+        requirements: "High school with strong math, English proficiency"
       },
       {
         id: "canada-2",
-        title: "Artificial Intelligence",
-        university: "University of British Columbia",
-        degree: "Master's",
-        field: "Computer Science",
-        tuitionFee: "CAD $9,314/year",
+        title: "Business Administration (MBA)",
+        university: "McGill University",
+        degree: "MBA",
+        field: "Business & Economics",
+        tuitionFee: "CAD $52,000/year",
         intakeDates: "September 2025",
-        deadline: "December 15, 2024",
-        requirements: "Bachelor's in CS/related field, GRE, research experience"
+        deadline: "January 31, 2025",
+        requirements: "Bachelor's degree, GMAT/GRE, work experience"
       },
       {
         id: "canada-3",
-        title: "Psychology",
-        university: "McGill University",
+        title: "Environmental Science",
+        university: "University of British Columbia",
         degree: "Bachelor's",
-        field: "Psychology",
-        tuitionFee: "CAD $28,700/year",
+        field: "Science",
+        tuitionFee: "CAD $42,802/year",
         intakeDates: "September 2025",
         deadline: "January 15, 2025",
-        requirements: "High school diploma, IELTS 6.5+, strong academic record"
+        requirements: "High school with biology and chemistry"
+      },
+      {
+        id: "canada-4",
+        title: "Pharmacy",
+        university: "University of Waterloo",
+        degree: "Bachelor's",
+        field: "Medicine & Health",
+        tuitionFee: "CAD $38,000/year",
+        intakeDates: "September 2025",
+        deadline: "February 1, 2025",
+        requirements: "Pre-pharmacy courses, English proficiency"
       }
     ]
   },
@@ -337,122 +414,166 @@ const countryData: Record<string, CountryInfo> = {
     id: "germany",
     tuitionRange: "€0 - €20,000",
     livingCost: "€800 - €1,200/month",
-    visaRequirement: "Student visa required",
+    visaRequirement: "National visa (Type D) required",
     programs: [
       {
         id: "germany-1",
         title: "Mechanical Engineering",
         university: "Technical University of Munich",
-        degree: "Bachelor's",
+        degree: "Master's",
         field: "Engineering",
-        tuitionFee: "No tuition (€144.40 semester fee)",
+        tuitionFee: "€0/year (Public university)",
         intakeDates: "October 2025",
-        deadline: "July 15, 2025",
-        requirements: "Abitur or equivalent, German B2 or English B2"
+        deadline: "May 31, 2025",
+        requirements: "Bachelor's in engineering, German or English proficiency"
       },
       {
         id: "germany-2",
         title: "Renewable Energy",
-        university: "RWTH Aachen",
+        university: "University of Freiburg",
         degree: "Master's",
-        field: "Engineering",
-        tuitionFee: "No tuition (semester fees only)",
+        field: "Science",
+        tuitionFee: "€0/year (Public university)",
         intakeDates: "October 2025",
-        deadline: "March 1, 2025",
-        requirements: "Bachelor's in engineering, German or English proficiency"
+        deadline: "June 15, 2025",
+        requirements: "Bachelor's in related field, English proficiency"
       },
       {
         id: "germany-3",
-        title: "Philosophy",
-        university: "Humboldt University",
+        title: "Information Technology",
+        university: "RWTH Aachen University",
         degree: "Bachelor's",
-        field: "Humanities",
-        tuitionFee: "No tuition (€315 semester fee)",
+        field: "Computer & Data",
+        tuitionFee: "€0/year (Public university)",
         intakeDates: "October 2025",
         deadline: "July 15, 2025",
-        requirements: "High school diploma, German C1, philosophical background"
+        requirements: "High school diploma, German or English proficiency"
+      },
+      {
+        id: "germany-4",
+        title: "International Business",
+        university: "Mannheim Business School",
+        degree: "Master's",
+        field: "Business & Economics",
+        tuitionFee: "€18,000/year",
+        intakeDates: "September 2025",
+        deadline: "May 1, 2025",
+        requirements: "Bachelor's degree, GMAT, English proficiency"
       }
     ]
   },
   usa: {
     id: "usa",
-    tuitionRange: "$20,000 - $70,000",
-    livingCost: "$1,000 - $2,500/month",
+    tuitionRange: "$25,000 - $70,000",
+    livingCost: "$1,200 - $2,500/month",
     visaRequirement: "F-1 student visa required",
     programs: [
       {
         id: "usa-1",
         title: "Computer Science",
-        university: "MIT",
+        university: "Massachusetts Institute of Technology",
         degree: "Bachelor's",
-        field: "Computer Science",
-        tuitionFee: "$57,986/year",
+        field: "Computer & Data",
+        tuitionFee: "$57,590/year",
         intakeDates: "September 2025",
         deadline: "January 1, 2025",
-        requirements: "SAT/ACT, strong academic record, essays, recommendations"
+        requirements: "High school with strong academics, SAT/ACT"
       },
       {
         id: "usa-2",
-        title: "MBA",
-        university: "Harvard Business School",
+        title: "Artificial Intelligence / Machine Learning",
+        university: "Stanford University",
         degree: "Master's",
-        field: "Business",
-        tuitionFee: "$73,440/year",
+        field: "Computer & Data",
+        tuitionFee: "$58,416/year",
         intakeDates: "September 2025",
-        deadline: "September 7, 2024",
-        requirements: "Bachelor's degree, GMAT/GRE, 3+ years work experience"
+        deadline: "December 15, 2024",
+        requirements: "Bachelor's in CS or related field, GRE"
       },
       {
         id: "usa-3",
-        title: "Public Health",
-        university: "Johns Hopkins University",
-        degree: "Master's",
-        field: "Public Health",
-        tuitionFee: "$62,840/year",
+        title: "Business Administration (MBA)",
+        university: "Harvard Business School",
+        degree: "MBA",
+        field: "Business & Economics",
+        tuitionFee: "$73,440/year",
         intakeDates: "September 2025",
-        deadline: "January 15, 2025",
-        requirements: "Bachelor's degree, GRE, relevant experience, TOEFL 100+"
+        deadline: "April 3, 2025",
+        requirements: "Bachelor's degree, GMAT/GRE, work experience"
+      },
+      {
+        id: "usa-4",
+        title: "Medicine (MD)",
+        university: "Johns Hopkins University",
+        degree: "Doctor of Medicine",
+        field: "Medicine & Health",
+        tuitionFee: "$60,390/year",
+        intakeDates: "August 2025",
+        deadline: "October 31, 2024",
+        requirements: "Pre-med bachelor's degree, MCAT scores"
+      },
+      {
+        id: "usa-5",
+        title: "Civil Engineering",
+        university: "University of California, Berkeley",
+        degree: "Bachelor's",
+        field: "Engineering",
+        tuitionFee: "$44,007/year",
+        intakeDates: "September 2025",
+        deadline: "November 30, 2024",
+        requirements: "High school with strong math and science"
       }
     ]
   },
   poland: {
     id: "poland",
-    tuitionRange: "€2,000 - €12,000",
+    tuitionRange: "€2,000 - €6,000",
     livingCost: "€400 - €700/month",
-    visaRequirement: "National visa type D required",
+    visaRequirement: "National visa required",
     programs: [
       {
         id: "poland-1",
-        title: "Medicine",
-        university: "Jagiellonian University",
-        degree: "Bachelor's",
-        field: "Medicine",
-        tuitionFee: "€11,000/year",
+        title: "Medicine (MD)",
+        university: "Jagiellonian University Medical College",
+        degree: "Doctor of Medicine",
+        field: "Medicine & Health",
+        tuitionFee: "€11,500/year",
         intakeDates: "October 2025",
         deadline: "July 31, 2025",
-        requirements: "High school diploma, biology/chemistry/physics, entrance exam"
+        requirements: "High school with biology, chemistry, physics"
       },
       {
         id: "poland-2",
-        title: "International Business",
-        university: "Warsaw School of Economics",
+        title: "Computer Engineering",
+        university: "Warsaw University of Technology",
         degree: "Bachelor's",
-        field: "Business",
-        tuitionFee: "€3,000/year",
+        field: "Computer & Data",
+        tuitionFee: "€2,000/year",
         intakeDates: "October 2025",
         deadline: "August 15, 2025",
-        requirements: "High school diploma, English proficiency B2+"
+        requirements: "High school diploma, English proficiency"
       },
       {
         id: "poland-3",
-        title: "Architecture",
-        university: "Gdańsk University of Technology",
-        degree: "Bachelor's",
-        field: "Architecture",
-        tuitionFee: "€2,000/year",
+        title: "Dentistry",
+        university: "Medical University of Warsaw",
+        degree: "Doctor of Dental Medicine",
+        field: "Medicine & Health",
+        tuitionFee: "€10,000/year",
         intakeDates: "October 2025",
-        deadline: "September 15, 2025",
-        requirements: "High school diploma, portfolio, entrance exam"
+        deadline: "July 20, 2025",
+        requirements: "High school with biology and chemistry"
+      },
+      {
+        id: "poland-4",
+        title: "Graphic Design",
+        university: "Academy of Fine Arts in Warsaw",
+        degree: "Bachelor's",
+        field: "Design & Creative",
+        tuitionFee: "€3,000/year",
+        intakeDates: "October 2025",
+        deadline: "June 30, 2025",
+        requirements: "Portfolio, high school diploma"
       }
     ]
   }
@@ -467,11 +588,15 @@ const Universities = () => {
 
   const currentCountryData = countryData[selectedCountry];
 
+  // Get unique fields for filter
+  const uniqueFields = Array.from(
+    new Set(currentCountryData.programs.map((p) => p.field))
+  );
+
   // Filter programs based on selected filters
   const filteredPrograms = currentCountryData.programs.filter((program) => {
     if (degreeFilter !== "all" && program.degree !== degreeFilter) return false;
     if (fieldFilter !== "all" && program.field !== fieldFilter) return false;
-    // Add tuition filter logic if needed
     return true;
   });
 
@@ -576,7 +701,10 @@ const Universities = () => {
                 <SelectItem value="all">{t('common.all')}</SelectItem>
                 <SelectItem value="Bachelor's">Bachelor's</SelectItem>
                 <SelectItem value="Master's">Master's</SelectItem>
-                <SelectItem value="PhD">PhD</SelectItem>
+                <SelectItem value="MBA">MBA</SelectItem>
+                <SelectItem value="Doctor of Medicine">Doctor of Medicine</SelectItem>
+                <SelectItem value="Doctor of Dental Medicine">Doctor of Dental Medicine</SelectItem>
+                <SelectItem value="Bachelor of Medicine">Bachelor of Medicine</SelectItem>
               </SelectContent>
             </Select>
 
@@ -586,11 +714,9 @@ const Universities = () => {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">{t('common.all')}</SelectItem>
-                <SelectItem value="Engineering">Engineering</SelectItem>
-                <SelectItem value="Business">Business</SelectItem>
-                <SelectItem value="Computer Science">Computer Science</SelectItem>
-                <SelectItem value="Medicine">Medicine</SelectItem>
-                <SelectItem value="Social Sciences">Social Sciences</SelectItem>
+                {uniqueFields.map((field) => (
+                  <SelectItem key={field} value={field}>{field}</SelectItem>
+                ))}
               </SelectContent>
             </Select>
 
