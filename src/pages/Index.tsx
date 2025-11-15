@@ -235,6 +235,54 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Partners Section */}
+      <section className="py-16 bg-muted/30">
+        <div className="container px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-3">{t('partners.title')}</h2>
+            <p className="text-muted-foreground">{t('partners.subtitle')}</p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 items-center justify-items-center max-w-5xl mx-auto">
+            {/* Partner badges/logos - verified institutions */}
+            <div className="flex flex-col items-center gap-2 p-4">
+              <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
+                <Shield className="h-10 w-10 text-primary" />
+              </div>
+              <span className="text-sm font-medium text-center">{t('partners.verified')}</span>
+            </div>
+            
+            <div className="flex flex-col items-center gap-2 p-4">
+              <div className="w-20 h-20 rounded-full bg-secondary/10 flex items-center justify-center">
+                <GraduationCap className="h-10 w-10 text-secondary" />
+              </div>
+              <span className="text-sm font-medium text-center">{t('partners.accredited')}</span>
+            </div>
+            
+            <div className="flex flex-col items-center gap-2 p-4">
+              <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
+                <Award className="h-10 w-10 text-primary" />
+              </div>
+              <span className="text-sm font-medium text-center">{t('partners.scholarships')}</span>
+            </div>
+            
+            <div className="flex flex-col items-center gap-2 p-4">
+              <div className="w-20 h-20 rounded-full bg-secondary/10 flex items-center justify-center">
+                <Target className="h-10 w-10 text-secondary" />
+              </div>
+              <span className="text-sm font-medium text-center">{t('partners.placement')}</span>
+            </div>
+            
+            <div className="flex flex-col items-center gap-2 p-4">
+              <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
+                <HeadphonesIcon className="h-10 w-10 text-primary" />
+              </div>
+              <span className="text-sm font-medium text-center">{t('partners.support')}</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </div>
   );
