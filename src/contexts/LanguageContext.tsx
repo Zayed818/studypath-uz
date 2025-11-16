@@ -126,6 +126,20 @@ const translations: Record<Language, any> = {
       noResultsSubtitle: "Iltimos, qidiruv shartlaringizni o'zgartiring",
       searchPlaceholder: "Qidirish..."
     },
+    months: {
+      jan: "Yan",
+      feb: "Fev",
+      mar: "Mar",
+      apr: "Apr",
+      may: "May",
+      jun: "Iyun",
+      jul: "Iyul",
+      aug: "Avg",
+      sep: "Sen",
+      oct: "Okt",
+      nov: "Noy",
+      dec: "Dek"
+    },
     hero: {
       title: "Xorijdagi Eng Yaxshi Universitetlarni Toping va Ariza Topshiring",
       subtitle: "Oddiy, Tez, Ishonchli — O'zbekistonlik talabalar uchun maxsus",
@@ -628,6 +642,20 @@ const translations: Record<Language, any> = {
       noResultsSubtitle: "Попробуйте изменить параметры поиска",
       searchPlaceholder: "Поиск..."
     },
+    months: {
+      jan: "Янв",
+      feb: "Фев",
+      mar: "Мар",
+      apr: "Апр",
+      may: "Май",
+      jun: "Июн",
+      jul: "Июл",
+      aug: "Авг",
+      sep: "Сен",
+      oct: "Окт",
+      nov: "Ноя",
+      dec: "Дек"
+    },
     hero: {
       title: "Найдите и Поступите в Лучшие Университеты за Рубежом",
       subtitle: "Просто, Быстро, Надёжно — специально для узбекских студентов",
@@ -1088,6 +1116,20 @@ const translations: Record<Language, any> = {
       noResultsTitle: "No results found",
       noResultsSubtitle: "Try adjusting your search criteria",
       searchPlaceholder: "Search..."
+    },
+    months: {
+      jan: "Jan",
+      feb: "Feb",
+      mar: "Mar",
+      apr: "Apr",
+      may: "May",
+      jun: "Jun",
+      jul: "Jul",
+      aug: "Aug",
+      sep: "Sep",
+      oct: "Oct",
+      nov: "Nov",
+      dec: "Dec"
     },
     hero: {
       title: "Find and Apply to Top Universities Abroad",

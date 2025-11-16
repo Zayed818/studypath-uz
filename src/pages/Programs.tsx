@@ -27,8 +27,7 @@ const mockPrograms = [
     tuition: "$22,100/year",
     applicationFee: "$90",
     duration: "2 years",
-    intake: "Fall 2025",
-    startDate: "September 2025",
+    intakes: [{ month: "sep", year: 2025 }],
     scholarshipAvailable: true,
     highDemand: true,
   },
@@ -42,8 +41,7 @@ const mockPrograms = [
     tuition: "£26,770/year",
     applicationFee: "£75",
     duration: "1 year",
-    intake: "Fall 2025",
-    startDate: "October 2025",
+    intakes: [{ month: "oct", year: 2025 }],
     scholarshipAvailable: false,
     highDemand: true,
   },
@@ -57,8 +55,7 @@ const mockPrograms = [
     tuition: "CAD $58,160/year",
     applicationFee: "CAD $156",
     duration: "4 years",
-    intake: "Fall 2025",
-    startDate: "September 2025",
+    intakes: [{ month: "sep", year: 2025 }, { month: "jan", year: 2026 }],
     scholarshipAvailable: true,
     highDemand: false,
   },
@@ -72,8 +69,7 @@ const mockPrograms = [
     tuition: "CHF 1,460/year",
     applicationFee: "CHF 150",
     duration: "2 years",
-    intake: "Fall 2025",
-    startDate: "September 2025",
+    intakes: [{ month: "sep", year: 2025 }, { month: "feb", year: 2026 }],
     scholarshipAvailable: true,
     highDemand: true,
   },
@@ -87,8 +83,7 @@ const mockPrograms = [
     tuition: "AUD $45,824/year",
     applicationFee: "AUD $100",
     duration: "4 years",
-    intake: "Fall 2025",
-    startDate: "February 2025",
+    intakes: [{ month: "feb", year: 2026 }],
     scholarshipAvailable: false,
     highDemand: true,
   },
@@ -102,8 +97,7 @@ const mockPrograms = [
     tuition: "SGD $29,850/year",
     applicationFee: "SGD $20",
     duration: "3 years",
-    intake: "Fall 2025",
-    startDate: "August 2025",
+    intakes: [{ month: "aug", year: 2025 }],
     scholarshipAvailable: true,
     highDemand: false,
   },
@@ -117,8 +111,7 @@ const mockPrograms = [
     tuition: "$29,750/year",
     applicationFee: "$95",
     duration: "2 years",
-    intake: "Fall 2025",
-    startDate: "September 2025",
+    intakes: [{ month: "sep", year: 2025 }],
     scholarshipAvailable: true,
     highDemand: true,
   },
@@ -132,8 +125,7 @@ const mockPrograms = [
     tuition: "£22,227/year",
     applicationFee: "£75",
     duration: "3 years",
-    intake: "Fall 2025",
-    startDate: "October 2025",
+    intakes: [{ month: "oct", year: 2025 }],
     scholarshipAvailable: false,
     highDemand: true,
   },
@@ -147,8 +139,7 @@ const mockPrograms = [
     tuition: "CAD $42,000/year",
     applicationFee: "CAD $125",
     duration: "10 months",
-    intake: "Fall 2025",
-    startDate: "September 2025",
+    intakes: [{ month: "sep", year: 2025 }, { month: "jan", year: 2026 }],
     scholarshipAvailable: true,
     highDemand: true,
   },
@@ -299,7 +290,12 @@ const Programs = () => {
                   <span className="text-muted-foreground">{t('programDetail.intake')}</span>
                   <span className="font-semibold flex items-center gap-1">
                     <Calendar className="h-3 w-3" />
-                    {program.startDate}
+                    {program.intakes.map((intake, idx) => (
+                      <span key={idx}>
+                        {t(`months.${intake.month}`)} {intake.year}
+                        {idx < program.intakes.length - 1 && ', '}
+                      </span>
+                    ))}
                   </span>
                 </div>
               </div>
