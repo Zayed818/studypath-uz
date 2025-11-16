@@ -27,7 +27,6 @@ const EligibilityStep = ({ formData, updateFormData }: EligibilityStepProps) => 
 
       {/* Highest Completed Education */}
       <div className="space-y-2">
-        <Label>{t('apply.highestQualification')} ({t('apply.optional')})</Label>
         <Select
           value={formData.currentEducationLevel}
           onValueChange={(value) => updateFormData({ currentEducationLevel: value })}
