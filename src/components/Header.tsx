@@ -1,19 +1,23 @@
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
-import { GraduationCap, Menu } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { GraduationCap, Menu, User, LogOut } from "lucide-react";
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { LanguageSelector } from "@/components/LanguageSelector";
+import { useAuth } from "@/contexts/AuthContext";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { t } = useLanguage();
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -61,12 +65,46 @@ const Header = () => {
         <div className="flex items-center space-x-3">
           <LanguageSelector />
 
-          <Button variant="ghost" size="sm" className="hidden md:inline-flex">
-            {t('nav.login')}
-          </Button>
-          <Button size="sm" className="bg-secondary hover:bg-secondary/90">
-            {t('nav.signup')}
-          </Button>
+          {user ? (
+            <>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm" className="hidden md:inline-flex">
+                    <User className="h-4 w-4 mr-2" />
+                    Account
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => navigate('/dashboard')}>
+                    Dashboard
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={signOut}>
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </>
+          ) : (
+            <>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="hidden md:inline-flex"
+                onClick={() => navigate('/auth')}
+              >
+                {t('nav.login')}
+              </Button>
+              <Button 
+                size="sm" 
+                className="bg-secondary hover:bg-secondary/90"
+                onClick={() => navigate('/auth')}
+              >
+                {t('nav.signup')}
+              </Button>
+            </>
+          )}
 
           {/* Mobile menu button */}
           <Button
@@ -107,9 +145,36 @@ const Header = () => {
           >
             {t('nav.careers')}
           </Link>
-          <Button variant="ghost" size="sm" className="w-full justify-start">
-            {t('nav.login')}
-          </Button>
+          {user ? (
+            <>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="w-full justify-start"
+                onClick={() => navigate('/dashboard')}
+              >
+                Dashboard
+              </Button>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="w-full justify-start"
+                onClick={signOut}
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                Sign Out
+              </Button>
+            </>
+          ) : (
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="w-full justify-start"
+              onClick={() => navigate('/auth')}
+            >
+              {t('nav.login')}
+            </Button>
+          )}
         </div>
       )}
     </header>
