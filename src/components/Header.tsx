@@ -79,7 +79,10 @@ const Header = () => {
                     Dashboard
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={signOut}>
+                  <DropdownMenuItem onClick={async () => {
+                    await signOut();
+                    navigate('/auth');
+                  }}>
                     <LogOut className="h-4 w-4 mr-2" />
                     Sign Out
                   </DropdownMenuItem>
@@ -159,7 +162,10 @@ const Header = () => {
                 variant="ghost" 
                 size="sm" 
                 className="w-full justify-start"
-                onClick={signOut}
+                onClick={async () => {
+                  await signOut();
+                  navigate('/auth');
+                }}
               >
                 <LogOut className="h-4 w-4 mr-2" />
                 Sign Out

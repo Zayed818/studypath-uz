@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
 import { useAuth } from '@/contexts/AuthContext';
 import Header from '@/components/Header';
@@ -23,6 +24,7 @@ interface UserWithRole {
 const AdminPanel = () => {
   const { signOut } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [users, setUsers] = useState<UserWithRole[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -111,7 +113,10 @@ const AdminPanel = () => {
                   System administration and management
                 </p>
               </div>
-              <Button variant="outline" onClick={signOut}>Sign Out</Button>
+              <Button variant="outline" onClick={async () => {
+                await signOut();
+                navigate('/auth');
+              }}>Sign Out</Button>
             </div>
 
             <Tabs defaultValue="users" className="space-y-4">
