@@ -309,7 +309,9 @@ const Programs = () => {
                   <Link to={`/programs/${program.id}`}>{t('programs.viewDetails')}</Link>
                 </Button>
                 <Button variant="outline" size="sm" asChild>
-                  <Link to="/apply">{t('programs.apply')}</Link>
+                  <Link to={`/apply?programId=${program.id}&universityName=${encodeURIComponent(program.university)}&programName=${encodeURIComponent(program.program)}&universityId=${program.id}`}>
+                    {t('programs.apply')}
+                  </Link>
                 </Button>
               </div>
             </Card>

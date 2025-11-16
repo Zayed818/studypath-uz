@@ -97,6 +97,7 @@ const translations: Record<Language, any> = {
     },
     common: {
       all: "Barchasi",
+      error: "Xato",
       search: "Qidirish",
       filters: "Filtrlar",
       results: "Natijalar",
@@ -598,6 +599,7 @@ const translations: Record<Language, any> = {
     },
     common: {
       all: "Все",
+      error: "Ошибка",
       search: "Поиск",
       filters: "Фильтры",
       results: "Результаты",
@@ -1058,6 +1060,7 @@ const translations: Record<Language, any> = {
     },
     common: {
       all: "All",
+      error: "Error",
       search: "Search",
       filters: "Filters",
       results: "Results",
