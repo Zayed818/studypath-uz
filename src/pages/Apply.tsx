@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { ChevronLeft, ChevronRight, Check } from "lucide-react";
+import { ChevronLeft, ChevronRight, Check, GraduationCap, Building2 } from "lucide-react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -13,6 +13,8 @@ import EligibilityStep from "@/components/apply/EligibilityStep";
 import DocumentsStep from "@/components/apply/DocumentsStep";
 import ReviewStep from "@/components/apply/ReviewStep";
 import ConfirmationStep from "@/components/apply/ConfirmationStep";
+import { parseDegreeFromProgram } from "@/lib/degreeUtils";
+import { Badge } from "@/components/ui/badge";
 
 export interface ApplicationFormData {
   // Program Context (auto-detected)
@@ -20,6 +22,8 @@ export interface ApplicationFormData {
   universityId: string;
   programName: string;
   universityName: string;
+  programDegreeLevel: string; // 'bachelor' | 'master' | 'phd' | 'diploma'
+  programDegreeName: string; // Display name like "Bachelor of Science"
   
   // Stage 1: Profile (mandatory)
   firstName: string;
@@ -77,6 +81,8 @@ const Apply = () => {
     universityId: "",
     programName: "",
     universityName: "",
+    programDegreeLevel: "",
+    programDegreeName: "",
     firstName: "",
     lastName: "",
     dateOfBirth: undefined,
@@ -116,12 +122,17 @@ const Apply = () => {
       return;
     }
 
+    // Parse degree information from program name
+    const degreeInfo = parseDegreeFromProgram(programName);
+
     setFormData((prev) => ({
       ...prev,
       programId,
       universityId,
       programName,
       universityName,
+      programDegreeLevel: degreeInfo.level,
+      programDegreeName: degreeInfo.displayName,
     }));
   }, [searchParams, navigate, t]);
 
@@ -292,12 +303,35 @@ const Apply = () => {
           {/* Header */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold mb-2">{t('apply.applicationForm')}</h1>
-            {formData.programName && (
-              <p className="text-muted-foreground">
-                {formData.programName} • {formData.universityName}
-              </p>
-            )}
           </div>
+
+          {/* Program Info Card */}
+          {formData.programName && (
+            <Card className="p-6 mb-8 bg-primary/5 border-primary/20">
+              <div className="flex items-start gap-4">
+                <div className="flex flex-col gap-3 flex-1">
+                  <div className="flex items-center gap-2">
+                    <GraduationCap className="h-5 w-5 text-primary" />
+                    <span className="text-sm font-medium text-muted-foreground">{t('apply.applyingTo')}</span>
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-bold mb-1">{formData.programName}</h2>
+                    <div className="flex items-center gap-2 text-muted-foreground">
+                      <Building2 className="h-4 w-4" />
+                      <span>{formData.universityName}</span>
+                    </div>
+                  </div>
+                  {formData.programDegreeName && (
+                    <div className="flex items-center gap-2">
+                      <Badge variant="secondary" className="font-normal">
+                        {t('apply.degreeLevel')}: {formData.programDegreeName}
+                      </Badge>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </Card>
+          )}
 
           {/* Progress Bar */}
           <div className="mb-8">

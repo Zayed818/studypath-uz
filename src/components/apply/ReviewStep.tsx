@@ -33,6 +33,12 @@ const ReviewStep = ({ formData, updateFormData, onEditStep, validationErrors }: 
             <span className="text-muted-foreground">{t('apply.program')}:</span>
             <span className="font-medium">{formData.programName}</span>
           </div>
+          {formData.programDegreeName && (
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">{t('apply.degreeLevel')}:</span>
+              <span className="font-medium">{formData.programDegreeName}</span>
+            </div>
+          )}
         </div>
       </Card>
 
@@ -94,8 +100,8 @@ const ReviewStep = ({ formData, updateFormData, onEditStep, validationErrors }: 
           <div className="space-y-2 text-sm">
             {formData.currentEducationLevel && (
               <div className="flex justify-between">
-                <span className="text-muted-foreground">{t('apply.education')}:</span>
-                <span className="font-medium">{formData.currentEducationLevel}</span>
+                <span className="text-muted-foreground">{t('apply.yourCompletedEducation')}:</span>
+                <span className="font-medium capitalize">{formData.currentEducationLevel.replace('-', ' ')}</span>
               </div>
             )}
             {formData.gpa && (
