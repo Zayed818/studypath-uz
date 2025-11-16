@@ -4,6 +4,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useLanguage } from "@/contexts/LanguageContext";
 import { ApplicationFormData } from "@/pages/Apply";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Info } from "lucide-react";
+import { getEligibilityMessage } from "@/lib/degreeUtils";
 
 interface EligibilityStepProps {
   formData: ApplicationFormData;
@@ -21,17 +24,29 @@ const EligibilityStep = ({ formData, updateFormData }: EligibilityStepProps) => 
     { value: "30000+", label: "$30,000+" },
   ];
 
+  // Get eligibility message if applicable
+  const eligibilityMessage = getEligibilityMessage(
+    formData.programDegreeLevel,
+    formData.currentEducationLevel
+  );
+
   return (
     <div className="space-y-6">
       <p className="text-sm text-muted-foreground">{t('apply.eligibilityOptionalNote')}</p>
 
       {/* Highest Completed Education */}
       <div className="space-y-2">
+        <Label htmlFor="currentEducationLevel">
+          {t('apply.yourCompletedEducation')} ({t('apply.optional')})
+        </Label>
+        <p className="text-xs text-muted-foreground mb-2">
+          {t('apply.completedEducationHelp')}
+        </p>
         <Select
           value={formData.currentEducationLevel}
           onValueChange={(value) => updateFormData({ currentEducationLevel: value })}
         >
-          <SelectTrigger>
+          <SelectTrigger id="currentEducationLevel">
             <SelectValue placeholder={t('apply.selectQualification')} />
           </SelectTrigger>
           <SelectContent>
@@ -41,6 +56,14 @@ const EligibilityStep = ({ formData, updateFormData }: EligibilityStepProps) => 
             <SelectItem value="phd">{t('apply.phd')}</SelectItem>
           </SelectContent>
         </Select>
+        
+        {/* Show eligibility message if applicable */}
+        {eligibilityMessage && (
+          <Alert className="mt-2">
+            <Info className="h-4 w-4" />
+            <AlertDescription>{eligibilityMessage}</AlertDescription>
+          </Alert>
+        )}
       </div>
 
       {/* GPA / Average Score */}
