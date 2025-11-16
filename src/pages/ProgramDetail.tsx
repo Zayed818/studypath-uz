@@ -44,7 +44,10 @@ const ProgramDetail = () => {
     tuitionDetails: "Public universities in Germany charge minimal semester fees (approximately €300-400)",
     applicationFee: "Contact university",
     duration: "4 years",
-    intake: "Rolling admissions",
+    intakes: [
+      { month: "sep", year: 2025 },
+      { month: "jan", year: 2026 },
+    ],
     intakeDates: [
       { season: "Winter Semester", applicationDeadline: "July 15, 2025", startDate: "October 2025" },
       { season: "Summer Semester", applicationDeadline: "January 15, 2026", startDate: "April 2026" },
@@ -433,7 +436,14 @@ const ProgramDetail = () => {
                   <Calendar className="h-5 w-5 text-primary flex-shrink-0" />
                   <div>
                     <p className="font-semibold">{t('programDetail.intake')}</p>
-                    <p className="text-muted-foreground">{program.intake}</p>
+                    <p className="text-muted-foreground">
+                      {program.intakes.map((intake, idx) => (
+                        <span key={idx}>
+                          {t(`months.${intake.month}`)} {intake.year}
+                          {idx < program.intakes.length - 1 && ', '}
+                        </span>
+                      ))}
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
