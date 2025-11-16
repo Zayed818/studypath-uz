@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { useUserRole } from '@/hooks/useUserRole';
 import { Button } from '@/components/ui/button';
@@ -10,6 +11,7 @@ import { User, GraduationCap, FileText, BarChart } from 'lucide-react';
 const Dashboard = () => {
   const { user, signOut } = useAuth();
   const { role, isAdmin, isAgency } = useUserRole();
+  const navigate = useNavigate();
 
   return (
     <ProtectedRoute>
@@ -134,7 +136,10 @@ const Dashboard = () => {
             )}
 
             <div className="mt-8">
-              <Button variant="outline" onClick={signOut}>Sign Out</Button>
+              <Button variant="outline" onClick={async () => {
+                await signOut();
+                navigate('/auth');
+              }}>Sign Out</Button>
             </div>
           </div>
         </main>

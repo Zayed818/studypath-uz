@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
 import { useAuth } from '@/contexts/AuthContext';
 import Header from '@/components/Header';
@@ -9,6 +10,7 @@ import { Users, FileText, GraduationCap, TrendingUp } from 'lucide-react';
 
 const AgencyDashboard = () => {
   const { signOut } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <ProtectedRoute requireRole="agency">
@@ -24,7 +26,10 @@ const AgencyDashboard = () => {
                   Manage student applications and programs
                 </p>
               </div>
-              <Button variant="outline" onClick={signOut}>Sign Out</Button>
+              <Button variant="outline" onClick={async () => {
+                await signOut();
+                navigate('/auth');
+              }}>Sign Out</Button>
             </div>
 
             {/* Stats Overview */}
