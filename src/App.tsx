@@ -19,6 +19,8 @@ import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import AgencyDashboard from "./pages/AgencyDashboard";
 import AdminPanel from "./pages/AdminPanel";
+import SavedPrograms from "./pages/SavedPrograms";
+import ComparePrograms from "./pages/ComparePrograms";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -46,6 +48,8 @@ const App = () => (
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/agency" element={<AgencyDashboard />} />
               <Route path="/admin" element={<AdminPanel />} />
+              <Route path="/saved-programs" element={<SavedPrograms />} />
+              <Route path="/compare-programs" element={<ComparePrograms />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

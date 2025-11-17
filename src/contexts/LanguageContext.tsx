@@ -424,6 +424,72 @@ const translations: Record<Language, any> = {
       invalidEmail: "To'g'ri elektron pochta manzilini kiriting",
       invalidPhone: "To'g'ri telefon raqamini kiriting"
     },
+    requestHelp: {
+      title: "Ariza bo'yicha yordam so'rash",
+      subtitle: "Jamoamiz 24-48 soat ichida siz bilan bog'lanadi",
+      fullName: "To'liq ism",
+      email: "Email manzil",
+      phone: "Telefon raqami (ixtiyoriy)",
+      helpType: "Sizga nima kerak?",
+      helpTypes: {
+        eligibility: "Muvofiqlik savollari",
+        documents: "Hujjat talablari",
+        application: "Ariza jarayoni",
+        general: "Umumiy so'rov"
+      },
+      educationLevel: "Joriy ta'lim darajasi",
+      educationLevels: {
+        highSchool: "O'rta maktab",
+        bachelor: "Bakalavr darajasi",
+        master: "Magistr darajasi"
+      },
+      message: "Savolingiz yoki tashvishingizni tasvirlab bering",
+      messagePlaceholder: "Sizga qanday yordam kerakligi haqida batafsil ma'lumot bering...",
+      contactMethod: "Afzal qilingan aloqa usuli",
+      contactMethods: {
+        email: "Email",
+        phone: "Telefon qo'ng'irog'i",
+        whatsapp: "WhatsApp"
+      },
+      submit: "So'rov yuborish",
+      cancel: "Bekor qilish",
+      successTitle: "So'rov yuborildi!",
+      successMessage: "Jamoamiz 24-48 soat ichida sizning afzal usul orqali bog'lanadi.",
+      loginRequired: "Yordam so'rash uchun tizimga kiring",
+      loginButton: "Kirish"
+    },
+    savedPrograms: {
+      title: "Saqlangan dasturlar",
+      empty: "Siz hali hech qanday dastur saqlamadingiz",
+      emptyDescription: "Dasturlarni ko'rib chiqing va bu yerga qo'shish uchun 'Dasturni saqlash' tugmasini bosing",
+      browsePrograms: "Dasturlarni ko'rish",
+      saved: "Saqlangan",
+      saveProgram: "Dasturni saqlash",
+      unsave: "O'chirish",
+      addNote: "Izoh qo'shish",
+      notePlaceholder: "Bu dastur haqida shaxsiy izohlar qo'shing...",
+      compareSelected: "Tanlanganni solishtirish",
+      selectToCompare: "Solishtirish uchun 2+ dasturni tanlang",
+      loginToSave: "Dasturlarni saqlash uchun tizimga kiring",
+      savedSuccess: "Dastur muvaffaqiyatli saqlandi",
+      unsavedSuccess: "Dastur saqlangan ro'yxatdan o'chirildi",
+      compare: {
+        title: "Dasturlarni solishtirish",
+        backToSaved: "Saqlangan dasturlarga qaytish",
+        university: "Universitet",
+        program: "Dastur",
+        country: "Mamlakat",
+        degree: "Daraja",
+        field: "O'quv sohasi",
+        tuition: "To'lov",
+        applicationFee: "Ariza to'lovi",
+        duration: "Davomiyligi",
+        housing: "Yashash joyi mavjud",
+        requirements: "Talablar",
+        deadlines: "Ariza muddatlari",
+        applyNow: "Hozir ariza topshirish"
+      }
+    },
     careers: {
       title: "Martaba Yo'riqnomasi",
       subtitle: "O'z kelajagingizni toping va rejalashtiring",

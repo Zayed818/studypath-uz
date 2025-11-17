@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -7,6 +8,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Link, useParams } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useSavedPrograms } from "@/hooks/useSavedPrograms";
+import { RequestHelpDialog } from "@/components/programs/RequestHelpDialog";
 import {
   ArrowLeft,
   GraduationCap,
@@ -23,11 +26,17 @@ import {
   BookOpen,
   Users,
   Building,
+  Bookmark,
+  BookmarkCheck,
 } from "lucide-react";
 
 const ProgramDetail = () => {
   const { id } = useParams();
   const { t } = useLanguage();
+  const { isSaved, saveProgram, unsaveProgram } = useSavedPrograms();
+  const [helpDialogOpen, setHelpDialogOpen] = useState(false);
+  const programId = id || "1";
+  const isProgramSaved = isSaved(programId);
 
   // Mock data - in production this would come from an API
   const program = {

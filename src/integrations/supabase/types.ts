@@ -14,6 +14,69 @@ export type Database = {
   }
   public: {
     Tables: {
+      help_requests: {
+        Row: {
+          agency_notes: string | null
+          assigned_agency_id: string | null
+          created_at: string | null
+          current_education_level: string | null
+          email: string
+          full_name: string
+          help_type: string
+          id: string
+          message: string
+          phone: string | null
+          preferred_contact_method: string | null
+          program_id: string
+          program_name: string
+          resolved_at: string | null
+          status: string | null
+          university_name: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          agency_notes?: string | null
+          assigned_agency_id?: string | null
+          created_at?: string | null
+          current_education_level?: string | null
+          email: string
+          full_name: string
+          help_type: string
+          id?: string
+          message: string
+          phone?: string | null
+          preferred_contact_method?: string | null
+          program_id: string
+          program_name: string
+          resolved_at?: string | null
+          status?: string | null
+          university_name: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          agency_notes?: string | null
+          assigned_agency_id?: string | null
+          created_at?: string | null
+          current_education_level?: string | null
+          email?: string
+          full_name?: string
+          help_type?: string
+          id?: string
+          message?: string
+          phone?: string | null
+          preferred_contact_method?: string | null
+          program_id?: string
+          program_name?: string
+          resolved_at?: string | null
+          status?: string | null
+          university_name?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -41,6 +104,51 @@ export type Database = {
           id?: string
           phone?: string | null
           updated_at?: string | null
+        }
+        Relationships: []
+      }
+      saved_programs: {
+        Row: {
+          country: string
+          created_at: string | null
+          degree: string
+          duration: string | null
+          field: string
+          id: string
+          notes: string | null
+          program_id: string
+          program_name: string
+          tuition: string | null
+          university_name: string
+          user_id: string
+        }
+        Insert: {
+          country: string
+          created_at?: string | null
+          degree: string
+          duration?: string | null
+          field: string
+          id?: string
+          notes?: string | null
+          program_id: string
+          program_name: string
+          tuition?: string | null
+          university_name: string
+          user_id: string
+        }
+        Update: {
+          country?: string
+          created_at?: string | null
+          degree?: string
+          duration?: string | null
+          field?: string
+          id?: string
+          notes?: string | null
+          program_id?: string
+          program_name?: string
+          tuition?: string | null
+          university_name?: string
+          user_id?: string
         }
         Relationships: []
       }

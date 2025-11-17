@@ -74,11 +74,14 @@ const Header = () => {
                     Account
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem onClick={() => navigate('/dashboard')}>
-                    Dashboard
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuItem onClick={() => navigate('/dashboard')}>
+                      Dashboard
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => navigate('/saved-programs')}>
+                      {t('savedPrograms.title')}
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={async () => {
                     await signOut();
                     navigate('/auth');
