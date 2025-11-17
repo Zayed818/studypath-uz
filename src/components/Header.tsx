@@ -21,10 +21,10 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between px-4">
+      <div className="container flex h-16 items-center justify-between px-3 md:px-4">
         <Link to="/" className="flex items-center space-x-2">
-          <GraduationCap className="h-8 w-8 text-primary" />
-          <span className="text-xl font-bold text-primary">StudyPath</span>
+          <GraduationCap className="h-6 w-6 md:h-8 md:w-8 text-primary" />
+          <span className="text-lg md:text-xl font-bold text-primary">StudyPath</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -62,7 +62,7 @@ const Header = () => {
           </DropdownMenu>
         </nav>
 
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2 md:space-x-3">
           <LanguageSelector />
 
           {user ? (
@@ -101,7 +101,7 @@ const Header = () => {
               </Button>
               <Button 
                 size="sm" 
-                className="bg-secondary hover:bg-secondary/90"
+                className="bg-secondary hover:bg-secondary/90 text-sm md:text-base px-3 md:px-4"
                 onClick={() => navigate('/auth')}
               >
                 {t('nav.signup')}
@@ -112,8 +112,8 @@ const Header = () => {
           {/* Mobile menu button */}
           <Button
             variant="ghost"
-            size="icon"
-            className="md:hidden"
+            size="sm"
+            className="md:hidden px-2"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             <Menu className="h-5 w-5" />
