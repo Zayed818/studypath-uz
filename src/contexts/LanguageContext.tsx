@@ -1030,6 +1030,72 @@ const translations: Record<Language, any> = {
       step3: "Мы свяжемся с вами и сообщим о следующих шагах",
       applyAnother: "Подать Заявку на Другую Программу"
     },
+    requestHelp: {
+      title: "Запросить помощь с заявкой",
+      subtitle: "Наша команда свяжется с вами в течение 24-48 часов",
+      fullName: "Полное имя",
+      email: "Email адрес",
+      phone: "Номер телефона (необязательно)",
+      helpType: "В чём вам нужна помощь?",
+      helpTypes: {
+        eligibility: "Вопросы соответствия",
+        documents: "Требования к документам",
+        application: "Процесс подачи заявки",
+        general: "Общий запрос"
+      },
+      educationLevel: "Текущий уровень образования",
+      educationLevels: {
+        highSchool: "Средняя школа",
+        bachelor: "Степень бакалавра",
+        master: "Степень магистра"
+      },
+      message: "Опишите ваш вопрос или проблему",
+      messagePlaceholder: "Пожалуйста, предоставьте подробности о том, в чём вам нужна помощь...",
+      contactMethod: "Предпочтительный способ связи",
+      contactMethods: {
+        email: "Email",
+        phone: "Телефонный звонок",
+        whatsapp: "WhatsApp"
+      },
+      submit: "Отправить запрос",
+      cancel: "Отмена",
+      successTitle: "Запрос отправлен!",
+      successMessage: "Наша команда свяжется с вами в течение 24-48 часов предпочтительным способом.",
+      loginRequired: "Пожалуйста, войдите, чтобы запросить помощь",
+      loginButton: "Войти"
+    },
+    savedPrograms: {
+      title: "Сохранённые программы",
+      empty: "Вы ещё не сохранили ни одной программы",
+      emptyDescription: "Просмотрите программы и нажмите 'Сохранить программу', чтобы добавить их сюда",
+      browsePrograms: "Просмотр программ",
+      saved: "Сохранено",
+      saveProgram: "Сохранить программу",
+      unsave: "Удалить",
+      addNote: "Добавить заметку",
+      notePlaceholder: "Добавьте личные заметки об этой программе...",
+      compareSelected: "Сравнить выбранные",
+      selectToCompare: "Выберите 2+ программы для сравнения",
+      loginToSave: "Пожалуйста, войдите, чтобы сохранять программы",
+      savedSuccess: "Программа успешно сохранена",
+      unsavedSuccess: "Программа удалена из сохранённых",
+      compare: {
+        title: "Сравнить программы",
+        backToSaved: "Назад к сохранённым программам",
+        university: "Университет",
+        program: "Программа",
+        country: "Страна",
+        degree: "Уровень степени",
+        field: "Область обучения",
+        tuition: "Стоимость обучения",
+        applicationFee: "Регистрационный сбор",
+        duration: "Продолжительность",
+        housing: "Жильё доступно",
+        requirements: "Требования",
+        deadlines: "Сроки подачи заявок",
+        applyNow: "Подать заявку сейчас"
+      }
+    },
     careers: {
       title: "Карьерный Советник",
       subtitle: "Найдите и спланируйте своё будущее",
@@ -1552,6 +1618,72 @@ const translations: Record<Language, any> = {
       step2: "Awaiting university decision",
       step3: "We will contact you and inform you of the next steps",
       applyAnother: "Apply to Another Program"
+    },
+    requestHelp: {
+      title: "Request Help with Application",
+      subtitle: "Our team will contact you within 24-48 hours",
+      fullName: "Full Name",
+      email: "Email Address",
+      phone: "Phone Number (Optional)",
+      helpType: "What do you need help with?",
+      helpTypes: {
+        eligibility: "Eligibility Questions",
+        documents: "Document Requirements",
+        application: "Application Process",
+        general: "General Inquiry"
+      },
+      educationLevel: "Current Education Level",
+      educationLevels: {
+        highSchool: "High School",
+        bachelor: "Bachelor's Degree",
+        master: "Master's Degree"
+      },
+      message: "Describe your question or concern",
+      messagePlaceholder: "Please provide details about what you need help with...",
+      contactMethod: "Preferred Contact Method",
+      contactMethods: {
+        email: "Email",
+        phone: "Phone Call",
+        whatsapp: "WhatsApp"
+      },
+      submit: "Submit Request",
+      cancel: "Cancel",
+      successTitle: "Request Submitted!",
+      successMessage: "Our team will contact you within 24-48 hours via your preferred method.",
+      loginRequired: "Please sign in to request help",
+      loginButton: "Sign In"
+    },
+    savedPrograms: {
+      title: "Saved Programs",
+      empty: "You haven't saved any programs yet",
+      emptyDescription: "Browse programs and click 'Save Program' to add them here",
+      browsePrograms: "Browse Programs",
+      saved: "Saved",
+      saveProgram: "Save Program",
+      unsave: "Remove",
+      addNote: "Add Note",
+      notePlaceholder: "Add personal notes about this program...",
+      compareSelected: "Compare Selected",
+      selectToCompare: "Select 2+ programs to compare",
+      loginToSave: "Please sign in to save programs",
+      savedSuccess: "Program saved successfully",
+      unsavedSuccess: "Program removed from saved list",
+      compare: {
+        title: "Compare Programs",
+        backToSaved: "Back to Saved Programs",
+        university: "University",
+        program: "Program",
+        country: "Country",
+        degree: "Degree Level",
+        field: "Field of Study",
+        tuition: "Tuition",
+        applicationFee: "Application Fee",
+        duration: "Duration",
+        housing: "Housing Available",
+        requirements: "Requirements",
+        deadlines: "Application Deadlines",
+        applyNow: "Apply Now"
+      }
     },
     careers: {
       title: "Career Advisor",
