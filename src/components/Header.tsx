@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { useAuth } from "@/contexts/AuthContext";
+import { useUserRole } from "@/hooks/useUserRole";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,6 +18,7 @@ const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { t } = useLanguage();
   const { user, signOut } = useAuth();
+  const { isAgency } = useUserRole();
   const navigate = useNavigate();
 
   return (
@@ -75,13 +77,18 @@ const Header = () => {
                   </Button>
                 </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <DropdownMenuItem onClick={() => navigate('/dashboard')}>
-                      Dashboard
+                  <DropdownMenuItem onClick={() => navigate('/dashboard')}>
+                    Dashboard
+                  </DropdownMenuItem>
+                  {isAgency && (
+                    <DropdownMenuItem onClick={() => navigate('/agency-dashboard')}>
+                      {t('agencyDashboard.title')}
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => navigate('/saved-programs')}>
-                      {t('savedPrograms.title')}
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
+                  )}
+                  <DropdownMenuItem onClick={() => navigate('/saved-programs')}>
+                    {t('savedPrograms.title')}
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={async () => {
                     await signOut();
                     navigate('/auth');
@@ -161,6 +168,16 @@ const Header = () => {
               >
                 Dashboard
               </Button>
+              {isAgency && (
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="w-full justify-start"
+                  onClick={() => navigate('/agency-dashboard')}
+                >
+                  {t('agencyDashboard.title')}
+                </Button>
+              )}
               <Button 
                 variant="ghost" 
                 size="sm" 
