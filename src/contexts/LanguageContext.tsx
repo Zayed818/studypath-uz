@@ -555,16 +555,22 @@ const translations: Record<Language, any> = {
       viewDetails: "Batafsil",
       learnMore: "Batafsil",
       explorePrograms: "Dasturlarni Ko'rish",
-      quizTitle: "Martaba Shaxsiyat Testi",
-      quizSubtitle: "Bir necha savolga javob bering, sizga mos martabalarni topamiz",
       question: "Savol",
       next: "Keyingisi",
       previous: "Oldingi",
-      submitQuiz: "Natijalarni Ko'rish",
       seeResults: "Natijalarni Ko'rish",
-      recommendationsTitle: "Sizga Mos Martabalar",
-      recommendationsSubtitle: "Testingiz asosida eng mos martabalar",
-      recommendedCareers: "Tavsiya Etilgan Martabalar"
+      recommendedCareers: "Tavsiya Etilgan Martabalar",
+      quiz: {
+        title: "Holland RIASEC Martaba Testi",
+        resultsTitle: "Sizning Natijalaringiz!",
+        resultsSubtitle: "Holland Kodi asosida sizga mos martabalar",
+        yourType: "Sizning Turingiz",
+        personalityProfile: "Shaxsiyat Profili",
+        primary: "Asosiy",
+        match: "Moslik",
+        retake: "Qayta Topshirish",
+        score: "Ball"
+      }
     },
     applicationSuccess: {
       title: "Ariza Muvaffaqiyatli Topshirildi!",
