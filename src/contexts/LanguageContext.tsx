@@ -562,12 +562,13 @@ const translations: Record<Language, any> = {
       recommendedCareers: "Tavsiya Etilgan Martabalar",
       quiz: {
         title: "Holland RIASEC Martaba Testi",
+        subtitle: "12 ta savolga javob bering va sizga mos martabalarni toping",
         resultsTitle: "Sizning Natijalaringiz!",
         resultsSubtitle: "Holland Kodi asosida sizga mos martabalar",
         yourType: "Sizning Turingiz",
         personalityProfile: "Shaxsiyat Profili",
         primary: "Asosiy",
-        match: "Moslik",
+        match: "moslik",
         retake: "Qayta Topshirish",
         score: "Ball"
       }
@@ -1208,16 +1209,23 @@ const translations: Record<Language, any> = {
       viewDetails: "Подробнее",
       learnMore: "Узнать Больше",
       explorePrograms: "Обзор Программ",
-      quizTitle: "Тест на Профориентацию",
-      quizSubtitle: "Ответьте на несколько вопросов, и мы найдём подходящие карьеры",
       question: "Вопрос",
       next: "Далее",
       previous: "Назад",
-      submitQuiz: "Посмотреть Результаты",
       seeResults: "Посмотреть Результаты",
-      recommendationsTitle: "Карьеры для Вас",
-      recommendationsSubtitle: "На основе ваших ответов в тесте",
-      recommendedCareers: "Рекомендуемые Карьеры"
+      recommendedCareers: "Рекомендуемые Карьеры",
+      quiz: {
+        title: "Тест на Профориентацию по RIASEC",
+        subtitle: "Ответьте на 12 вопросов, и мы подберём подходящие карьеры",
+        score: "Балл",
+        resultsTitle: "Ваши Лучшие Карьерные Совпадения",
+        resultsSubtitle: "На основе вашего типа личности по методике Холланда",
+        yourType: "Ваш тип",
+        personalityProfile: "Профиль Личности",
+        primary: "Основной",
+        match: "совпадение",
+        retake: "Пройти Заново"
+      }
     },
     programDetail: {
       overview: "Обзор",
@@ -1838,16 +1846,23 @@ const translations: Record<Language, any> = {
       viewDetails: "View Details",
       learnMore: "Learn More",
       explorePrograms: "Explore Programs",
-      quizTitle: "Career Personality Quiz",
-      quizSubtitle: "Answer a few questions and we'll find matching careers",
       question: "Question",
       next: "Next",
       previous: "Previous",
-      submitQuiz: "Get My Career Recommendations",
       seeResults: "See Results",
-      recommendationsTitle: "Your Top Career Matches",
-      recommendationsSubtitle: "Based on your quiz answers",
-      recommendedCareers: "Recommended Careers"
+      recommendedCareers: "Recommended Careers",
+      quiz: {
+        title: "Holland RIASEC Career Quiz",
+        subtitle: "Answer 12 questions to discover your ideal career matches",
+        score: "Score",
+        resultsTitle: "Your Top Career Matches",
+        resultsSubtitle: "Based on your Holland personality type",
+        yourType: "Your type",
+        personalityProfile: "Personality Profile",
+        primary: "Primary",
+        match: "match",
+        retake: "Retake Quiz"
+      }
     },
     programDetail: {
       overview: "Overview",
