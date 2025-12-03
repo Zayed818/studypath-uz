@@ -570,7 +570,12 @@ const translations: Record<Language, any> = {
         primary: "Asosiy",
         match: "moslik",
         retake: "Qayta Topshirish",
-        score: "Ball"
+        score: "Ball",
+        saveResults: "Natijalarni Saqlash",
+        saved: "Saqlandi",
+        saveSuccess: "Natijalaringiz muvaffaqiyatli saqlandi",
+        saveError: "Natijalarni saqlashda xatolik yuz berdi",
+        loginToSave: "Natijalarni saqlash uchun tizimga kiring"
       }
     },
     applicationSuccess: {
@@ -1224,7 +1229,12 @@ const translations: Record<Language, any> = {
         personalityProfile: "Профиль Личности",
         primary: "Основной",
         match: "совпадение",
-        retake: "Пройти Заново"
+        retake: "Пройти Заново",
+        saveResults: "Сохранить Результаты",
+        saved: "Сохранено",
+        saveSuccess: "Ваши результаты успешно сохранены",
+        saveError: "Ошибка при сохранении результатов",
+        loginToSave: "Войдите, чтобы сохранить результаты"
       }
     },
     programDetail: {
@@ -1861,7 +1871,12 @@ const translations: Record<Language, any> = {
         personalityProfile: "Personality Profile",
         primary: "Primary",
         match: "match",
-        retake: "Retake Quiz"
+        retake: "Retake Quiz",
+        saveResults: "Save Results",
+        saved: "Saved",
+        saveSuccess: "Your results have been saved successfully",
+        saveError: "Error saving results",
+        loginToSave: "Sign in to save your results"
       }
     },
     programDetail: {

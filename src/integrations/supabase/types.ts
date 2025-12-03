@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      career_quiz_results: {
+        Row: {
+          created_at: string
+          holland_scores: Json
+          id: string
+          top_careers: Json
+          top_holland_codes: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          holland_scores: Json
+          id?: string
+          top_careers: Json
+          top_holland_codes: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          holland_scores?: Json
+          id?: string
+          top_careers?: Json
+          top_holland_codes?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       help_requests: {
         Row: {
           agency_notes: string | null

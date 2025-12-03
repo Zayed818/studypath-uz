@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -9,9 +9,12 @@ import { Link } from "react-router-dom";
 import { 
   TrendingUp, CheckCircle, XCircle, Search, Lightbulb, 
   ArrowLeft, ArrowRight, RotateCcw, Sparkles, Target,
-  ChevronRight
+  ChevronRight, Save, Loader2, Check
 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 import { quizQuestions, careers, hollandTypes, HollandCode } from "@/lib/careerQuizData";
 import { 
   calculateHollandScores, 
@@ -34,7 +37,10 @@ const Careers = () => {
   const [quizAnswers, setQuizAnswers] = useState<Record<number, number>>({});
   const [showResults, setShowResults] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
+  const [hasSavedResults, setHasSavedResults] = useState(false);
   const { t, language } = useLanguage();
+  const { user } = useAuth();
 
   const totalQuestions = quizQuestions.length;
   const progress = ((currentQuestion + 1) / totalQuestions) * 100;
@@ -60,6 +66,87 @@ const Careers = () => {
     getChartData(hollandScores, language as 'en' | 'uz' | 'ru'),
     [hollandScores, language]
   );
+
+  // Load saved results on mount
+  useEffect(() => {
+    const loadSavedResults = async () => {
+      if (!user) return;
+      
+      const { data, error } = await supabase
+        .from('career_quiz_results')
+        .select('*')
+        .eq('user_id', user.id)
+        .maybeSingle();
+      
+      if (data && !error) {
+        setHasSavedResults(true);
+      }
+    };
+    
+    loadSavedResults();
+  }, [user]);
+
+  // Save quiz results
+  const saveResults = async () => {
+    if (!user) {
+      toast.error(t('careers.quiz.loginToSave'));
+      return;
+    }
+    
+    setIsSaving(true);
+    
+    const topCareersData = topCareerMatches.map(c => ({
+      id: c.id,
+      title: c.title,
+      matchPercentage: c.matchPercentage,
+      hollandCode: c.hollandCode
+    }));
+    
+    const topCodes = personalityProfile.map(p => p.code).join('');
+    
+    // First try to update existing record
+    const { data: existing } = await supabase
+      .from('career_quiz_results')
+      .select('id')
+      .eq('user_id', user.id)
+      .maybeSingle();
+    
+    let error;
+    
+    if (existing) {
+      // Update existing record
+      const result = await supabase
+        .from('career_quiz_results')
+        .update({
+          holland_scores: hollandScores as any,
+          top_holland_codes: topCodes,
+          top_careers: topCareersData as any
+        })
+        .eq('user_id', user.id);
+      error = result.error;
+    } else {
+      // Insert new record
+      const result = await supabase
+        .from('career_quiz_results')
+        .insert({
+          user_id: user.id,
+          holland_scores: hollandScores as any,
+          top_holland_codes: topCodes,
+          top_careers: topCareersData as any
+        });
+      error = result.error;
+    }
+    
+    setIsSaving(false);
+    
+    if (error) {
+      toast.error(t('careers.quiz.saveError'));
+      console.error('Error saving results:', error);
+    } else {
+      setHasSavedResults(true);
+      toast.success(t('careers.quiz.saveSuccess'));
+    }
+  };
 
   const chartConfig: ChartConfig = {
     score: {
@@ -571,10 +658,32 @@ const Careers = () => {
                     <RotateCcw className="h-4 w-4 mr-2" />
                     {t('careers.quiz.retake')}
                   </Button>
+                  <Button 
+                    variant="outline" 
+                    className="flex-1"
+                    onClick={saveResults}
+                    disabled={isSaving || !user}
+                  >
+                    {isSaving ? (
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    ) : hasSavedResults ? (
+                      <Check className="h-4 w-4 mr-2" />
+                    ) : (
+                      <Save className="h-4 w-4 mr-2" />
+                    )}
+                    {hasSavedResults ? t('careers.quiz.saved') : t('careers.quiz.saveResults')}
+                  </Button>
                   <Button className="flex-1 bg-secondary hover:bg-secondary/90" asChild>
                     <Link to="/programs">{t('careers.explorePrograms')}</Link>
                   </Button>
                 </div>
+                {!user && (
+                  <p className="text-sm text-muted-foreground text-center mt-2">
+                    <Link to="/auth" className="text-primary hover:underline">
+                      {t('careers.quiz.loginToSave')}
+                    </Link>
+                  </p>
+                )}
               </div>
             )}
           </div>
