@@ -766,6 +766,15 @@ const translations: Record<Language, any> = {
       title: "Sahifa Topilmadi",
       message: "Kechirasiz, siz qidirayotgan sahifa mavjud emas.",
       backHome: "Bosh Sahifaga Qaytish"
+    },
+    dashboard: {
+      quizResults: "Test Natijalari",
+      noQuizResults: "Hali test topshirmadingiz",
+      takeQuizPrompt: "Karyera yo'nalishingizni aniqlash uchun testni topshiring",
+      takeQuiz: "Testni Boshlash",
+      savedOn: "Saqlangan:",
+      topCareers: "Eng Mos Kasblar",
+      viewFullResults: "To'liq Natijalarni Ko'rish"
     }
   },
   ru: {
@@ -1416,6 +1425,15 @@ const translations: Record<Language, any> = {
       title: "Страница не найдена",
       message: "К сожалению, страница, которую вы ищете, не существует.",
       backHome: "Вернуться на Главную"
+    },
+    dashboard: {
+      quizResults: "Результаты Теста",
+      noQuizResults: "Вы ещё не прошли тест",
+      takeQuizPrompt: "Пройдите тест, чтобы определить ваше карьерное направление",
+      takeQuiz: "Начать Тест",
+      savedOn: "Сохранено:",
+      topCareers: "Лучшие Карьеры",
+      viewFullResults: "Посмотреть Все Результаты"
     }
   },
   en: {
@@ -2027,6 +2045,15 @@ const translations: Record<Language, any> = {
       title: "Page Not Found",
       message: "Sorry, the page you are looking for does not exist.",
       backHome: "Back to Home"
+    },
+    dashboard: {
+      quizResults: "Quiz Results",
+      noQuizResults: "You haven't taken the quiz yet",
+      takeQuizPrompt: "Take the career quiz to discover your career direction",
+      takeQuiz: "Take Quiz",
+      savedOn: "Saved on:",
+      topCareers: "Top Career Matches",
+      viewFullResults: "View Full Results"
     }
   }
 };
