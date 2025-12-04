@@ -11,6 +11,7 @@ import {
   ArrowLeft, ArrowRight, RotateCcw, Sparkles, Target,
   ChevronRight, Save, Loader2, Check
 } from "lucide-react";
+import { ShareResultsButtons } from "@/components/careers/ShareResultsButtons";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
@@ -673,6 +674,11 @@ const Careers = () => {
                     )}
                     {hasSavedResults ? t('careers.quiz.saved') : t('careers.quiz.saveResults')}
                   </Button>
+                  <ShareResultsButtons
+                    hollandCodes={personalityProfile.map(p => p.code).join('')}
+                    topCareerTitle={getCareerTitle(topCareerMatches[0])}
+                    matchPercentage={topCareerMatches[0]?.matchPercentage || 0}
+                  />
                   <Button className="flex-1 bg-secondary hover:bg-secondary/90" asChild>
                     <Link to="/programs">{t('careers.explorePrograms')}</Link>
                   </Button>

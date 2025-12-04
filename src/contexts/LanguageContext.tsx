@@ -575,7 +575,12 @@ const translations: Record<Language, any> = {
         saved: "Saqlandi",
         saveSuccess: "Natijalaringiz muvaffaqiyatli saqlandi",
         saveError: "Natijalarni saqlashda xatolik yuz berdi",
-        loginToSave: "Natijalarni saqlash uchun tizimga kiring"
+        loginToSave: "Natijalarni saqlash uchun tizimga kiring",
+        share: "Ulashish",
+        shareResults: "Natijalarni ulashing",
+        shareText: "Men karyera testini topshirdim! Mening shaxsiyat turim: {codes}. Eng mos karyera: {career} ({percentage}% moslik). Sizning turingizni bilib oling!",
+        linkCopied: "Havola nusxalandi!",
+        copyError: "Havolani nusxalashda xatolik"
       }
     },
     applicationSuccess: {
@@ -1234,7 +1239,12 @@ const translations: Record<Language, any> = {
         saved: "Сохранено",
         saveSuccess: "Ваши результаты успешно сохранены",
         saveError: "Ошибка при сохранении результатов",
-        loginToSave: "Войдите, чтобы сохранить результаты"
+        loginToSave: "Войдите, чтобы сохранить результаты",
+        share: "Поделиться",
+        shareResults: "Поделитесь результатами",
+        shareText: "Я прошёл тест на карьеру! Мой тип личности: {codes}. Лучшая карьера: {career} ({percentage}% совпадение). Узнайте свой тип!",
+        linkCopied: "Ссылка скопирована!",
+        copyError: "Ошибка копирования ссылки"
       }
     },
     programDetail: {
@@ -1876,7 +1886,12 @@ const translations: Record<Language, any> = {
         saved: "Saved",
         saveSuccess: "Your results have been saved successfully",
         saveError: "Error saving results",
-        loginToSave: "Sign in to save your results"
+        loginToSave: "Sign in to save your results",
+        share: "Share",
+        shareResults: "Share your results",
+        shareText: "I took the career quiz! My personality type: {codes}. Best career match: {career} ({percentage}% match). Find out your type!",
+        linkCopied: "Link copied!",
+        copyError: "Error copying link"
       }
     },
     programDetail: {
