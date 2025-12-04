@@ -7,6 +7,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
 import { User, GraduationCap, FileText, BarChart } from 'lucide-react';
+import SavedQuizResults from '@/components/dashboard/SavedQuizResults';
 
 const Dashboard = () => {
   const { user, signOut } = useAuth();
@@ -75,6 +76,8 @@ const Dashboard = () => {
                   <Button variant="outline" className="w-full">Browse Programs</Button>
                 </CardContent>
               </Card>
+
+              <SavedQuizResults />
             </div>
 
             {(isAdmin || isAgency) && (
