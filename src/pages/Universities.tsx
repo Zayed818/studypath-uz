@@ -21,9 +21,15 @@ import {
   FileText,
   Globe,
   Home,
-  Plane
+  Plane,
+  Heart,
+  Loader2
 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useAuth } from "@/contexts/AuthContext";
+import { useSavedPrograms } from "@/hooks/useSavedPrograms";
+import { ShareProgramDialog } from "@/components/universities/ShareProgramDialog";
+import { toast } from "@/hooks/use-toast";
 
 interface Program {
   id: string;
@@ -579,6 +585,61 @@ const countryData: Record<string, CountryInfo> = {
   }
 };
 
+// SaveProgramButton component
+const SaveProgramButton = ({ program, selectedCountry }: { program: Program; selectedCountry: string }) => {
+  const { t } = useLanguage();
+  const { user } = useAuth();
+  const { saveProgram, unsaveProgram, isSaved } = useSavedPrograms();
+  const [saving, setSaving] = useState(false);
+
+  const saved = isSaved(program.id);
+
+  const handleToggleSave = async () => {
+    if (!user) {
+      toast({
+        title: t('universities.loginToSave'),
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    setSaving(true);
+    if (saved) {
+      await unsaveProgram(program.id);
+    } else {
+      await saveProgram({
+        programId: program.id,
+        universityName: program.university,
+        programName: program.title,
+        country: selectedCountry,
+        degree: program.degree,
+        field: program.field,
+        tuition: program.tuitionFee,
+      });
+    }
+    setSaving(false);
+  };
+
+  return (
+    <Button
+      variant="ghost"
+      size="sm"
+      className="gap-1"
+      onClick={handleToggleSave}
+      disabled={saving}
+    >
+      {saving ? (
+        <Loader2 className="h-4 w-4 animate-spin" />
+      ) : (
+        <Heart className={`h-4 w-4 ${saved ? 'fill-destructive text-destructive' : ''}`} />
+      )}
+      <span className="hidden sm:inline">
+        {saved ? t('universities.saved') : t('universities.saveProgram')}
+      </span>
+    </Button>
+  );
+};
+
 const Universities = () => {
   const { t } = useLanguage();
   const [selectedCountry, setSelectedCountry] = useState<string>("turkey");
@@ -804,17 +865,27 @@ const Universities = () => {
                 <p className="text-xs text-muted-foreground">{program.requirements}</p>
               </div>
 
-              <div className="flex gap-2">
-                <Button className="flex-1" size="sm" asChild>
-                  <Link to={`/programs/${program.id}`}>{t('universities.viewProgram')}</Link>
-                </Button>
-                <Button variant="outline" size="sm" asChild>
-                  <Link 
-                    to={`/apply?programId=${program.id}&universityId=${selectedCountry}&programName=${encodeURIComponent(program.title)}&universityName=${encodeURIComponent(program.university)}`}
-                  >
-                    {t('universities.applyNow')}
-                  </Link>
-                </Button>
+              <div className="flex flex-col gap-2">
+                <div className="flex gap-2">
+                  <Button className="flex-1" size="sm" asChild>
+                    <Link to={`/programs/${program.id}`}>{t('universities.viewProgram')}</Link>
+                  </Button>
+                  <Button variant="outline" size="sm" asChild>
+                    <Link 
+                      to={`/apply?programId=${program.id}&universityId=${selectedCountry}&programName=${encodeURIComponent(program.title)}&universityName=${encodeURIComponent(program.university)}`}
+                    >
+                      {t('universities.applyNow')}
+                    </Link>
+                  </Button>
+                </div>
+                <div className="flex gap-2">
+                  <SaveProgramButton program={program} selectedCountry={selectedCountry} />
+                  <ShareProgramDialog
+                    programId={program.id}
+                    programName={program.title}
+                    universityName={program.university}
+                  />
+                </div>
               </div>
             </Card>
           ))}
