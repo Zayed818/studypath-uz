@@ -14,6 +14,87 @@ export type Database = {
   }
   public: {
     Tables: {
+      applications: {
+        Row: {
+          budget_range: string | null
+          city: string
+          created_at: string
+          current_education_level: string | null
+          date_of_birth: string | null
+          email: string
+          english_score: string | null
+          english_test: string | null
+          first_name: string
+          gender: string | null
+          gpa: string | null
+          id: string
+          last_name: string
+          nationality: string
+          phone: string
+          program_degree_level: string | null
+          program_degree_name: string | null
+          program_id: string
+          program_name: string
+          scholarship_interest: boolean | null
+          status: string
+          university_name: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          budget_range?: string | null
+          city: string
+          created_at?: string
+          current_education_level?: string | null
+          date_of_birth?: string | null
+          email: string
+          english_score?: string | null
+          english_test?: string | null
+          first_name: string
+          gender?: string | null
+          gpa?: string | null
+          id?: string
+          last_name: string
+          nationality: string
+          phone: string
+          program_degree_level?: string | null
+          program_degree_name?: string | null
+          program_id: string
+          program_name: string
+          scholarship_interest?: boolean | null
+          status?: string
+          university_name: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          budget_range?: string | null
+          city?: string
+          created_at?: string
+          current_education_level?: string | null
+          date_of_birth?: string | null
+          email?: string
+          english_score?: string | null
+          english_test?: string | null
+          first_name?: string
+          gender?: string | null
+          gpa?: string | null
+          id?: string
+          last_name?: string
+          nationality?: string
+          phone?: string
+          program_degree_level?: string | null
+          program_degree_name?: string | null
+          program_id?: string
+          program_name?: string
+          scholarship_interest?: boolean | null
+          status?: string
+          university_name?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       career_quiz_results: {
         Row: {
           created_at: string

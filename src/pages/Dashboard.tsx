@@ -6,13 +6,36 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
-import { User, GraduationCap, FileText, BarChart } from 'lucide-react';
+import { User, GraduationCap, FileText, BarChart, Loader2 } from 'lucide-react';
 import SavedQuizResults from '@/components/dashboard/SavedQuizResults';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
 
 const Dashboard = () => {
   const { user, signOut } = useAuth();
   const { role, isAdmin, isAgency } = useUserRole();
   const navigate = useNavigate();
+
+  // Fetch user's applications count
+  const { data: applicationsData, isLoading: applicationsLoading } = useQuery({
+    queryKey: ['user-applications-count', user?.id],
+    queryFn: async () => {
+      if (!user?.id) return { count: 0, applications: [] };
+      
+      const { data, error, count } = await supabase
+        .from('applications')
+        .select('id, status, program_name, university_name, created_at', { count: 'exact' })
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false })
+        .limit(5);
+      
+      if (error) throw error;
+      return { count: count || 0, applications: data || [] };
+    },
+    enabled: !!user?.id,
+  });
+
+  const applicationCount = applicationsData?.count || 0;
 
   return (
     <ProtectedRoute>
@@ -55,9 +78,22 @@ const Dashboard = () => {
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground mb-4">
-                    You have 0 active applications
+                    {applicationsLoading ? (
+                      <span className="flex items-center gap-2">
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        Loading...
+                      </span>
+                    ) : (
+                      `You have ${applicationCount} active application${applicationCount !== 1 ? 's' : ''}`
+                    )}
                   </p>
-                  <Button variant="outline" className="w-full">View Applications</Button>
+                  <Button 
+                    variant="outline" 
+                    className="w-full"
+                    onClick={() => navigate('/programs')}
+                  >
+                    {applicationCount > 0 ? 'View Applications' : 'Browse Programs'}
+                  </Button>
                 </CardContent>
               </Card>
 
@@ -73,7 +109,13 @@ const Dashboard = () => {
                   <p className="text-sm text-muted-foreground mb-4">
                     Browse programs and scholarships
                   </p>
-                  <Button variant="outline" className="w-full">Browse Programs</Button>
+                  <Button 
+                    variant="outline" 
+                    className="w-full"
+                    onClick={() => navigate('/programs')}
+                  >
+                    Browse Programs
+                  </Button>
                 </CardContent>
               </Card>
 
@@ -97,7 +139,7 @@ const Dashboard = () => {
                           <CardDescription>Manage users and roles</CardDescription>
                         </CardHeader>
                         <CardContent>
-                          <Button className="w-full" onClick={() => window.location.href = '/admin'}>
+                          <Button className="w-full" onClick={() => navigate('/admin')}>
                             Open Admin Panel
                           </Button>
                         </CardContent>
@@ -128,7 +170,7 @@ const Dashboard = () => {
                         <CardDescription>Manage student applications</CardDescription>
                       </CardHeader>
                       <CardContent>
-                        <Button className="w-full" onClick={() => window.location.href = '/agency'}>
+                        <Button className="w-full" onClick={() => navigate('/agency')}>
                           Open Agency Panel
                         </Button>
                       </CardContent>
