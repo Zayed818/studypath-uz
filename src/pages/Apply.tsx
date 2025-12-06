@@ -15,6 +15,8 @@ import ReviewStep from "@/components/apply/ReviewStep";
 import ConfirmationStep from "@/components/apply/ConfirmationStep";
 import { parseDegreeFromProgram } from "@/lib/degreeUtils";
 import { Badge } from "@/components/ui/badge";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
 
 export interface ApplicationFormData {
   // Program Context (auto-detected)
@@ -68,6 +70,7 @@ export interface ValidationErrors {
 
 const Apply = () => {
   const { t } = useLanguage();
+  const { user } = useAuth();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
@@ -264,17 +267,42 @@ const Apply = () => {
     setIsSubmitting(true);
 
     try {
-      // Generate application ID
-      const appId = `APP-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
-      
-      // Simulate API submission (replace with actual API call)
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      // Save application to database
+      const { data, error } = await supabase
+        .from('applications')
+        .insert({
+          user_id: user?.id || null,
+          program_id: formData.programId,
+          university_name: formData.universityName,
+          program_name: formData.programName,
+          program_degree_level: formData.programDegreeLevel,
+          program_degree_name: formData.programDegreeName,
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          date_of_birth: formData.dateOfBirth?.toISOString().split('T')[0] || null,
+          gender: formData.gender || null,
+          nationality: formData.nationality,
+          city: formData.city,
+          email: formData.email,
+          phone: formData.phone,
+          current_education_level: formData.currentEducationLevel || null,
+          gpa: formData.gpa || null,
+          english_test: formData.englishTest || null,
+          english_score: formData.englishScore || null,
+          budget_range: formData.budgetRange || null,
+          scholarship_interest: formData.scholarshipInterest,
+          status: 'submitted'
+        })
+        .select('id')
+        .single();
+
+      if (error) throw error;
 
       // Clear draft
       localStorage.removeItem(`application_draft_${formData.programId}`);
 
       // Set application ID and move to confirmation
-      setApplicationId(appId);
+      setApplicationId(data.id);
       setCurrentStep(5);
 
       toast({
@@ -282,6 +310,7 @@ const Apply = () => {
         description: t('apply.applicationSubmittedSuccess'),
       });
     } catch (error) {
+      console.error('Application submission error:', error);
       toast({
         title: t('common.error'),
         description: t('apply.submissionError'),
