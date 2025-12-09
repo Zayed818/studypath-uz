@@ -61,24 +61,19 @@ const Footer = () => {
             <h3 className="font-semibold mb-4 text-foreground">{t('footer.about')}</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <Link to="/about" className="hover:text-primary transition-colors">
                   {t('footer.aboutUs')}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <Link to="/contact" className="hover:text-primary transition-colors">
                   {t('nav.contact')}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  {t('nav.blog')}
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <Link to="/faq" className="hover:text-primary transition-colors">
                   {t('nav.faq')}
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -88,19 +83,14 @@ const Footer = () => {
             <h3 className="font-semibold mb-4 text-foreground">{t('footer.legal')}</h3>
             <ul className="space-y-2 text-sm text-muted-foreground mb-6">
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <Link to="/privacy" className="hover:text-primary transition-colors">
                   {t('footer.privacy')}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <Link to="/terms" className="hover:text-primary transition-colors">
                   {t('footer.terms')}
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  {t('footer.cookies')}
-                </a>
+                </Link>
               </li>
             </ul>
             

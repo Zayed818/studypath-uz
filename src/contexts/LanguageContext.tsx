@@ -782,6 +782,192 @@ const translations: Record<Language, any> = {
       savedOn: "Saqlangan:",
       topCareers: "Eng Mos Kasblar",
       viewFullResults: "To'liq Natijalarni Ko'rish"
+    },
+    about: {
+      hero: {
+        title: "Talabalarning Xorijda O'qish Orzularini Ro'yobga Chiqaramiz",
+        subtitle: "StudyPath — Markaziy Osiyo talabalarini dunyoning eng yaxshi universitetlariga bog'lovchi ishonchli platforma"
+      },
+      mission: {
+        title: "Bizning Maqsadimiz",
+        description: "Biz O'zbekiston va Markaziy Osiyo talabalari uchun xorijda ta'lim olish jarayonini sodda va tushunarli qilishga intilamiz. Platformamiz talabalarni to'g'ri dasturlar, stipendiyalar va ishonchli agentliklar bilan bog'laydi."
+      },
+      values: {
+        title: "Bizning Qadriyatlarimiz",
+        studentFirst: {
+          title: "Talabalar Birinchi",
+          description: "Har bir qarorimiz talabalar manfaatlarini ko'zda tutadi"
+        },
+        transparency: {
+          title: "Shaffoflik",
+          description: "Aniq va to'liq ma'lumot bilan ishonch qozonamiz"
+        },
+        global: {
+          title: "Global Yondashuv",
+          description: "Dunyoning turli burchaklaridan imkoniyatlar taqdim etamiz"
+        },
+        quality: {
+          title: "Sifat",
+          description: "Faqat tasdiqlangan va akkreditatsiyalangan hamkorlar bilan ishlaymiz"
+        }
+      },
+      stats: {
+        programs: "Dasturlar",
+        countries: "Mamlakatlar",
+        universities: "Universitetlar",
+        students: "Talabalar"
+      }
+    },
+    contact: {
+      hero: {
+        title: "Biz Bilan Bog'laning",
+        subtitle: "Savollaringiz bormi? Biz yordam berishga tayyormiz"
+      },
+      form: {
+        title: "Xabar Yuboring",
+        name: "Ismingiz",
+        email: "Email manzilingiz",
+        subject: "Mavzu",
+        message: "Xabaringiz",
+        submit: "Yuborish",
+        success: {
+          title: "Xabar yuborildi!",
+          description: "Tez orada siz bilan bog'lanamiz"
+        }
+      },
+      info: {
+        title: "Aloqa Ma'lumotlari",
+        email: "Email",
+        phone: "Telefon",
+        address: "Manzil"
+      },
+      hours: {
+        title: "Ish Vaqti",
+        weekdays: "Dushanba - Juma",
+        saturday: "Shanba",
+        sunday: "Yakshanba",
+        closed: "Dam olish"
+      }
+    },
+    faq: {
+      hero: {
+        title: "Ko'p Beriladigan Savollar",
+        subtitle: "Eng keng tarqalgan savollarga javoblar"
+      },
+      categories: {
+        general: {
+          title: "Umumiy Savollar",
+          q1: "StudyPath nima?",
+          a1: "StudyPath — Markaziy Osiyo talabalarini xorijdagi universitetlar, dasturlar va stipendiyalar bilan bog'lovchi platforma. Biz ariza topshirish jarayonini soddalashtiramiz.",
+          q2: "Xizmatlaringiz bepulmi?",
+          a2: "Ha, platformamizdan foydalanish va dasturlarni qidirish mutlaqo bepul. Agentlik xizmatlari alohida kelishiladi.",
+          q3: "Qaysi mamlakatlarga ariza topshirish mumkin?",
+          a3: "Biz 10dan ortiq mamlakat universitetlari bilan ishlaymiz, jumladan Turkiya, Malayziya, Germaniya, Buyuk Britaniya, Kanada va boshqalar."
+        },
+        applications: {
+          title: "Ariza Topshirish",
+          q1: "Ariza topshirish uchun qanday hujjatlar kerak?",
+          a1: "Odatda pasport, diploma yoki attestat, ingliz tili sertifikati (IELTS/TOEFL), va motivatsion xat kerak. Har bir dastur uchun talablar farq qilishi mumkin.",
+          q2: "Ariza ko'rib chiqilishi qancha vaqt oladi?",
+          a2: "Ariza jarayoni 2-8 hafta davom etishi mumkin. Tez qaror chiqaruvchi dasturlar ham mavjud.",
+          q3: "Bir nechta dasturga ariza topshirish mumkinmi?",
+          a3: "Albatta! Biz bir vaqtda bir nechta dasturga ariza topshirishni tavsiya qilamiz."
+        },
+        scholarships: {
+          title: "Stipendiyalar",
+          q1: "Stipendiya olish qiyin emi?",
+          a1: "Raqobat yuqori bo'lsa-da, to'g'ri tayyorgarlik va kuchli ariza bilan stipendiya olish imkoniyati ancha yuqori.",
+          q2: "Qaysi stipendiyalar mavjud?",
+          a2: "To'liq qamrovli (o'qish haqi + yashash xarajatlari), qisman qamrovli va maxsus sohalarga mo'ljallangan stipendiyalar mavjud."
+        }
+      },
+      cta: {
+        title: "Savolingizga javob topolmadingizmi?",
+        subtitle: "Biz bilan bevosita bog'laning",
+        button: "Bog'lanish"
+      }
+    },
+    privacy: {
+      hero: {
+        title: "Maxfiylik Siyosati",
+        lastUpdated: "Oxirgi yangilanish"
+      },
+      intro: "Ushbu Maxfiylik Siyosati StudyPath platformasidan foydalanishda shaxsiy ma'lumotlaringiz qanday yig'ilishi, ishlatilishi va himoya qilinishini tushuntiradi.",
+      sections: {
+        collection: {
+          title: "Ma'lumotlarni Yig'ish",
+          content: "Biz quyidagi ma'lumotlarni yig'amiz: ism, email, telefon raqami, ta'lim tarixi va ariza ma'lumotlari. Ushbu ma'lumotlar xizmatlarimizni taqdim etish uchun zarur."
+        },
+        usage: {
+          title: "Ma'lumotlardan Foydalanish",
+          content: "Yig'ilgan ma'lumotlar sizga mos dasturlarni tavsiya qilish, ariza jarayonini boshqarish va agentliklar bilan bog'lanish uchun ishlatiladi."
+        },
+        sharing: {
+          title: "Ma'lumotlarni Ulashish",
+          content: "Sizning ma'lumotlaringiz faqat siz tanlagan dastur va agentliklar bilan ulashiladi. Biz uchinchi tomonlarga ma'lumotlaringizni sotmaymiz."
+        },
+        security: {
+          title: "Xavfsizlik",
+          content: "Biz ma'lumotlaringizni himoya qilish uchun zamonaviy shifrlash va xavfsizlik choralaridan foydalanamiz."
+        },
+        cookies: {
+          title: "Cookies",
+          content: "Platformamiz foydalanuvchi tajribasini yaxshilash uchun cookies'lardan foydalanadi. Siz brauzer sozlamalarida cookies'larni boshqarishingiz mumkin."
+        },
+        rights: {
+          title: "Sizning Huquqlaringiz",
+          content: "Siz o'z ma'lumotlaringizni ko'rish, o'zgartirish yoki o'chirishni so'rashingiz mumkin. Buning uchun biz bilan bog'laning."
+        },
+        contact: {
+          title: "Bog'lanish",
+          content: "Maxfiylik siyosati bo'yicha savollar uchun info@studypath.uz manziliga yozing."
+        }
+      }
+    },
+    terms: {
+      hero: {
+        title: "Foydalanish Shartlari",
+        lastUpdated: "Oxirgi yangilanish"
+      },
+      intro: "Ushbu Foydalanish Shartlari StudyPath platformasidan foydalanish qoidalarini belgilaydi. Platformadan foydalanib, siz ushbu shartlarga rozilik bildirasiz.",
+      sections: {
+        acceptance: {
+          title: "Shartlarni Qabul Qilish",
+          content: "Platformadan foydalanish orqali siz ushbu shartlarni to'liq o'qib chiqqaningizni va ularga roziligingizni tasdiqlaysiz."
+        },
+        services: {
+          title: "Xizmatlar",
+          content: "StudyPath talabalarni xorijdagi universitetlar va agentliklar bilan bog'lovchi platforma sifatida xizmat ko'rsatadi. Biz ma'lumot va vositalik xizmatlari taqdim etamiz."
+        },
+        accounts: {
+          title: "Foydalanuvchi Hisobi",
+          content: "Siz hisobingiz xavfsizligi uchun javobgarsiz. Hisobingiz ma'lumotlarini boshqalar bilan bo'lishmaslik kerak."
+        },
+        userConduct: {
+          title: "Foydalanuvchi Xulqi",
+          content: "Platformadan foydalanishda qonunlarga rioya qilish va boshqa foydalanuvchilarga hurmat ko'rsatish shart."
+        },
+        intellectual: {
+          title: "Intellektual Mulk",
+          content: "Platformadagi barcha kontent va dizayn StudyPath mulki hisoblanadi va mualliflik huquqi bilan himoyalangan."
+        },
+        disclaimer: {
+          title: "Javobgarlikni Rad Etish",
+          content: "Biz platformadagi uchinchi tomon ma'lumotlarining to'g'riligi uchun javobgar emasmiz. Ariza natijalari universitet qarorlariga bog'liq."
+        },
+        limitation: {
+          title: "Javobgarlik Chegarasi",
+          content: "StudyPath platformadan foydalanish natijasida yuzaga kelishi mumkin bo'lgan bilvosita zararlar uchun javobgar emas."
+        },
+        changes: {
+          title: "Shartlarni O'zgartirish",
+          content: "Biz ushbu shartlarni istalgan vaqtda o'zgartirish huquqini saqlab qolamiz. O'zgarishlar platforma orqali e'lon qilinadi."
+        },
+        contact: {
+          title: "Bog'lanish",
+          content: "Shartlar bo'yicha savollar uchun info@studypath.uz manziliga murojaat qiling."
+        }
+      }
     }
   },
   ru: {
@@ -1448,6 +1634,192 @@ const translations: Record<Language, any> = {
       savedOn: "Сохранено:",
       topCareers: "Лучшие Карьеры",
       viewFullResults: "Посмотреть Все Результаты"
+    },
+    about: {
+      hero: {
+        title: "Воплощаем Мечты Студентов об Учёбе за Рубежом",
+        subtitle: "StudyPath — надёжная платформа, связывающая студентов Центральной Азии с лучшими университетами мира"
+      },
+      mission: {
+        title: "Наша Миссия",
+        description: "Мы стремимся сделать процесс поступления за рубеж простым и понятным для студентов из Узбекистана и Центральной Азии. Наша платформа связывает студентов с подходящими программами, стипендиями и надёжными агентствами."
+      },
+      values: {
+        title: "Наши Ценности",
+        studentFirst: {
+          title: "Студенты в Первую Очередь",
+          description: "Каждое наше решение учитывает интересы студентов"
+        },
+        transparency: {
+          title: "Прозрачность",
+          description: "Завоёвываем доверие через полную и точную информацию"
+        },
+        global: {
+          title: "Глобальный Подход",
+          description: "Предоставляем возможности из разных уголков мира"
+        },
+        quality: {
+          title: "Качество",
+          description: "Работаем только с проверенными и аккредитованными партнёрами"
+        }
+      },
+      stats: {
+        programs: "Программ",
+        countries: "Стран",
+        universities: "Университетов",
+        students: "Студентов"
+      }
+    },
+    contact: {
+      hero: {
+        title: "Свяжитесь с Нами",
+        subtitle: "Есть вопросы? Мы готовы помочь"
+      },
+      form: {
+        title: "Отправить Сообщение",
+        name: "Ваше имя",
+        email: "Email",
+        subject: "Тема",
+        message: "Сообщение",
+        submit: "Отправить",
+        success: {
+          title: "Сообщение отправлено!",
+          description: "Мы скоро свяжемся с вами"
+        }
+      },
+      info: {
+        title: "Контактная Информация",
+        email: "Email",
+        phone: "Телефон",
+        address: "Адрес"
+      },
+      hours: {
+        title: "Часы Работы",
+        weekdays: "Понедельник - Пятница",
+        saturday: "Суббота",
+        sunday: "Воскресенье",
+        closed: "Выходной"
+      }
+    },
+    faq: {
+      hero: {
+        title: "Часто Задаваемые Вопросы",
+        subtitle: "Ответы на самые популярные вопросы"
+      },
+      categories: {
+        general: {
+          title: "Общие Вопросы",
+          q1: "Что такое StudyPath?",
+          a1: "StudyPath — платформа, связывающая студентов Центральной Азии с зарубежными университетами, программами и стипендиями. Мы упрощаем процесс подачи заявок.",
+          q2: "Ваши услуги бесплатны?",
+          a2: "Да, использование платформы и поиск программ полностью бесплатны. Услуги агентств оговариваются отдельно.",
+          q3: "В какие страны можно подать заявку?",
+          a3: "Мы работаем с университетами более чем в 10 странах, включая Турцию, Малайзию, Германию, Великобританию, Канаду и другие."
+        },
+        applications: {
+          title: "Подача Заявок",
+          q1: "Какие документы нужны для подачи заявки?",
+          a1: "Обычно требуются паспорт, диплом или аттестат, сертификат по английскому языку (IELTS/TOEFL) и мотивационное письмо. Требования могут отличаться для разных программ.",
+          q2: "Сколько времени занимает рассмотрение заявки?",
+          a2: "Процесс рассмотрения может занять от 2 до 8 недель. Есть программы с ускоренным принятием решений.",
+          q3: "Можно ли подать заявку на несколько программ?",
+          a3: "Конечно! Мы рекомендуем подавать заявки на несколько программ одновременно."
+        },
+        scholarships: {
+          title: "Стипендии",
+          q1: "Сложно ли получить стипендию?",
+          a1: "Конкуренция высокая, но при правильной подготовке и сильной заявке шансы на получение стипендии значительно возрастают.",
+          q2: "Какие стипендии доступны?",
+          a2: "Доступны стипендии с полным покрытием (обучение + проживание), частичным покрытием и стипендии для определённых специальностей."
+        }
+      },
+      cta: {
+        title: "Не нашли ответ на свой вопрос?",
+        subtitle: "Свяжитесь с нами напрямую",
+        button: "Связаться"
+      }
+    },
+    privacy: {
+      hero: {
+        title: "Политика Конфиденциальности",
+        lastUpdated: "Последнее обновление"
+      },
+      intro: "Эта Политика Конфиденциальности объясняет, как собираются, используются и защищаются ваши личные данные при использовании платформы StudyPath.",
+      sections: {
+        collection: {
+          title: "Сбор Данных",
+          content: "Мы собираем следующие данные: имя, email, номер телефона, образовательную историю и данные заявок. Эти данные необходимы для предоставления наших услуг."
+        },
+        usage: {
+          title: "Использование Данных",
+          content: "Собранные данные используются для рекомендации подходящих программ, управления процессом подачи заявок и связи с агентствами."
+        },
+        sharing: {
+          title: "Передача Данных",
+          content: "Ваши данные передаются только выбранным вами программам и агентствам. Мы не продаём ваши данные третьим лицам."
+        },
+        security: {
+          title: "Безопасность",
+          content: "Мы используем современное шифрование и меры безопасности для защиты ваших данных."
+        },
+        cookies: {
+          title: "Cookies",
+          content: "Наша платформа использует cookies для улучшения пользовательского опыта. Вы можете управлять cookies в настройках браузера."
+        },
+        rights: {
+          title: "Ваши Права",
+          content: "Вы можете запросить просмотр, изменение или удаление своих данных. Для этого свяжитесь с нами."
+        },
+        contact: {
+          title: "Контакты",
+          content: "По вопросам политики конфиденциальности пишите на info@studypath.uz."
+        }
+      }
+    },
+    terms: {
+      hero: {
+        title: "Условия Использования",
+        lastUpdated: "Последнее обновление"
+      },
+      intro: "Эти Условия Использования определяют правила пользования платформой StudyPath. Используя платформу, вы соглашаетесь с этими условиями.",
+      sections: {
+        acceptance: {
+          title: "Принятие Условий",
+          content: "Используя платформу, вы подтверждаете, что прочитали и согласны с этими условиями."
+        },
+        services: {
+          title: "Услуги",
+          content: "StudyPath предоставляет услуги платформы, связывающей студентов с зарубежными университетами и агентствами. Мы предоставляем информацию и посреднические услуги."
+        },
+        accounts: {
+          title: "Учётная Запись",
+          content: "Вы несёте ответственность за безопасность своей учётной записи. Не передавайте данные аккаунта другим лицам."
+        },
+        userConduct: {
+          title: "Поведение Пользователей",
+          content: "При использовании платформы необходимо соблюдать законы и проявлять уважение к другим пользователям."
+        },
+        intellectual: {
+          title: "Интеллектуальная Собственность",
+          content: "Весь контент и дизайн платформы являются собственностью StudyPath и защищены авторским правом."
+        },
+        disclaimer: {
+          title: "Отказ от Ответственности",
+          content: "Мы не несём ответственности за точность информации от третьих лиц. Результаты заявок зависят от решений университетов."
+        },
+        limitation: {
+          title: "Ограничение Ответственности",
+          content: "StudyPath не несёт ответственности за косвенные убытки, которые могут возникнуть в результате использования платформы."
+        },
+        changes: {
+          title: "Изменение Условий",
+          content: "Мы оставляем за собой право изменять эти условия в любое время. Изменения будут объявлены через платформу."
+        },
+        contact: {
+          title: "Контакты",
+          content: "По вопросам об условиях использования пишите на info@studypath.uz."
+        }
+      }
     }
   },
   en: {
@@ -2075,6 +2447,192 @@ const translations: Record<Language, any> = {
       savedOn: "Saved on:",
       topCareers: "Top Career Matches",
       viewFullResults: "View Full Results"
+    },
+    about: {
+      hero: {
+        title: "Empowering Students to Study Abroad",
+        subtitle: "StudyPath — a trusted platform connecting Central Asian students with the world's best universities"
+      },
+      mission: {
+        title: "Our Mission",
+        description: "We strive to make the process of studying abroad simple and accessible for students from Uzbekistan and Central Asia. Our platform connects students with the right programs, scholarships, and trusted agencies."
+      },
+      values: {
+        title: "Our Values",
+        studentFirst: {
+          title: "Students First",
+          description: "Every decision we make puts students' interests first"
+        },
+        transparency: {
+          title: "Transparency",
+          description: "We build trust through complete and accurate information"
+        },
+        global: {
+          title: "Global Reach",
+          description: "We provide opportunities from around the world"
+        },
+        quality: {
+          title: "Quality",
+          description: "We only work with verified and accredited partners"
+        }
+      },
+      stats: {
+        programs: "Programs",
+        countries: "Countries",
+        universities: "Universities",
+        students: "Students"
+      }
+    },
+    contact: {
+      hero: {
+        title: "Contact Us",
+        subtitle: "Have questions? We're here to help"
+      },
+      form: {
+        title: "Send a Message",
+        name: "Your Name",
+        email: "Email Address",
+        subject: "Subject",
+        message: "Message",
+        submit: "Send Message",
+        success: {
+          title: "Message sent!",
+          description: "We'll get back to you soon"
+        }
+      },
+      info: {
+        title: "Contact Information",
+        email: "Email",
+        phone: "Phone",
+        address: "Address"
+      },
+      hours: {
+        title: "Working Hours",
+        weekdays: "Monday - Friday",
+        saturday: "Saturday",
+        sunday: "Sunday",
+        closed: "Closed"
+      }
+    },
+    faq: {
+      hero: {
+        title: "Frequently Asked Questions",
+        subtitle: "Answers to the most common questions"
+      },
+      categories: {
+        general: {
+          title: "General Questions",
+          q1: "What is StudyPath?",
+          a1: "StudyPath is a platform connecting Central Asian students with international universities, programs, and scholarships. We simplify the application process.",
+          q2: "Are your services free?",
+          a2: "Yes, using the platform and searching for programs is completely free. Agency services are negotiated separately.",
+          q3: "Which countries can I apply to?",
+          a3: "We work with universities in over 10 countries, including Turkey, Malaysia, Germany, UK, Canada, and more."
+        },
+        applications: {
+          title: "Applications",
+          q1: "What documents are needed to apply?",
+          a1: "Typically you need a passport, diploma or certificate, English language certificate (IELTS/TOEFL), and a motivation letter. Requirements may vary by program.",
+          q2: "How long does the application review take?",
+          a2: "The review process can take 2-8 weeks. Some programs offer expedited decisions.",
+          q3: "Can I apply to multiple programs?",
+          a3: "Absolutely! We recommend applying to multiple programs simultaneously."
+        },
+        scholarships: {
+          title: "Scholarships",
+          q1: "Is it difficult to get a scholarship?",
+          a1: "While competition is high, proper preparation and a strong application significantly increase your chances of receiving a scholarship.",
+          q2: "What scholarships are available?",
+          a2: "Full coverage scholarships (tuition + living expenses), partial coverage, and field-specific scholarships are available."
+        }
+      },
+      cta: {
+        title: "Didn't find your answer?",
+        subtitle: "Contact us directly",
+        button: "Contact Us"
+      }
+    },
+    privacy: {
+      hero: {
+        title: "Privacy Policy",
+        lastUpdated: "Last updated"
+      },
+      intro: "This Privacy Policy explains how your personal information is collected, used, and protected when using the StudyPath platform.",
+      sections: {
+        collection: {
+          title: "Data Collection",
+          content: "We collect the following information: name, email, phone number, educational history, and application data. This information is necessary to provide our services."
+        },
+        usage: {
+          title: "Data Usage",
+          content: "Collected data is used to recommend suitable programs, manage the application process, and connect with agencies."
+        },
+        sharing: {
+          title: "Data Sharing",
+          content: "Your information is only shared with programs and agencies you select. We do not sell your data to third parties."
+        },
+        security: {
+          title: "Security",
+          content: "We use modern encryption and security measures to protect your data."
+        },
+        cookies: {
+          title: "Cookies",
+          content: "Our platform uses cookies to improve user experience. You can manage cookies in your browser settings."
+        },
+        rights: {
+          title: "Your Rights",
+          content: "You can request to view, modify, or delete your data. Contact us for assistance."
+        },
+        contact: {
+          title: "Contact",
+          content: "For privacy policy questions, email info@studypath.uz."
+        }
+      }
+    },
+    terms: {
+      hero: {
+        title: "Terms of Service",
+        lastUpdated: "Last updated"
+      },
+      intro: "These Terms of Service define the rules for using the StudyPath platform. By using the platform, you agree to these terms.",
+      sections: {
+        acceptance: {
+          title: "Acceptance of Terms",
+          content: "By using the platform, you confirm that you have read and agree to these terms."
+        },
+        services: {
+          title: "Services",
+          content: "StudyPath provides platform services connecting students with international universities and agencies. We provide information and intermediary services."
+        },
+        accounts: {
+          title: "User Account",
+          content: "You are responsible for the security of your account. Do not share your account credentials with others."
+        },
+        userConduct: {
+          title: "User Conduct",
+          content: "When using the platform, you must comply with laws and show respect to other users."
+        },
+        intellectual: {
+          title: "Intellectual Property",
+          content: "All content and design on the platform are the property of StudyPath and are protected by copyright."
+        },
+        disclaimer: {
+          title: "Disclaimer",
+          content: "We are not responsible for the accuracy of third-party information. Application outcomes depend on university decisions."
+        },
+        limitation: {
+          title: "Limitation of Liability",
+          content: "StudyPath is not liable for indirect damages that may arise from using the platform."
+        },
+        changes: {
+          title: "Changes to Terms",
+          content: "We reserve the right to modify these terms at any time. Changes will be announced through the platform."
+        },
+        contact: {
+          title: "Contact",
+          content: "For questions about terms of service, email info@studypath.uz."
+        }
+      }
     }
   }
 };
