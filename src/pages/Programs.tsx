@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/select";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Search, GraduationCap, MapPin, Calendar, Clock, Award, DollarSign, TrendingUp } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -146,8 +146,80 @@ const mockPrograms = [
 ];
 
 const Programs = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState("");
+  const [degreeFilter, setDegreeFilter] = useState(searchParams.get('degree') || "all");
+  const [fieldFilter, setFieldFilter] = useState(searchParams.get('field') || "all");
+  const [countryFilter, setCountryFilter] = useState(searchParams.get('country') || "all");
+  const [tuitionFilter, setTuitionFilter] = useState("all");
   const { t } = useLanguage();
+
+  // Initialize filters from URL params
+  useEffect(() => {
+    const degree = searchParams.get('degree');
+    const field = searchParams.get('field');
+    const country = searchParams.get('country');
+    if (degree) setDegreeFilter(degree);
+    if (field) setFieldFilter(field);
+    if (country) setCountryFilter(country);
+  }, [searchParams]);
+
+  // Filter programs based on all criteria
+  const filteredPrograms = useMemo(() => {
+    return mockPrograms.filter((program) => {
+      // Search term filter
+      if (searchTerm) {
+        const search = searchTerm.toLowerCase();
+        if (!program.program.toLowerCase().includes(search) &&
+            !program.university.toLowerCase().includes(search) &&
+            !program.field.toLowerCase().includes(search)) {
+          return false;
+        }
+      }
+
+      // Degree filter
+      if (degreeFilter && degreeFilter !== "all") {
+        const degreeMap: Record<string, string> = {
+          bachelor: "Bachelor's",
+          master: "Master's",
+          phd: "Doctorate",
+        };
+        if (program.degree !== degreeMap[degreeFilter]) return false;
+      }
+
+      // Field filter
+      if (fieldFilter && fieldFilter !== "all") {
+        const fieldMap: Record<string, string[]> = {
+          engineering: ["Engineering"],
+          business: ["Business", "Economics"],
+          "computer-science": ["Computer Science", "Data Science"],
+          medicine: ["Medicine"],
+          arts: ["Arts & Humanities"],
+        };
+        const allowedFields = fieldMap[fieldFilter] || [];
+        if (!allowedFields.some(f => program.field.includes(f))) return false;
+      }
+
+      // Country filter
+      if (countryFilter && countryFilter !== "all") {
+        const countryMap: Record<string, string> = {
+          usa: "United States",
+          uk: "United Kingdom",
+          canada: "Canada",
+          germany: "Germany",
+          australia: "Australia",
+          turkey: "Turkey",
+          malaysia: "Malaysia",
+          qatar: "Qatar",
+          saudi: "Saudi Arabia",
+          poland: "Poland",
+        };
+        if (!program.location.includes(countryMap[countryFilter] || "")) return false;
+      }
+
+      return true;
+    });
+  }, [searchTerm, degreeFilter, fieldFilter, countryFilter]);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -179,7 +251,7 @@ const Programs = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-            <Select>
+            <Select value={degreeFilter} onValueChange={setDegreeFilter}>
               <SelectTrigger>
                 <SelectValue placeholder={t('programs.studyLevel')} />
               </SelectTrigger>
@@ -191,7 +263,7 @@ const Programs = () => {
               </SelectContent>
             </Select>
 
-            <Select>
+            <Select value={fieldFilter} onValueChange={setFieldFilter}>
               <SelectTrigger>
                 <SelectValue placeholder={t('programs.fieldOfStudy')} />
               </SelectTrigger>
@@ -204,20 +276,26 @@ const Programs = () => {
               </SelectContent>
             </Select>
 
-            <Select>
+            <Select value={countryFilter} onValueChange={setCountryFilter}>
               <SelectTrigger>
                 <SelectValue placeholder={t('programs.country')} />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">{t('common.all')}</SelectItem>
+                <SelectItem value="turkey">Turkey</SelectItem>
+                <SelectItem value="malaysia">Malaysia</SelectItem>
                 <SelectItem value="usa">United States</SelectItem>
                 <SelectItem value="uk">United Kingdom</SelectItem>
                 <SelectItem value="canada">Canada</SelectItem>
                 <SelectItem value="germany">Germany</SelectItem>
+                <SelectItem value="australia">Australia</SelectItem>
+                <SelectItem value="qatar">Qatar</SelectItem>
+                <SelectItem value="saudi">Saudi Arabia</SelectItem>
+                <SelectItem value="poland">Poland</SelectItem>
               </SelectContent>
             </Select>
 
-            <Select>
+            <Select value={tuitionFilter} onValueChange={setTuitionFilter}>
               <SelectTrigger>
                 <SelectValue placeholder={t('programs.tuitionRange')} />
               </SelectTrigger>
@@ -232,14 +310,14 @@ const Programs = () => {
         </Card>
 
         <p className="text-sm text-muted-foreground mt-4">
-          {t('programs.showing')} <span className="font-semibold text-foreground">{mockPrograms.length}</span> {t('programs.programs')}
+          {t('programs.showing')} <span className="font-semibold text-foreground">{filteredPrograms.length}</span> {t('programs.programs')}
         </p>
       </section>
 
       {/* Programs Grid */}
       <section className="container px-4 pb-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-          {mockPrograms.map((program) => (
+          {filteredPrograms.map((program) => (
             <Card key={program.id} className="p-6 hover:shadow-xl transition-all">
               <div className="flex items-start gap-4 mb-4">
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">

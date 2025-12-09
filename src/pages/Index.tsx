@@ -1,6 +1,6 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -10,12 +10,25 @@ import {
 } from "@/components/ui/select";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Search, Target, Shield, Clock, TrendingUp, GraduationCap, Award, Briefcase, HeadphonesIcon } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Index = () => {
   const { t } = useLanguage();
+  const navigate = useNavigate();
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedDegree, setSelectedDegree] = useState("");
+  const [selectedField, setSelectedField] = useState("");
+
+  const handleSearch = () => {
+    const params = new URLSearchParams();
+    if (selectedCountry) params.set('country', selectedCountry);
+    if (selectedDegree) params.set('degree', selectedDegree);
+    if (selectedField) params.set('field', selectedField);
+    navigate(`/programs?${params.toString()}`);
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -39,20 +52,25 @@ const Index = () => {
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-              <Select>
+              <Select value={selectedCountry} onValueChange={setSelectedCountry}>
                 <SelectTrigger>
                   <SelectValue placeholder={t('hero.selectCountry')} />
                 </SelectTrigger>
                 <SelectContent>
+                  <SelectItem value="turkey">Turkey</SelectItem>
+                  <SelectItem value="malaysia">Malaysia</SelectItem>
                   <SelectItem value="usa">United States</SelectItem>
                   <SelectItem value="uk">United Kingdom</SelectItem>
                   <SelectItem value="canada">Canada</SelectItem>
                   <SelectItem value="germany">Germany</SelectItem>
                   <SelectItem value="australia">Australia</SelectItem>
+                  <SelectItem value="qatar">Qatar</SelectItem>
+                  <SelectItem value="saudi">Saudi Arabia</SelectItem>
+                  <SelectItem value="poland">Poland</SelectItem>
                 </SelectContent>
               </Select>
 
-              <Select>
+              <Select value={selectedDegree} onValueChange={setSelectedDegree}>
                 <SelectTrigger>
                   <SelectValue placeholder={(() => { const v = t('hero.chooseDegree'); return v === 'hero.chooseDegree' ? t('hero.selectDegree') : v; })()} />
                 </SelectTrigger>
@@ -63,7 +81,7 @@ const Index = () => {
                 </SelectContent>
               </Select>
 
-              <Select>
+              <Select value={selectedField} onValueChange={setSelectedField}>
                 <SelectTrigger>
                   <SelectValue placeholder={t('hero.selectField')} />
                 </SelectTrigger>
@@ -80,12 +98,10 @@ const Index = () => {
             <Button 
               size="lg" 
               className="w-full bg-secondary hover:bg-secondary/90 text-lg font-semibold h-14"
-              asChild
+              onClick={handleSearch}
             >
-              <Link to="/programs">
-                <Search className="mr-2 h-5 w-5" />
-                {(() => { const v = t('hero.searchButton'); return v === 'hero.searchButton' ? t('hero.searchPrograms') : v; })()}
-              </Link>
+              <Search className="mr-2 h-5 w-5" />
+              {(() => { const v = t('hero.searchButton'); return v === 'hero.searchButton' ? t('hero.searchPrograms') : v; })()}
             </Button>
 
             {/* Quick Access */}
@@ -110,10 +126,12 @@ const Index = () => {
                     <span className="text-xs">Careers</span>
                   </Button>
                 </Link>
-                <Button variant="outline" className="w-full flex flex-col h-auto py-4 gap-2">
-                  <HeadphonesIcon className="h-5 w-5" />
-                  <span className="text-xs">Support</span>
-                </Button>
+                <Link to="/contact">
+                  <Button variant="outline" className="w-full flex flex-col h-auto py-4 gap-2">
+                    <HeadphonesIcon className="h-5 w-5" />
+                    <span className="text-xs">Support</span>
+                  </Button>
+                </Link>
               </div>
             </div>
           </Card>

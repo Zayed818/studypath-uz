@@ -56,10 +56,15 @@ const Header = () => {
               {t('nav.getSupport')}
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem>{t('nav.about')}</DropdownMenuItem>
-              <DropdownMenuItem>{t('nav.contact')}</DropdownMenuItem>
-              <DropdownMenuItem>{t('nav.blog')}</DropdownMenuItem>
-              <DropdownMenuItem>{t('nav.faq')}</DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link to="/about">{t('nav.about')}</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link to="/contact">{t('nav.contact')}</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link to="/faq">{t('nav.faq')}</Link>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </nav>
@@ -76,12 +81,15 @@ const Header = () => {
                     Account
                   </Button>
                 </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
+                <DropdownMenuContent align="end">
                   <DropdownMenuItem onClick={() => navigate('/dashboard')}>
                     Dashboard
                   </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/profile')}>
+                    Profile
+                  </DropdownMenuItem>
                   {isAgency && (
-                    <DropdownMenuItem onClick={() => navigate('/agency-dashboard')}>
+                    <DropdownMenuItem onClick={() => navigate('/agency')}>
                       {t('agencyDashboard.title')}
                     </DropdownMenuItem>
                   )}
@@ -173,7 +181,7 @@ const Header = () => {
                   variant="ghost" 
                   size="sm" 
                   className="w-full justify-start"
-                  onClick={() => navigate('/agency-dashboard')}
+                  onClick={() => navigate('/agency')}
                 >
                   {t('agencyDashboard.title')}
                 </Button>
