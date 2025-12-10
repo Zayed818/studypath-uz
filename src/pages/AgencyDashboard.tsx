@@ -1,37 +1,23 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { ProtectedRoute } from '@/components/ProtectedRoute';
+import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
-import { useLanguage } from '@/contexts/LanguageContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { ProtectedRoute } from '@/components/ProtectedRoute';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { supabase } from '@/integrations/supabase/client';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
-import { 
-  ClipboardList, 
-  Search, 
-  Filter, 
-  Clock,
-  CheckCircle2,
-  XCircle,
-  AlertCircle,
-  Mail,
-  Phone,
-  User,
-  GraduationCap,
-  MessageSquare
-} from 'lucide-react';
-import { format } from 'date-fns';
+import { Search, Clock, CheckCircle, AlertCircle, User, Mail, Phone, GraduationCap, FileText, MessageSquare, Loader2 } from 'lucide-react';
 
-type HelpRequest = {
+interface HelpRequest {
   id: string;
   user_id: string;
   program_id: string;
@@ -48,445 +34,202 @@ type HelpRequest = {
   agency_notes: string | null;
   created_at: string;
   updated_at: string;
-};
+  resolved_at: string | null;
+}
+
+interface Application {
+  id: string;
+  user_id: string | null;
+  program_id: string;
+  university_name: string;
+  program_name: string;
+  program_degree_level: string | null;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string;
+  gender: string | null;
+  nationality: string;
+  city: string;
+  date_of_birth: string | null;
+  current_education_level: string | null;
+  gpa: string | null;
+  english_test: string | null;
+  english_score: string | null;
+  budget_range: string | null;
+  scholarship_interest: boolean;
+  status: string;
+  created_at: string;
+  updated_at: string;
+}
 
 const AgencyDashboard = () => {
-  const { signOut } = useAuth();
-  const { t } = useLanguage();
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
-
-  const [searchQuery, setSearchQuery] = useState('');
-  const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [activeTab, setActiveTab] = useState('requests');
+  const [requestSearch, setRequestSearch] = useState('');
+  const [requestStatusFilter, setRequestStatusFilter] = useState('all');
   const [selectedRequest, setSelectedRequest] = useState<HelpRequest | null>(null);
-  const [agencyNotes, setAgencyNotes] = useState('');
-  const [newStatus, setNewStatus] = useState('');
+  const [requestDialogOpen, setRequestDialogOpen] = useState(false);
+  const [requestStatus, setRequestStatus] = useState('');
+  const [requestNotes, setRequestNotes] = useState('');
+  const [appSearch, setAppSearch] = useState('');
+  const [appStatusFilter, setAppStatusFilter] = useState('all');
+  const [selectedApp, setSelectedApp] = useState<Application | null>(null);
+  const [appDialogOpen, setAppDialogOpen] = useState(false);
+  const [appStatus, setAppStatus] = useState('');
 
-  // Fetch help requests
-  const { data: helpRequests, isLoading } = useQuery({
-    queryKey: ['help-requests', statusFilter, searchQuery],
+  const { data: helpRequests = [], isLoading: requestsLoading } = useQuery({
+    queryKey: ['help-requests', requestStatusFilter, requestSearch],
     queryFn: async () => {
-      let query = supabase
-        .from('help_requests')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (statusFilter !== 'all') {
-        query = query.eq('status', statusFilter);
-      }
-
-      if (searchQuery) {
-        query = query.or(`full_name.ilike.%${searchQuery}%,email.ilike.%${searchQuery}%,university_name.ilike.%${searchQuery}%,program_name.ilike.%${searchQuery}%`);
-      }
-
+      let query = supabase.from('help_requests').select('*').order('created_at', { ascending: false });
+      if (requestStatusFilter !== 'all') query = query.eq('status', requestStatusFilter);
+      if (requestSearch) query = query.or(`full_name.ilike.%${requestSearch}%,email.ilike.%${requestSearch}%,program_name.ilike.%${requestSearch}%`);
       const { data, error } = await query;
-
       if (error) throw error;
       return data as HelpRequest[];
     },
   });
 
-  // Update request mutation
-  const updateRequestMutation = useMutation({
-    mutationFn: async ({ id, updates }: { id: string; updates: Partial<HelpRequest> }) => {
-      const { error } = await supabase
-        .from('help_requests')
-        .update({
-          ...updates,
-          updated_at: new Date().toISOString(),
-          ...(updates.status === 'resolved' && { resolved_at: new Date().toISOString() })
-        })
-        .eq('id', id);
-
+  const { data: applications = [], isLoading: applicationsLoading } = useQuery({
+    queryKey: ['applications', appStatusFilter, appSearch],
+    queryFn: async () => {
+      let query = supabase.from('applications').select('*').order('created_at', { ascending: false });
+      if (appStatusFilter !== 'all') query = query.eq('status', appStatusFilter);
+      if (appSearch) query = query.or(`first_name.ilike.%${appSearch}%,last_name.ilike.%${appSearch}%,email.ilike.%${appSearch}%,program_name.ilike.%${appSearch}%`);
+      const { data, error } = await query;
       if (error) throw error;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['help-requests'] });
-      toast.success(t('agencyDashboard.updateSuccess'));
-      setSelectedRequest(null);
-    },
-    onError: (error) => {
-      console.error('Error updating request:', error);
-      toast.error(t('agencyDashboard.updateError'));
+      return data as Application[];
     },
   });
 
-  const handleUpdateRequest = () => {
-    if (!selectedRequest) return;
+  const updateRequestMutation = useMutation({
+    mutationFn: async ({ id, status, notes }: { id: string; status: string; notes: string }) => {
+      const updateData: any = { status, agency_notes: notes, updated_at: new Date().toISOString() };
+      if (status === 'resolved') updateData.resolved_at = new Date().toISOString();
+      const { error } = await supabase.from('help_requests').update(updateData).eq('id', id);
+      if (error) throw error;
+    },
+    onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['help-requests'] }); toast.success('Request updated'); setRequestDialogOpen(false); },
+    onError: () => toast.error('Failed to update request'),
+  });
 
-    const updates: Partial<HelpRequest> = {};
-    if (newStatus && newStatus !== selectedRequest.status) {
-      updates.status = newStatus;
-    }
-    if (agencyNotes !== selectedRequest.agency_notes) {
-      updates.agency_notes = agencyNotes;
-    }
+  const updateAppMutation = useMutation({
+    mutationFn: async ({ id, status }: { id: string; status: string }) => {
+      const { error } = await supabase.from('applications').update({ status, updated_at: new Date().toISOString() }).eq('id', id);
+      if (error) throw error;
+    },
+    onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['applications'] }); toast.success('Application updated'); setAppDialogOpen(false); },
+    onError: () => toast.error('Failed to update application'),
+  });
 
-    if (Object.keys(updates).length > 0) {
-      updateRequestMutation.mutate({ id: selectedRequest.id, updates });
-    } else {
-      setSelectedRequest(null);
-    }
-  };
-
-  const openRequestDetails = (request: HelpRequest) => {
-    setSelectedRequest(request);
-    setAgencyNotes(request.agency_notes || '');
-    setNewStatus(request.status);
-  };
-
-  // Calculate stats
-  const stats = {
-    total: helpRequests?.length || 0,
-    pending: helpRequests?.filter(r => r.status === 'pending').length || 0,
-    inProgress: helpRequests?.filter(r => r.status === 'in_progress').length || 0,
-    resolved: helpRequests?.filter(r => r.status === 'resolved').length || 0,
-  };
+  const requestStats = { total: helpRequests.length, pending: helpRequests.filter(r => r.status === 'pending').length, inProgress: helpRequests.filter(r => r.status === 'in_progress').length, resolved: helpRequests.filter(r => r.status === 'resolved').length };
+  const appStats = { total: applications.length, submitted: applications.filter(a => a.status === 'submitted').length, reviewing: applications.filter(a => a.status === 'reviewing').length, accepted: applications.filter(a => a.status === 'accepted').length, rejected: applications.filter(a => a.status === 'rejected').length };
 
   const getStatusBadge = (status: string) => {
-    const statusConfig = {
-      pending: { label: t('agencyDashboard.statusPending'), variant: 'secondary' as const, icon: Clock },
-      in_progress: { label: t('agencyDashboard.statusInProgress'), variant: 'default' as const, icon: AlertCircle },
-      resolved: { label: t('agencyDashboard.statusResolved'), variant: 'default' as const, icon: CheckCircle2 },
-      closed: { label: t('agencyDashboard.statusClosed'), variant: 'outline' as const, icon: XCircle },
-    };
-
-    const config = statusConfig[status as keyof typeof statusConfig] || statusConfig.pending;
-    const Icon = config.icon;
-
-    return (
-      <Badge variant={config.variant} className="gap-1">
-        <Icon className="h-3 w-3" />
-        {config.label}
-      </Badge>
-    );
+    switch (status) {
+      case 'pending': case 'submitted': return <Badge variant="secondary" className="flex items-center gap-1"><Clock className="h-3 w-3" /> {status === 'pending' ? 'Pending' : 'Submitted'}</Badge>;
+      case 'in_progress': case 'reviewing': return <Badge className="flex items-center gap-1 bg-blue-500"><AlertCircle className="h-3 w-3" /> {status === 'in_progress' ? 'In Progress' : 'Reviewing'}</Badge>;
+      case 'resolved': case 'accepted': return <Badge className="flex items-center gap-1 bg-green-500"><CheckCircle className="h-3 w-3" /> {status === 'resolved' ? 'Resolved' : 'Accepted'}</Badge>;
+      case 'rejected': return <Badge variant="destructive" className="flex items-center gap-1"><AlertCircle className="h-3 w-3" /> Rejected</Badge>;
+      default: return <Badge variant="outline">{status}</Badge>;
+    }
   };
 
-  const getHelpTypeLabel = (type: string) => {
-    const types: Record<string, string> = {
-      eligibility: t('requestHelp.helpTypes.eligibility'),
-      documents: t('requestHelp.helpTypes.documents'),
-      application: t('requestHelp.helpTypes.application'),
-      general: t('requestHelp.helpTypes.general'),
-    };
-    return types[type] || type;
-  };
+  const getHelpTypeLabel = (type: string) => ({ eligibility: 'Eligibility Check', documents: 'Document Help', application_process: 'Application Process', general: 'General Inquiry' }[type] || type);
 
   return (
     <ProtectedRoute requireRole="agency">
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col bg-background">
         <Header />
-        
-        <main className="flex-1 bg-muted/20">
-          <div className="container mx-auto px-4 py-8">
-            <div className="flex justify-between items-center mb-8">
-              <div>
-                <h1 className="text-4xl font-bold mb-2">{t('agencyDashboard.title')}</h1>
-                <p className="text-muted-foreground">
-                  {t('agencyDashboard.subtitle')}
-                </p>
-              </div>
-              <Button variant="outline" onClick={async () => {
-                await signOut();
-                navigate('/auth');
-              }}>Sign Out</Button>
-            </div>
-
-            {/* Stats Overview */}
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">{t('agencyDashboard.totalRequests')}</CardTitle>
-                  <ClipboardList className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{stats.total}</div>
-                  <p className="text-xs text-muted-foreground">{t('agencyDashboard.allRequests')}</p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">{t('agencyDashboard.pending')}</CardTitle>
-                  <Clock className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{stats.pending}</div>
-                  <p className="text-xs text-muted-foreground">{t('agencyDashboard.needsResponse')}</p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">{t('agencyDashboard.inProgress')}</CardTitle>
-                  <AlertCircle className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{stats.inProgress}</div>
-                  <p className="text-xs text-muted-foreground">{t('agencyDashboard.activeWork')}</p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">{t('agencyDashboard.resolved')}</CardTitle>
-                  <CheckCircle2 className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{stats.resolved}</div>
-                  <p className="text-xs text-muted-foreground">{t('agencyDashboard.completed')}</p>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Filters */}
-            <Card className="mb-6">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Filter className="h-5 w-5" />
-                  {t('agencyDashboard.filters')}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex flex-col md:flex-row gap-4">
-                  <div className="flex-1">
-                    <div className="relative">
-                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        placeholder={t('agencyDashboard.searchPlaceholder')}
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        className="pl-10"
-                      />
-                    </div>
-                  </div>
-                  <div className="w-full md:w-[200px]">
-                    <Select value={statusFilter} onValueChange={setStatusFilter}>
-                      <SelectTrigger>
-                        <SelectValue placeholder={t('agencyDashboard.allStatuses')} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">{t('agencyDashboard.allStatuses')}</SelectItem>
-                        <SelectItem value="pending">{t('agencyDashboard.statusPending')}</SelectItem>
-                        <SelectItem value="in_progress">{t('agencyDashboard.statusInProgress')}</SelectItem>
-                        <SelectItem value="resolved">{t('agencyDashboard.statusResolved')}</SelectItem>
-                        <SelectItem value="closed">{t('agencyDashboard.statusClosed')}</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Help Requests List */}
-            <Card>
-              <CardHeader>
-                <CardTitle>{t('agencyDashboard.helpRequests')}</CardTitle>
-                <CardDescription>
-                  {t('agencyDashboard.helpRequestsDescription')}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                {isLoading ? (
-                  <div className="text-center py-8 text-muted-foreground">
-                    Loading...
-                  </div>
-                ) : helpRequests && helpRequests.length > 0 ? (
-                  <div className="space-y-4">
-                    {helpRequests.map((request) => (
-                      <Card key={request.id} className="hover:bg-muted/50 transition-colors">
-                        <CardContent className="p-6">
-                          <div className="flex items-start justify-between mb-4">
-                            <div className="flex-1">
-                              <div className="flex items-center gap-3 mb-2">
-                                <h3 className="font-semibold text-lg">{request.full_name}</h3>
-                                {getStatusBadge(request.status)}
-                                <Badge variant="outline">{getHelpTypeLabel(request.help_type)}</Badge>
-                              </div>
-                              <div className="flex flex-col gap-1 text-sm text-muted-foreground">
-                                <div className="flex items-center gap-2">
-                                  <GraduationCap className="h-4 w-4" />
-                                  <span>{request.program_name} - {request.university_name}</span>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                  <Mail className="h-4 w-4" />
-                                  <span>{request.email}</span>
-                                </div>
-                                {request.phone && (
-                                  <div className="flex items-center gap-2">
-                                    <Phone className="h-4 w-4" />
-                                    <span>{request.phone}</span>
-                                  </div>
-                                )}
-                                <div className="flex items-center gap-2">
-                                  <Clock className="h-4 w-4" />
-                                  <span>{format(new Date(request.created_at), 'PPp')}</span>
-                                </div>
-                              </div>
-                            </div>
-                            <Button
-                              variant="outline"
-                              onClick={() => openRequestDetails(request)}
-                            >
-                              {t('agencyDashboard.viewDetails')}
-                            </Button>
-                          </div>
-                          <p className="text-sm line-clamp-2 text-muted-foreground">
-                            {request.message}
-                          </p>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-center py-12">
-                    <ClipboardList className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                    <h3 className="font-semibold text-lg mb-2">{t('agencyDashboard.noRequests')}</h3>
-                    <p className="text-muted-foreground">{t('agencyDashboard.noRequestsDescription')}</p>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+        <main className="flex-1 container mx-auto px-4 py-8">
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold text-foreground">Agency Dashboard</h1>
+            <p className="text-muted-foreground mt-2">Manage student help requests and applications</p>
           </div>
-        </main>
 
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+            <TabsList className="grid w-full max-w-md grid-cols-2">
+              <TabsTrigger value="requests"><MessageSquare className="h-4 w-4 mr-2" />Help Requests ({requestStats.total})</TabsTrigger>
+              <TabsTrigger value="applications"><FileText className="h-4 w-4 mr-2" />Applications ({appStats.total})</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="requests" className="space-y-6">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <Card><CardHeader className="pb-2"><CardDescription>Total</CardDescription><CardTitle className="text-2xl">{requestStats.total}</CardTitle></CardHeader></Card>
+                <Card><CardHeader className="pb-2"><CardDescription>Pending</CardDescription><CardTitle className="text-2xl text-yellow-600">{requestStats.pending}</CardTitle></CardHeader></Card>
+                <Card><CardHeader className="pb-2"><CardDescription>In Progress</CardDescription><CardTitle className="text-2xl text-blue-600">{requestStats.inProgress}</CardTitle></CardHeader></Card>
+                <Card><CardHeader className="pb-2"><CardDescription>Resolved</CardDescription><CardTitle className="text-2xl text-green-600">{requestStats.resolved}</CardTitle></CardHeader></Card>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <div className="relative flex-1"><Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" /><Input placeholder="Search..." value={requestSearch} onChange={(e) => setRequestSearch(e.target.value)} className="pl-10" /></div>
+                <Select value={requestStatusFilter} onValueChange={setRequestStatusFilter}><SelectTrigger className="w-full sm:w-48"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="all">All Status</SelectItem><SelectItem value="pending">Pending</SelectItem><SelectItem value="in_progress">In Progress</SelectItem><SelectItem value="resolved">Resolved</SelectItem></SelectContent></Select>
+              </div>
+              {requestsLoading ? <div className="flex justify-center py-12"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div> : helpRequests.length === 0 ? <Card><CardContent className="py-12 text-center"><MessageSquare className="h-12 w-12 mx-auto text-muted-foreground mb-4" /><p className="text-muted-foreground">No help requests found</p></CardContent></Card> : (
+                <div className="space-y-4">{helpRequests.map((request) => (
+                  <Card key={request.id} className="hover:shadow-md transition-shadow cursor-pointer" onClick={() => { setSelectedRequest(request); setRequestStatus(request.status); setRequestNotes(request.agency_notes || ''); setRequestDialogOpen(true); }}>
+                    <CardContent className="p-4"><div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4"><div className="space-y-1"><div className="flex items-center gap-2"><User className="h-4 w-4 text-muted-foreground" /><span className="font-medium">{request.full_name}</span>{getStatusBadge(request.status)}</div><p className="text-sm text-muted-foreground">{request.university_name} - {request.program_name}</p><div className="flex items-center gap-4 text-xs text-muted-foreground"><span className="flex items-center gap-1"><Mail className="h-3 w-3" /> {request.email}</span></div></div><div className="text-right"><Badge variant="outline">{getHelpTypeLabel(request.help_type)}</Badge><p className="text-xs text-muted-foreground mt-1">{new Date(request.created_at).toLocaleDateString()}</p></div></div></CardContent>
+                  </Card>
+                ))}</div>
+              )}
+            </TabsContent>
+
+            <TabsContent value="applications" className="space-y-6">
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                <Card><CardHeader className="pb-2"><CardDescription>Total</CardDescription><CardTitle className="text-2xl">{appStats.total}</CardTitle></CardHeader></Card>
+                <Card><CardHeader className="pb-2"><CardDescription>Submitted</CardDescription><CardTitle className="text-2xl text-yellow-600">{appStats.submitted}</CardTitle></CardHeader></Card>
+                <Card><CardHeader className="pb-2"><CardDescription>Reviewing</CardDescription><CardTitle className="text-2xl text-blue-600">{appStats.reviewing}</CardTitle></CardHeader></Card>
+                <Card><CardHeader className="pb-2"><CardDescription>Accepted</CardDescription><CardTitle className="text-2xl text-green-600">{appStats.accepted}</CardTitle></CardHeader></Card>
+                <Card><CardHeader className="pb-2"><CardDescription>Rejected</CardDescription><CardTitle className="text-2xl text-red-600">{appStats.rejected}</CardTitle></CardHeader></Card>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <div className="relative flex-1"><Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" /><Input placeholder="Search..." value={appSearch} onChange={(e) => setAppSearch(e.target.value)} className="pl-10" /></div>
+                <Select value={appStatusFilter} onValueChange={setAppStatusFilter}><SelectTrigger className="w-full sm:w-48"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="all">All Status</SelectItem><SelectItem value="submitted">Submitted</SelectItem><SelectItem value="reviewing">Reviewing</SelectItem><SelectItem value="accepted">Accepted</SelectItem><SelectItem value="rejected">Rejected</SelectItem></SelectContent></Select>
+              </div>
+              {applicationsLoading ? <div className="flex justify-center py-12"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div> : applications.length === 0 ? <Card><CardContent className="py-12 text-center"><FileText className="h-12 w-12 mx-auto text-muted-foreground mb-4" /><p className="text-muted-foreground">No applications found</p></CardContent></Card> : (
+                <div className="space-y-4">{applications.map((app) => (
+                  <Card key={app.id} className="hover:shadow-md transition-shadow cursor-pointer" onClick={() => { setSelectedApp(app); setAppStatus(app.status); setAppDialogOpen(true); }}>
+                    <CardContent className="p-4"><div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4"><div className="space-y-1"><div className="flex items-center gap-2"><User className="h-4 w-4 text-muted-foreground" /><span className="font-medium">{app.first_name} {app.last_name}</span>{getStatusBadge(app.status)}</div><p className="text-sm text-muted-foreground">{app.university_name} - {app.program_name}</p><div className="flex items-center gap-4 text-xs text-muted-foreground"><span className="flex items-center gap-1"><Mail className="h-3 w-3" /> {app.email}</span><span className="flex items-center gap-1"><Phone className="h-3 w-3" /> {app.phone}</span></div></div><div className="text-right"><div className="flex items-center gap-1 text-sm"><GraduationCap className="h-4 w-4 text-muted-foreground" /><span>{app.program_degree_level || 'N/A'}</span></div><p className="text-xs text-muted-foreground mt-1">{new Date(app.created_at).toLocaleDateString()}</p></div></div></CardContent>
+                  </Card>
+                ))}</div>
+              )}
+            </TabsContent>
+          </Tabs>
+
+          <Dialog open={requestDialogOpen} onOpenChange={setRequestDialogOpen}>
+            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+              <DialogHeader><DialogTitle>Help Request Details</DialogTitle><DialogDescription>Review and manage this request</DialogDescription></DialogHeader>
+              {selectedRequest && (<div className="space-y-6">
+                <div className="grid grid-cols-2 gap-4"><div><Label className="text-muted-foreground">Full Name</Label><p className="font-medium">{selectedRequest.full_name}</p></div><div><Label className="text-muted-foreground">Email</Label><p className="font-medium">{selectedRequest.email}</p></div><div><Label className="text-muted-foreground">Phone</Label><p className="font-medium">{selectedRequest.phone || 'N/A'}</p></div><div><Label className="text-muted-foreground">Preferred Contact</Label><p className="font-medium capitalize">{selectedRequest.preferred_contact_method || 'N/A'}</p></div></div>
+                <div className="bg-muted/50 p-4 rounded-lg"><Label className="text-muted-foreground">Program</Label><p className="font-medium">{selectedRequest.program_name}</p><p className="text-sm text-muted-foreground">{selectedRequest.university_name}</p></div>
+                <div><Label className="text-muted-foreground">Help Type</Label><Badge variant="outline" className="ml-2">{getHelpTypeLabel(selectedRequest.help_type)}</Badge></div>
+                <div><Label className="text-muted-foreground">Message</Label><p className="mt-1 p-3 bg-muted/50 rounded-lg">{selectedRequest.message}</p></div>
+                <div className="space-y-4 border-t pt-4">
+                  <div><Label>Status</Label><Select value={requestStatus} onValueChange={setRequestStatus}><SelectTrigger className="mt-1"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="pending">Pending</SelectItem><SelectItem value="in_progress">In Progress</SelectItem><SelectItem value="resolved">Resolved</SelectItem></SelectContent></Select></div>
+                  <div><Label>Agency Notes</Label><Textarea value={requestNotes} onChange={(e) => setRequestNotes(e.target.value)} placeholder="Add notes..." className="mt-1" rows={4} /></div>
+                  <Button onClick={() => updateRequestMutation.mutate({ id: selectedRequest.id, status: requestStatus, notes: requestNotes })} disabled={updateRequestMutation.isPending} className="w-full">{updateRequestMutation.isPending ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Saving...</> : 'Save Changes'}</Button>
+                </div>
+              </div>)}
+            </DialogContent>
+          </Dialog>
+
+          <Dialog open={appDialogOpen} onOpenChange={setAppDialogOpen}>
+            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+              <DialogHeader><DialogTitle>Application Details</DialogTitle><DialogDescription>Review and manage this application</DialogDescription></DialogHeader>
+              {selectedApp && (<div className="space-y-6">
+                <div className="grid grid-cols-2 gap-4"><div><Label className="text-muted-foreground">Full Name</Label><p className="font-medium">{selectedApp.first_name} {selectedApp.last_name}</p></div><div><Label className="text-muted-foreground">Email</Label><p className="font-medium">{selectedApp.email}</p></div><div><Label className="text-muted-foreground">Phone</Label><p className="font-medium">{selectedApp.phone}</p></div><div><Label className="text-muted-foreground">Nationality</Label><p className="font-medium">{selectedApp.nationality}</p></div><div><Label className="text-muted-foreground">City</Label><p className="font-medium">{selectedApp.city}</p></div>{selectedApp.date_of_birth && <div><Label className="text-muted-foreground">Date of Birth</Label><p className="font-medium">{new Date(selectedApp.date_of_birth).toLocaleDateString()}</p></div>}</div>
+                <div className="bg-muted/50 p-4 rounded-lg"><Label className="text-muted-foreground">Program</Label><p className="font-medium">{selectedApp.program_name}</p><p className="text-sm text-muted-foreground">{selectedApp.university_name}</p>{selectedApp.program_degree_level && <Badge variant="outline" className="mt-2">{selectedApp.program_degree_level}</Badge>}</div>
+                <div className="grid grid-cols-2 gap-4">{selectedApp.current_education_level && <div><Label className="text-muted-foreground">Education Level</Label><p className="font-medium">{selectedApp.current_education_level}</p></div>}{selectedApp.gpa && <div><Label className="text-muted-foreground">GPA</Label><p className="font-medium">{selectedApp.gpa}</p></div>}{selectedApp.english_test && <div><Label className="text-muted-foreground">English Test</Label><p className="font-medium">{selectedApp.english_test} {selectedApp.english_score && `- ${selectedApp.english_score}`}</p></div>}<div><Label className="text-muted-foreground">Scholarship Interest</Label><p className="font-medium">{selectedApp.scholarship_interest ? 'Yes' : 'No'}</p></div></div>
+                <div className="space-y-4 border-t pt-4">
+                  <div><Label>Application Status</Label><Select value={appStatus} onValueChange={setAppStatus}><SelectTrigger className="mt-1"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="submitted">Submitted</SelectItem><SelectItem value="reviewing">Reviewing</SelectItem><SelectItem value="accepted">Accepted</SelectItem><SelectItem value="rejected">Rejected</SelectItem></SelectContent></Select></div>
+                  <Button onClick={() => updateAppMutation.mutate({ id: selectedApp.id, status: appStatus })} disabled={updateAppMutation.isPending} className="w-full">{updateAppMutation.isPending ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Saving...</> : 'Update Status'}</Button>
+                </div>
+                <div className="text-xs text-muted-foreground border-t pt-4"><p>Submitted: {new Date(selectedApp.created_at).toLocaleString()}</p></div>
+              </div>)}
+            </DialogContent>
+          </Dialog>
+        </main>
         <Footer />
       </div>
-
-      {/* Request Details Dialog */}
-      <Dialog open={!!selectedRequest} onOpenChange={(open) => !open && setSelectedRequest(null)}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>{t('agencyDashboard.requestDetails')}</DialogTitle>
-            <DialogDescription>
-              {t('agencyDashboard.requestDetailsDescription')}
-            </DialogDescription>
-          </DialogHeader>
-
-          {selectedRequest && (
-            <div className="space-y-6">
-              {/* Student Info */}
-              <div className="space-y-3">
-                <h3 className="font-semibold flex items-center gap-2">
-                  <User className="h-4 w-4" />
-                  {t('agencyDashboard.studentInfo')}
-                </h3>
-                <div className="grid gap-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">{t('requestHelp.fullName')}:</span>
-                    <span className="font-medium">{selectedRequest.full_name}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">{t('requestHelp.email')}:</span>
-                    <span className="font-medium">{selectedRequest.email}</span>
-                  </div>
-                  {selectedRequest.phone && (
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">{t('requestHelp.phone')}:</span>
-                      <span className="font-medium">{selectedRequest.phone}</span>
-                    </div>
-                  )}
-                  {selectedRequest.current_education_level && (
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">{t('requestHelp.educationLevel')}:</span>
-                      <span className="font-medium capitalize">{selectedRequest.current_education_level}</span>
-                    </div>
-                  )}
-                  {selectedRequest.preferred_contact_method && (
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">{t('requestHelp.contactMethod')}:</span>
-                      <span className="font-medium capitalize">{selectedRequest.preferred_contact_method}</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Program Info */}
-              <div className="space-y-3">
-                <h3 className="font-semibold flex items-center gap-2">
-                  <GraduationCap className="h-4 w-4" />
-                  {t('agencyDashboard.programInfo')}
-                </h3>
-                <div className="grid gap-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">University:</span>
-                    <span className="font-medium">{selectedRequest.university_name}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Program:</span>
-                    <span className="font-medium">{selectedRequest.program_name}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">{t('requestHelp.helpType')}:</span>
-                    <span className="font-medium">{getHelpTypeLabel(selectedRequest.help_type)}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Message */}
-              <div className="space-y-3">
-                <h3 className="font-semibold flex items-center gap-2">
-                  <MessageSquare className="h-4 w-4" />
-                  {t('agencyDashboard.studentMessage')}
-                </h3>
-                <p className="text-sm bg-muted/50 p-4 rounded-lg">{selectedRequest.message}</p>
-              </div>
-
-              {/* Status Update */}
-              <div className="space-y-3">
-                <h3 className="font-semibold">{t('agencyDashboard.updateStatus')}</h3>
-                <Select value={newStatus} onValueChange={setNewStatus}>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="pending">{t('agencyDashboard.statusPending')}</SelectItem>
-                    <SelectItem value="in_progress">{t('agencyDashboard.statusInProgress')}</SelectItem>
-                    <SelectItem value="resolved">{t('agencyDashboard.statusResolved')}</SelectItem>
-                    <SelectItem value="closed">{t('agencyDashboard.statusClosed')}</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Agency Notes */}
-              <div className="space-y-3">
-                <h3 className="font-semibold">{t('agencyDashboard.agencyNotes')}</h3>
-                <Textarea
-                  placeholder={t('agencyDashboard.agencyNotesPlaceholder')}
-                  value={agencyNotes}
-                  onChange={(e) => setAgencyNotes(e.target.value)}
-                  rows={4}
-                />
-              </div>
-
-              {/* Timestamps */}
-              <div className="grid gap-2 text-xs text-muted-foreground">
-                <div className="flex justify-between">
-                  <span>{t('agencyDashboard.createdAt')}:</span>
-                  <span>{format(new Date(selectedRequest.created_at), 'PPp')}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>{t('agencyDashboard.updatedAt')}:</span>
-                  <span>{format(new Date(selectedRequest.updated_at), 'PPp')}</span>
-                </div>
-              </div>
-
-              {/* Actions */}
-              <div className="flex justify-end gap-3 pt-4 border-t">
-                <Button variant="outline" onClick={() => setSelectedRequest(null)}>
-                  {t('requestHelp.cancel')}
-                </Button>
-                <Button 
-                  onClick={handleUpdateRequest}
-                  disabled={updateRequestMutation.isPending}
-                >
-                  {updateRequestMutation.isPending ? 'Saving...' : t('agencyDashboard.saveChanges')}
-                </Button>
-              </div>
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
     </ProtectedRoute>
   );
 };
