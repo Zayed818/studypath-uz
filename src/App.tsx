@@ -17,6 +17,7 @@ import Apply from "./pages/Apply";
 import ApplicationSuccess from "./pages/ApplicationSuccess";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
+import MyApplications from "./pages/MyApplications";
 import Profile from "./pages/Profile";
 import AgencyDashboard from "./pages/AgencyDashboard";
 import AdminPanel from "./pages/AdminPanel";
@@ -52,6 +53,7 @@ const App = () => (
               <Route path="/apply/success" element={<ApplicationSuccess />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/my-applications" element={<MyApplications />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/agency" element={<AgencyDashboard />} />
               <Route path="/admin" element={<AdminPanel />} />

@@ -90,7 +90,7 @@ const Dashboard = () => {
                   <Button 
                     variant="outline" 
                     className="w-full"
-                    onClick={() => navigate('/programs')}
+                    onClick={() => navigate(applicationCount > 0 ? '/my-applications' : '/programs')}
                   >
                     {applicationCount > 0 ? 'View Applications' : 'Browse Programs'}
                   </Button>
