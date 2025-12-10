@@ -93,6 +93,9 @@ const Header = () => {
                       {t('agencyDashboard.title')}
                     </DropdownMenuItem>
                   )}
+                  <DropdownMenuItem onClick={() => navigate('/my-applications')}>
+                    My Applications
+                  </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => navigate('/saved-programs')}>
                     {t('savedPrograms.title')}
                   </DropdownMenuItem>
