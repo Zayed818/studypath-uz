@@ -64,7 +64,7 @@ const Dashboard = () => {
                   <p className="text-sm text-muted-foreground mb-4">
                     Role: <span className="font-semibold capitalize">{role}</span>
                   </p>
-                  <Button variant="outline" className="w-full">View Profile</Button>
+                  <Button variant="outline" className="w-full" onClick={() => navigate('/profile')}>View Profile</Button>
                 </CardContent>
               </Card>
 

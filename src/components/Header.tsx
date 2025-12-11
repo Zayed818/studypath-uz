@@ -179,6 +179,22 @@ const Header = () => {
               >
                 Dashboard
               </Button>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="w-full justify-start"
+                onClick={() => navigate('/profile')}
+              >
+                Profile
+              </Button>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="w-full justify-start"
+                onClick={() => navigate('/my-applications')}
+              >
+                My Applications
+              </Button>
               {isAgency && (
                 <Button 
                   variant="ghost" 
