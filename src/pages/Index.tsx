@@ -108,28 +108,28 @@ const Index = () => {
             <div className="mt-8">
               <p className="text-sm text-muted-foreground text-center mb-4">{t('hero.quickAccess')}</p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                <Link to="/programs">
+                <Link to="/universities">
                   <Button variant="outline" className="w-full flex flex-col h-auto py-4 gap-2">
                     <GraduationCap className="h-5 w-5" />
-                    <span className="text-xs">Universities</span>
+                    <span className="text-xs">{t('nav.universities')}</span>
                   </Button>
                 </Link>
                 <Link to="/scholarships">
                   <Button variant="outline" className="w-full flex flex-col h-auto py-4 gap-2">
                     <Award className="h-5 w-5" />
-                    <span className="text-xs">Scholarships</span>
+                    <span className="text-xs">{t('nav.scholarships')}</span>
                   </Button>
                 </Link>
                 <Link to="/careers">
                   <Button variant="outline" className="w-full flex flex-col h-auto py-4 gap-2">
                     <Briefcase className="h-5 w-5" />
-                    <span className="text-xs">Careers</span>
+                    <span className="text-xs">{t('nav.careers')}</span>
                   </Button>
                 </Link>
                 <Link to="/contact">
                   <Button variant="outline" className="w-full flex flex-col h-auto py-4 gap-2">
                     <HeadphonesIcon className="h-5 w-5" />
-                    <span className="text-xs">Support</span>
+                    <span className="text-xs">{t('nav.getSupport')}</span>
                   </Button>
                 </Link>
               </div>
