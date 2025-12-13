@@ -968,6 +968,47 @@ const translations: Record<Language, any> = {
           content: "Shartlar bo'yicha savollar uchun info@studypath.uz manziliga murojaat qiling."
         }
       }
+    },
+    auth: {
+      welcome: "Xush kelibsiz",
+      description: "Hisobingizga kiring yoki yangi hisob yarating",
+      signIn: "Kirish",
+      signUp: "Ro'yxatdan o'tish",
+      email: "Elektron pochta",
+      emailPlaceholder: "pochta@example.com",
+      password: "Parol",
+      confirmPassword: "Parolni tasdiqlang",
+      fullName: "To'liq ism",
+      fullNamePlaceholder: "Ism Familiya",
+      signingIn: "Kirish...",
+      creatingAccount: "Hisob yaratilmoqda...",
+      createAccount: "Hisob yaratish",
+      forgotPassword: "Parolni unutdingizmi?",
+      resetPassword: "Parolni tiklash",
+      resetPasswordDescription: "Elektron pochtangizni kiriting va biz sizga parolni tiklash havolasini yuboramiz",
+      sendResetLink: "Tiklash havolasini yuborish",
+      backToSignIn: "Kirishga qaytish",
+      resetEmailSent: "Parolni tiklash havolasi elektron pochtangizga yuborildi",
+      setNewPassword: "Yangi parol o'rnating",
+      setNewPasswordDescription: "Yangi parolingizni kiriting",
+      newPassword: "Yangi parol",
+      updatePassword: "Parolni yangilash",
+      passwordUpdated: "Parol muvaffaqiyatli yangilandi",
+      passwordUpdatedDescription: "Endi yangi parolingiz bilan tizimga kirishingiz mumkin",
+      goToSignIn: "Kirishga o'tish",
+      passwordHint: "Kamida 6 ta belgi bo'lishi kerak",
+      success: "Muvaffaqiyat",
+      signInSuccess: "Tizimga muvaffaqiyatli kirdingiz!",
+      signUpSuccess: "Hisob muvaffaqiyatli yaratildi!",
+      errors: {
+        invalidEmail: "Noto'g'ri elektron pochta manzili",
+        passwordRequired: "Parol kiritish shart",
+        passwordTooShort: "Parol kamida 6 ta belgidan iborat bo'lishi kerak",
+        passwordMismatch: "Parollar mos kelmaydi",
+        nameRequired: "Ism kiritish shart",
+        invalidCredentials: "Elektron pochta yoki parol noto'g'ri",
+        userExists: "Bu elektron pochta bilan foydalanuvchi allaqachon mavjud. Iltimos, tizimga kiring."
+      }
     }
   },
   ru: {
@@ -1773,9 +1814,50 @@ const translations: Record<Language, any> = {
         contact: {
           title: "Контакты",
           content: "По вопросам политики конфиденциальности пишите на info@studypath.uz."
-        }
       }
     },
+    auth: {
+      welcome: "Добро пожаловать",
+      description: "Войдите в свой аккаунт или создайте новый",
+      signIn: "Войти",
+      signUp: "Регистрация",
+      email: "Электронная почта",
+      emailPlaceholder: "email@example.com",
+      password: "Пароль",
+      confirmPassword: "Подтвердите пароль",
+      fullName: "Полное имя",
+      fullNamePlaceholder: "Имя Фамилия",
+      signingIn: "Вход...",
+      creatingAccount: "Создание аккаунта...",
+      createAccount: "Создать аккаунт",
+      forgotPassword: "Забыли пароль?",
+      resetPassword: "Сброс пароля",
+      resetPasswordDescription: "Введите вашу почту, и мы отправим вам ссылку для сброса пароля",
+      sendResetLink: "Отправить ссылку",
+      backToSignIn: "Вернуться к входу",
+      resetEmailSent: "Ссылка для сброса пароля отправлена на вашу почту",
+      setNewPassword: "Установите новый пароль",
+      setNewPasswordDescription: "Введите ваш новый пароль",
+      newPassword: "Новый пароль",
+      updatePassword: "Обновить пароль",
+      passwordUpdated: "Пароль успешно обновлен",
+      passwordUpdatedDescription: "Теперь вы можете войти с новым паролем",
+      goToSignIn: "Перейти к входу",
+      passwordHint: "Минимум 6 символов",
+      success: "Успешно",
+      signInSuccess: "Вы успешно вошли в систему!",
+      signUpSuccess: "Аккаунт успешно создан!",
+      errors: {
+        invalidEmail: "Неверный адрес электронной почты",
+        passwordRequired: "Пароль обязателен",
+        passwordTooShort: "Пароль должен содержать минимум 6 символов",
+        passwordMismatch: "Пароли не совпадают",
+        nameRequired: "Имя обязательно",
+        invalidCredentials: "Неверная почта или пароль",
+        userExists: "Пользователь с такой почтой уже существует. Пожалуйста, войдите."
+      }
+    }
+  },
     terms: {
       hero: {
         title: "Условия Использования",
@@ -2632,6 +2714,47 @@ const translations: Record<Language, any> = {
           title: "Contact",
           content: "For questions about terms of service, email info@studypath.uz."
         }
+      }
+    },
+    auth: {
+      welcome: "Welcome",
+      description: "Sign in to your account or create a new one",
+      signIn: "Sign In",
+      signUp: "Sign Up",
+      email: "Email",
+      emailPlaceholder: "name@example.com",
+      password: "Password",
+      confirmPassword: "Confirm Password",
+      fullName: "Full Name",
+      fullNamePlaceholder: "John Doe",
+      signingIn: "Signing in...",
+      creatingAccount: "Creating account...",
+      createAccount: "Create Account",
+      forgotPassword: "Forgot password?",
+      resetPassword: "Reset Password",
+      resetPasswordDescription: "Enter your email and we'll send you a link to reset your password",
+      sendResetLink: "Send Reset Link",
+      backToSignIn: "Back to Sign In",
+      resetEmailSent: "Password reset link has been sent to your email",
+      setNewPassword: "Set New Password",
+      setNewPasswordDescription: "Enter your new password",
+      newPassword: "New Password",
+      updatePassword: "Update Password",
+      passwordUpdated: "Password Updated Successfully",
+      passwordUpdatedDescription: "You can now sign in with your new password",
+      goToSignIn: "Go to Sign In",
+      passwordHint: "Must be at least 6 characters",
+      success: "Success",
+      signInSuccess: "Successfully signed in!",
+      signUpSuccess: "Account created successfully!",
+      errors: {
+        invalidEmail: "Invalid email address",
+        passwordRequired: "Password is required",
+        passwordTooShort: "Password must be at least 6 characters",
+        passwordMismatch: "Passwords do not match",
+        nameRequired: "Name is required",
+        invalidCredentials: "Invalid email or password",
+        userExists: "A user with this email already exists. Please sign in instead."
       }
     }
   }
