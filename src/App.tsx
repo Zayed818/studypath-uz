@@ -16,6 +16,7 @@ import CareerDetail from "./pages/CareerDetail";
 import Apply from "./pages/Apply";
 import ApplicationSuccess from "./pages/ApplicationSuccess";
 import Auth from "./pages/Auth";
+import ResetPassword from "./pages/ResetPassword";
 import Dashboard from "./pages/Dashboard";
 import MyApplications from "./pages/MyApplications";
 import Profile from "./pages/Profile";
@@ -52,6 +53,7 @@ const App = () => (
               <Route path="/apply" element={<Apply />} />
               <Route path="/apply/success" element={<ApplicationSuccess />} />
               <Route path="/auth" element={<Auth />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/my-applications" element={<MyApplications />} />
               <Route path="/profile" element={<Profile />} />
