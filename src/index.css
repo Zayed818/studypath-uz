@@ -17,10 +17,10 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 215 25% 27%;
 
-    /* Primary - Vibrant Blue */
-    --primary: 214 95% 50%;
+    /* Primary - Brand Blue #0965c7 */
+    --primary: 209 93% 41%;
     --primary-foreground: 0 0% 100%;
-    --primary-dark: 214 95% 35%;
+    --primary-dark: 209 93% 32%;
     
     /* Secondary - Orange/Coral for CTAs */
     --secondary: 24 95% 53%;
@@ -85,9 +85,9 @@ All colors MUST be HSL.
     --popover: 215 30% 15%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 214 95% 50%;
+    --primary: 209 93% 41%;
     --primary-foreground: 0 0% 100%;
-    --primary-dark: 214 95% 35%;
+    --primary-dark: 209 93% 32%;
 
     --secondary: 24 95% 53%;
     --secondary-foreground: 0 0% 100%;
