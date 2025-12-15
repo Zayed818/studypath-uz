@@ -34,7 +34,7 @@ const Index = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary via-primary to-primary-dark text-white py-20 md:py-32">
+      <section className="relative text-white py-20 md:py-32" style={{ backgroundColor: '#0965c7' }}>
         <div className="container px-4">
           <div className="max-w-4xl mx-auto text-center mb-12">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
