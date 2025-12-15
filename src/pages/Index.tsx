@@ -235,7 +235,7 @@ const Index = () => {
       {/* CTA Section */}
       <section className="py-16 md:py-24">
         <div className="container px-4">
-          <Card className="bg-gradient-to-br from-primary to-primary-dark text-white p-8 md:p-12 text-center">
+          <Card className="text-white p-8 md:p-12 text-center" style={{ backgroundColor: '#0965c7' }}>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               {t('cta.title')}
             </h2>
